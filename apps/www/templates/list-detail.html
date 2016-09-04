@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <!-- <meta name="viewport" content="width=320, user-scalable=no, maximum-scale=1.3"> -->
+    <title>简检-服务详情</title>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="apple-moblie-web-app-capable" content="yes"/>
+    <link rel="stylesheet" href="{{static}}/css/mobase.css" type="text/css"/>
+    <link rel="stylesheet" href="{{static}}/css/pub.css" type="text/css"/>
+</head>
+<body class="serve-bg">
+<div class="serve-msg">
+    <p class="s-msg-p">服务编号：<span>{{OrderNo}}</span></p>
+    <p class="s-msg-p">预定时间：<span>{{YYYY年MM月DD日 CreateDate }}</span></p>
+</div>
+<div class="user-msg">
+    <p class="u-m-list-span">
+        <span>{{Name}}</span><span>{{Gender}}</span><span>{{Age}}岁</span><span>{{Height}}CM</span><span>{{Weight}}KG</span>
+    </p>
+    <p>{{Mobile}}</p>
+    <p>{{Email}}</p>
+    <p>{{Area}} {{Address}}</p>
+</div>
+<ul class="step-ul">
+    <li class="{{OrderTimeline Status 0}}"><p>待支付</p></li>
+    <li class="{{OrderTimeline Status 1}}"><p>预定成功</p></li>
+    <li class="{{OrderTimeline Status 2}}"><p>设备已寄出</p></li>
+    <li class="{{OrderTimeline Status 3}}"><p>监测完成</p></li>
+    <li class="{{OrderTimeline Status 4}}"><p>押金退款</p></li>
+    <li class="{{OrderTimeline Status 5}}"><p>报告生成</p></li>
+    <li class="{{OrderTimeline Status 6}}"><p>专家评估</p></li>
+    <li class="{{OrderTimeline Status 7}}"><p>报告上传</p></li>
+</ul>
+<div class="s-btn-group clearfix">
+    {{#compare Status '==' 0}}
+        <div class="w-50">
+            <a href="javascript:$.toast.alert('取消预约','是否取消本次服务预约？');" class="btn-cancel">取消预约</a>
+        </div>
+        <div class="w-50">
+            <a href="javascript:void(0);" class="btn-pay fn-right">去支付</a>
+        </div>
+    {{/compare}}
+</div>
+<script type="text/javascript" src="{{static}}/js/rem.js"></script>
+<script type="text/javascript" src="{{static}}/js/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="{{static}}/js/pub.js"></script>
+</body>
+</html>

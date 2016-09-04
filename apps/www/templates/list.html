@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+		<!-- <meta name="viewport" content="width=320, user-scalable=no, maximum-scale=1.3"> -->
+		<title>简检-服务列表</title>
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="format-detection" content="email=no" />
+		<meta name="apple-moblie-web-app-capable" content="yes" />
+		<link rel="stylesheet" href="{{static}}/css/mobase.css" type="text/css" />
+		<link rel="stylesheet" href="{{static}}/css/pub.css" type="text/css" />
+	</head> 
+	<body class="serve-bg">
+	  {{#if hasData}}
+		  <ul class="serve-ul">
+			  {{#orders}}
+			  <li>
+				  <a href="detail/{{OrderNo}}">
+					  <p class="s-ul-title">{{ServiceName}}<span class="fn-right">{{price ServicePrice  Deposit }}元</span></p>
+					  <p class="s-ul-sub">服务编号：<span>{{OrderNo}}</span></p>
+					  <p class="s-ul-sub">预定时间：<span>{{YYYY年MM月DD日 CreateDate }}</span></p>
+					  <span class="s-ul-state green">{{OrderStatus Status}}</span>
+				  </a>
+			  </li>
+			  {{/orders}}
+		  </ul>
+	   {{else}}
+		  <ul class="serve-ul">
+			  <li>
+		        	<p class="s-ul-title">
+						暂时还没有订单<br/>
+						<a href="/" class="btn-pay">立即去下单吧  </a>
+					</p>
+			  </li>
+		  </ul>
+	  {{/if}}
+		<script type="text/javascript" src="{{static}}/js/rem.js"></script>
+		<script type="text/javascript" src="{{static}}/js/jquery-2.2.4.min.js"></script>
+		<script type="text/javascript" src="{{static}}/plus/mobiscroll/js/mobiscroll.custom-3.0.0-beta4.min.js"></script>
+		<script type="text/javascript" src="{{static}}/js/pub.js"></script>
+		<script type="text/javascript">
+		$(function(){
+
+		})
+		</script>
+	</body>
+</html>

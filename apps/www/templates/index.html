@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+		<!-- <meta name="viewport" content="width=320, user-scalable=no, maximum-scale=1.3"> -->
+		<title>关于我们</title>
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="format-detection" content="email=no" />
+		<meta name="apple-moblie-web-app-capable" content="yes" />
+		<link rel="stylesheet" href="{{static}}/css/mobase.css" type="text/css" />
+		<link rel="stylesheet" href="{{static}}/css/pub.css" type="text/css" />
+	</head> 
+	<body class="about-index">
+		<header>
+			<a class="nav-btn"></a>
+			<ul class="nav-ul">
+				<li><a href="#part1">首页</a></li>
+				<li><a href="#part2">关于何勒</a></li>
+				<li><a href="#part3">产品服务</a></li>
+				<li><a href="#part5">联系我们</a></li>
+			</ul>
+		</header>
+		<div class="index-part1" id="part1" name="part1">
+			<img src="{{static}}/imgs/index1.jpg" class="index-img-bg">
+			<div class="img-msg">
+				<h2>为您定制专业便捷的医疗级健康检测</h2>
+				<p>Customize your own Medical</p>
+				<p> Level Easy & Pro Health Check</p>
+			</div>
+		</div>
+		<div class="index-part2" id="part2" name="part2">
+			<h3 class="index-title">关于我们</h3>
+			<h4>何勒医疗</h4>
+			<p>致力为用户个人提供专业、便捷、适合的到家医疗级健康检测。通过对健康状况的及时专业检测，更早发现健康隐患，改善健康状况，减少医疗资源浪费。</p>
+			<p>我们服务内容包括：高发疾病人群定位及健康检测、监测；专业医疗咨询、就诊建议及高端医疗资源安排等医疗服务；健康管理系统支持等。</p>
+			<p>我们团队由医疗健康及移动互联网行业专业团队组成，超10年行业相关经验，团队成员服务过多家500强企业及互联网公司。目前得到卫生部直属抗衰老交叉专业委员会授权，多领域专家顾问支持。</p>
+		</div>
+		<div class="index-part3" id="part3" name="part3">
+			<h3 class="index-title">服务内容</h3>
+			<div class="img-box"><img src="{{static}}/imgs/pho1.png"></div>
+			<h4 class="part3-title">健康检测服务<p>HEALTH CHECK SERVICE</p></h4>
+			<p>针对各类高发疾病（如糖尿病、高血压、心脏病、胃癌、肺癌等），通过流行病理理论学建立高危人群定位模型，进行人群画像，精准找到高风险患病人群。</p>
+			<p>对定位的高危群人，提供专业医疗级别检测及监测，生成互联网报告，帮助用户确认是否患有疾病，以及疾病发展情况等，进一步支持实施健康管理。</p>
+			<div class="img-box"><img src="{{static}}/imgs/pho3.png"></div>
+			<h4 class="part3-title">专业医疗服务<p>MEDICAL SERVICE</p></h4>
+			<p>为检测用户提供爆发哦分析及咨询，抱住用户了解健康状况。</p>
+			<p>为需要治疗用户提供诊疗建议及计划，帮助用户有效且高效的实现疾病控制和健康改善。</p>
+			<p>针对有特殊需要的用户，提供专业医疗资源对接，如专家建议、专家预约、住院及手术安排、绿色通道、电话医生等。</p>
+			<div class="img-box"><img src="{{static}}/imgs/pho5.png"></div>
+			<h4 class="part3-title">移动信息平台<p>INFOMATION PLATFORM</p></h4>
+			<p>建立移动化信息平台，用户的报告生成和读取在手机端即可实现完成，提高检测及监测效率。</p>
+			<p>根据企业客户需求，做信息化平台定制，将医疗监测及服务系统有效整合进企业已有系统（APP、微信）中。</p>
+			<p>提供标准接口控件，企业简单调用即可实现功能，减少客户企业端产品产品变动。</p>
+		</div>
+		<div class="index-part4">
+			<h3>健康早知道</h3>
+		</div>
+		<div class="index-part5" name="part5" id="part5">
+			<h3 class="index-title green">联系我们</h3>
+			<div class="part5-div">
+				<b>地址：</b>
+				<p>上海市逸仙路2816号华滋奔腾大厦B座8楼</p>
+			</div>
+			<div class="part5-div">
+				<b>Email：</b>
+				<p>arnie.yan@healthlab.com.cn</p>
+			</div>
+			<div class="part5-div">
+				<b>电话</b>
+				<p>186 1633 9126</p>
+			</div>
+		</div>
+		<script type="text/javascript" src="{{static}}/js/rem.js"></script>
+		<script type="text/javascript" src="{{static}}/js/jquery-2.2.4.min.js"></script>
+		<script type="text/javascript" src="{{static}}/js/pub.js"></script>
+		<script type="text/javascript">
+		$(function(){
+			$(".nav-btn").click(function(){
+				$(".nav-ul").slideToggle();
+			})
+			$(".nav-ul li").click(function(){
+				$(".nav-ul").slideUp();
+			})
+		})
+		</script>
+	</body>
+</html>

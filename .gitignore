@@ -1,0 +1,10 @@
+.DS_STORE
+node_modules
+.idea
+dist
+coverage
+build
+npm-debug*
+weixin.json
+config/*
+*.sql

@@ -1,0 +1,119 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">订单编号:{{order.OrderNo}}详细</h3>
+            </div><!-- /.box-header -->
+            <form class="form-horizontal" name="edit_member" >
+                <div class="box-body">
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">姓名：</label>
+                        <div class="col-sm-4"> {{order.Name}}</div>
+                    </div>
+
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">手机：</label>
+                        <div class="col-sm-4">{{order.Mobile}} </div>
+                    </div>
+
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">基本信息：</label>
+                        <div class="col-sm-4">{{gender order.Gender}} {{order.Age}}岁 {{order.Height}}cm  {{order.Weight}} kg  {{order.BornDate}}</div>
+                    </div>
+
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">地址：</label>
+                        <div class="col-sm-4">
+                            {{order.Area}}  {{order.Address}}
+                        </div>
+                    </div>
+
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">邮箱：</label>
+                        <div class="col-sm-4">
+                            {{order.Email}}
+                        </div>
+                    </div>
+
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">体检码：</label>
+                        <div class="col-sm-4">
+                                {{order.PromoteCode}}
+                        </div>
+                    </div>
+
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">服务费：</label>
+                        <div class="col-sm-4">
+                            服务费：{{amount order.ServicePrice}}
+                            押金: {{amount order.Deposit}}
+                        </div>
+                    </div>
+
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">当前状态：</label>
+                        <div class="col-sm-4">
+                            {{OrderStatus order.Status}}
+                        </div>
+                    </div>
+
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">创建时间：</label>
+                        <div class="col-sm-4">
+                             {{yyy-MM-ddHHmmss order.CreateDate}}
+                        </div>
+                    </div>
+
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">最后一次更新时间：</label>
+                        <div class="col-sm-3">
+                            {{ yyy-MM-ddHHmmss order.LastUpdateDate}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-4">
+                            {{#compare order.Status 'in' '1,2,3,4,5,6'}}
+                               <button type="button" class="btn  btn-success pull-left"><i class="fa fa-check "></i> {{nextStatus order.Status}} </button>
+                            {{/compare}}
+                            {{#compare order.Status 'in' '-1,0'}}
+                                 <button type="button" class="btn btn-danger pull-right"><i class="fa fa-remove "></i> 取消 </button>
+                            {{/compare}}
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
+            </form>
+        </div><!-- /.box -->
+    </div><!-- /.col -->
+</div><!-- /.row -->
+<script>
+    $(function ($) {
+        $(".btn-success").click(function (e) {
+            $.ajax({
+                type: "post",
+                url: "orderStatusNext",
+                data: {OrderNo:'{{order.OrderNo}}',Status:'{{order.Status}}'},
+                dataType: 'json'
+            }).success(function (items) {
+                 window.location.href=window.location.href;
+            }).fail(function () {
+                alert("更新失败")
+                window.location.href=window.location.href;
+            })
+        })
+        $(".btn-danger").click(function (e) {
+            $.ajax({
+                type: "post",
+                url: "orderCancel",
+                data: {OrderNo:'{{order.OrderNo}}',Status:'{{order.Status}}'},
+                dataType: 'json'
+            }).success(function (items) {
+                window.location.href=window.location.href;
+            }).fail(function () {
+                alert("取消失败")
+               window.location.href=window.location.href;
+            })
+        })
+    })
+
+</script>

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+		<!-- <meta name="viewport" content="width=320, user-scalable=no, maximum-scale=1.3"> -->
+		<title>简检-检测报告</title>
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="format-detection" content="email=no" />
+		<meta name="apple-moblie-web-app-capable" content="yes" />
+		<link rel="stylesheet" href="{{static}}/css/mobase.css" type="text/css" />
+		<link rel="stylesheet" href="{{static}}/css/pub.css" type="text/css" />
+	</head> 
+	<body class="report-body">
+		<div class="head-container">
+			<img src="{{static}}/imgs/head-bg.png" class="head-bg">
+			<img src="{{static}}/imgs/header-img.png" class="head-img">
+			<p class="head-user-msg">姓名：<b>张三</b>性别：<b>男</b>年龄：<b>45岁</b></p>
+			<p class="head-bmi"><span class="font14">BMI指数：</span><b class="font17">28</b>(BMI指数是用体重公斤数除以身高米数平方得出的数字，是目前国际上常用的衡量人体胖瘦程度以及是否健康的一个标准：过轻：低于18.5 正常：18.5-24.99 过重：25-28 肥胖：28-32 非常肥胖，高于32)</p>
+		</div>
+		<div class="r-part1">
+			<h4 class="about-title">检测结果</h4>
+			<p class="font14">呼吸暂停低通气指数/氧减指数 严重程度指示表</p>
+			<div class="pointer-bar">
+				<div class="bar-box">
+					<p class="bar-ahi">AHI:15</p>
+					<p class="bar-odi">ODI:30</p>
+					<img src="{{static}}/imgs/bar.png" class="bar-img">
+				</div>
+				<div class="color-list clearfix">
+					<p><span class="c-green"></span>正常</p>
+					<p><span class="c-yellow"></span>轻度</p>
+					<p><span class="c-orange"></span>中度</p>
+					<p><span class="c-red"></span>重度</p>
+				</div>
+			</div>
+			<ul class="report-ul">
+				<li class="report-li-a">呼吸暂停次数：<em class="fn-right">XXX</em></li>
+				<li class="report-li-b">睡眠呼吸暂停低通气指数（AHI）：<em class="fn-right">XXX</em></li>
+				<li class="report-li-c">呼吸暂停时长：<span class="fn-right">最短<em>XX</em>秒</span></li>
+				<li><span class="fn-right">最短<em>XXX</em>秒</span></li>
+				<li><span class="fn-right">最长<em>XXX</em>秒</span></li>
+				<li><span class="fn-right">平均<em>XXX</em>秒</span></li>
+				<li class="report-li-d">持续5分钟以上最低血氧值：<em class="fn-right">XX%</em></li>
+			</ul>
+			<p class="r-part1-sub">呼吸暂停次数是指血氧饱和度下降3%的事件，次数越多越不利健康。</p>
+			<p class="r-part1-sub">AHI指数是指平均每小时呼吸事件次数。0-5属于正常，5-15属于轻度OSAS，15-30属于中度OSAS，30以上属于重度OSAS。持续5分钟以上最低血氧值低于88%为夜间缺氧状态。</p>
+		</div>
+		<div class="r-part2">
+			<h4 class="about-title">检测建议</h4>
+			<p>中重度OSAS建议治疗方式：到专业医院呼吸科、五官科等专业科室就诊，可能需要采取类似佩戴口腔矫正器、佩戴家用呼吸机或手术等治疗方案。</p>
+		</div>
+		<script type="text/javascript" src="{{static}}/js/rem.js"></script>
+		<script type="text/javascript" src="{{static}}/js/jquery-2.2.4.min.js"></script>
+		<script type="text/javascript" src="{{static}}/js/pub.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				progressWidth($(".bar-ahi"));
+				progressWidth($(".bar-odi"));
+			})
+			function progressWidth(obj){
+				var width = parseFloat(obj.text().slice(4));
+				var left = width/45*2.75;
+				obj.css("left",left+"rem");
+			}
+		</script>
+	</body>
+</html>
