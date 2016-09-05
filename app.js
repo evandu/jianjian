@@ -136,7 +136,8 @@ app.use(function* subApp(next) {
 
 if (!module.parent) {
     /* eslint no-console:off */
-    app.listen(process.env.PORT||3000);
+    const port = process.env.PORT||9000;
+    app.listen(port);
     const db = require('./config/db-'+app.env+'.json').db.database;
-    console.log(process.version+' listening on port '+(process.env.PORT||3000)+' ('+app.env+'/'+db+')');
+    console.log(process.version+' listening on port '+port+' ('+app.env+'/'+db+')');
 }

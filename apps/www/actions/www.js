@@ -3,8 +3,9 @@
  */
 'use strict';
 const HttpRequest = require('koa-request');
-const weixinConfig = require('../weixin.json');
+const weiXinConfig = require('../weixin.json');
 const ModelError = require('../../../models/modelerror.js');
+const crypto = require('crypto')
 
 const www = module.exports = {};
 
@@ -20,18 +21,19 @@ www.index = function*() {
     yield this.render('templates/index');
 };
 
-www.weixinAuth = function*() {
+www.weiXinAuth = function*() {
     const {code}  = this.query
     const req = {
         method: 'post',
-        url: weixinConfig.weixin.getOpenId + code,
+        url: weiXinConfig.weixin.getOpenId + code,
     };
     const response = yield HttpRequest(req);
     const status = response.statusCode;
     if (status == 200) {
         const openId = response.body.openid;
         if (openId && openId.length > 16) {
-            this.cookies.set('jianJianOpenId1', openId);
+            const md5OpenId  = crypto.createHash('md5').update(openId + weiXinConfig.weixin.tokenMaskCode).digest('hex')
+            this.cookies.set(weiXinConfig.weixin.tokenName,md5OpenId  );
             this.redirect("/");
         } else {
             throw new ModelError(500, "打开页面报错，请稍后再试")

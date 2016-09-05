@@ -14,7 +14,7 @@ const error = {type: 'rotating-file', path: './logs/www-error.log', level: 'erro
 const logger = bunyan.createLogger({name: 'www', streams: [access, error]});
 app.use(koaLogger(logger, {}));
 
-const weixinConfig = require('./weixin.json');
+const weiXinConfig = require('./weixin.json');
 
 app.use(function* mysqlConnection(next) {
     this.db = global.db = yield global.connectionPool.getConnection();
@@ -85,12 +85,12 @@ app.use(require('./routes-other.js'));
 
 
 app.use(function* weiXin(next) {
-    const jianJianOpenId1 = this.cookies.get('jianJianOpenId1');
-    if (jianJianOpenId1 && jianJianOpenId1.length > 16){
-         this.jianJianOpenId1 = jianJianOpenId1
+    const healthLabToken = "1234567890123456"//this.cookies.get(weiXinConfig.weixin.tokenName);
+    if (healthLabToken && healthLabToken.length >= 16){
+         this.healthLabToken = healthLabToken
          yield next;
     }else{
-        this.redirect(weixinConfig.weixin.authUrl)
+        this.redirect(weiXinConfig.weixin.authUrl)
     }
 });
 

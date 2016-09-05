@@ -45,13 +45,13 @@ orders.processCreate = function*() {
         this.body = formError;
         this.status = 400;
     } else {
-        const jianJianOpenId1 = this.jianJianOpenId1;
+        const healthLabToken = this.healthLabToken;
         const id = yield Order.insert(
             {
                 Name, Gender, Age, Height, Weight,
                 BornDate, Area, Address, Mobile, PromoteCode, Email,
                 OrderNo: Lib.generateOrderNo(),
-                OpenId: jianJianOpenId1
+                OpenId: healthLabToken
             });
         this.body = {OrderId: id}
     }

@@ -13,6 +13,6 @@ const www = require('./actions/www.js');
 router.get('/manuals', www.manuals);
 router.get('/about', www.about);
 router.get('/index', www.index);
-router.get('/weixinAuth',www.weixinAuth)
+router.get('/weixinAuth',www.weiXinAuth)
 
 module.exports = router.middleware();
