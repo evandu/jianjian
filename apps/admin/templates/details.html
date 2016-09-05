@@ -73,8 +73,24 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label"></label>
                         <div class="col-sm-4">
-                            {{#compare order.Status 'in' '1,2,3,4,5,6'}}
-                               <button type="button" class="btn  btn-success pull-left"><i class="fa fa-check "></i> {{nextStatus order.Status}} </button>
+                            {{#compare order.Status 'in' '1,2,3,4,5'}}
+                               <button type="button" status ={{order.Status}} class="btn  btn-success pull-left">
+                                   <i class="fa  fa-hand-grab-o "></i> {{nextStatus order.Status}}
+                               </button>
+                            {{/compare}}
+                            {{#compare order.Status '==' '6'}}
+                              <a href="upload/{{order.OrderNo}}">
+                                  <button type="button" class="btn  btn-primary pull-left">
+                                      <i class="fa fa-upload "></i> {{nextStatus order.Status}}
+                                  </button>
+                              </a>
+                            {{/compare}}
+                            {{#compare order.Status '==' '7'}}
+                            <a href="upload/{{order.OrderNo}}">
+                                <button type="button"  class="btn btn-primary pull-left">
+                                    <i class="fa fa-edit"></i> 修改报告结果
+                                </button>
+                            </a>
                             {{/compare}}
                             {{#compare order.Status 'in' '-1,0'}}
                                  <button type="button" class="btn btn-danger pull-right"><i class="fa fa-remove "></i> 取消 </button>
@@ -95,7 +111,7 @@
                 data: {OrderNo:'{{order.OrderNo}}',Status:'{{order.Status}}'},
                 dataType: 'json'
             }).success(function (items) {
-                 window.location.href=window.location.href;
+                window.location.href=window.location.href;
             }).fail(function () {
                 alert("更新失败")
                 window.location.href=window.location.href;

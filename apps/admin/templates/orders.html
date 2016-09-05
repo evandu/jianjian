@@ -48,16 +48,16 @@
                     <tr>
                         <th>订单编号</th>
                         <th>用户信息</th>
-                        <th>地址信息</th>
                         <th>手机号</th>
+                        <th>状态</th>
+                        <th>预定时间</th>
+                        <th>地址信息</th>
                         <th>邮箱</th>
                         <th>体检码</th>
                         <th>服务费</th>
                         <th>押金(元)</th>
                         <th>已支付服务费(元)</th>
                         <th>已支付押金(元)</th>
-                        <th>状态</th>
-                        <th>预定时间</th>
                         <th>最近一次变更时时间</th>
                     </tr>
                     </thead>
@@ -74,10 +74,17 @@
         var jdatatables;
         function renderTable(options, render) {
             $(".tableLoading").show();
+            var p = options.params();
+            if(options.pageSize){
+                p.size = options.pageSize
+            }
+            if(options.pageCur){
+                p.cur = options.pageCur
+            }
             $.ajax({
                 type: options.method || "GET",
                 url: options.url,
-                data: options.params(),
+                data: p,
                 dataType: 'json'
             }).success(function (items) {
                 render(options, items);
@@ -100,8 +107,8 @@
                         })
                         options.row = true;
                     } else {
-                        options.params["size"] = data.length;
-                        options.params["cur"] = Math.ceil(data.start / data.length) + 1;
+                        options.pageSize = data.length;
+                        options.pageCur = Math.ceil(data.start / data.length) + 1;
                         renderTable(options, function (opts, i) {
                             callback({
                                 recordsTotal: i.data.total,
@@ -124,9 +131,23 @@
                 "columnDefs":[
                     {
                         "render" : function(data, type, row) {
-                            return '<a href="/order/' +data+'"><span class="label label-warning">' + data + '</span></a>'
+                            return '<a href="/order/' +data+'">' + data + '</a>'
                         },
                         "targets" : 0
+                    },
+                    {
+                        "render" : function(data, type, row) {
+                            if(data =='预定成功'){
+                                return '<a href="/order/' +data+'"><span class="label label-success">' + data + '</span></a>'
+                            }else if(data == '支付失败' || data == '已取消'){
+                                return '<a href="/order/' +data+'"><span class="label label-default">' + data + '</span></a>'
+                            }else if(data == '待支付'){
+                                return '<a href="/order/' +data+'"><span class="label label-primary">' + data + '</span></a>'
+                            }else {
+                                return '<a href="/order/' +data+'"><span class="label label-info"> ' + data + '</span></a>'
+                            }
+                        },
+                        "targets" : 3
                     }
                 ],
                 "language": {
@@ -167,16 +188,16 @@
             columns: [
                 {"data": "OrderNo"},
                 {"data": "UserInfo"},
-                {"data": "AddressInfo"},
                 {"data": "Mobile"},
+                {"data": "Status"},
+                {"data": "CreateDate"},
+                {"data": "AddressInfo"},
                 {"data": "Email"},
                 {"data": "PromoteCode"},
                 {"data": "ServicePrice"},
                 {"data": "Deposit"},
                 {"data": "PayServiceAmount"},
                 {"data": "PayDepositAmount"},
-                {"data": "Status"},
-                {"data": "CreateDate"},
                 {"data": "LastUpdateDate"}
             ], params:function () {
                 var obj=new Object();

@@ -16,6 +16,10 @@ router.get('/order/:OrderNo', order.details);
 router.post('/order/orderStatusNext', order.orderStatusNext);
 router.post('/order/orderCancel', order.orderCancel);
 
+router.get('/order/upload/:OrderNo', order.upload);
+
+router.post('/order/upload/:OrderNo', order.processUpload);
+
 
 router.get('/user/modify',                user.edit);
 router.post('/user/modify',               user.processEdit);

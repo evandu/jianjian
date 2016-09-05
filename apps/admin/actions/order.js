@@ -76,3 +76,30 @@ orders.ajaxQuery = function*() {
     this.body = {data: orders}
 
 }
+
+
+orders.upload = function*() {
+    const OrderNo  = this.params.OrderNo
+
+    const context = {
+        module: {
+            name: '订单',
+            subName: '上传报告',
+        },
+    };
+    yield this.render('templates/upload', {module: context.module});
+};
+
+
+
+
+orders.processUpload = function*() {
+    const {OrderNo, Status} = this.request.body
+    const _Status = parseInt(Status)
+    if (_Status >= 1 && _Status < 7) {
+        throw ModelError(409, '取消报错');
+    }else{
+        this.body = yield Order.updateNextStatus(OrderNo, _Status, -2)
+    }
+};
+
