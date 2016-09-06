@@ -112,16 +112,16 @@ orders.processUpload = function*() {
     try {
         const item = this.request.body.files.Report;
         if (item) {
-            const tmparr = item['name'].split('.');
-            const ext = '.' + tmparr[tmparr.length - 1];
+            const nameArray = item['name'].split('.');
+            const ext = nameArray[nameArray.length - 1];
             const uploadPath = path.join(this.envConfig.upload,moment().format('YYYYMMDD'))
             if (!fs.existsSync(uploadPath)) {
                 fs.mkdirSync(uploadPath);
             }
-            const newpath = path.join(uploadPath, OrderNo + "_" + moment().format('HHmmss') + ext);
-            var stream = fs.createWriteStream(newpath);
+            const fileUploadFilePath = path.join(uploadPath, OrderNo + "_" + moment().format('HHmmss') + "." + ext);
+            var stream = fs.createWriteStream(fileUploadFilePath);
             fs.createReadStream(item['path']).pipe(stream);
-            ReportFile = newpath.replace(this.envConfig.upload, "").replace("\\/g","/")
+            ReportFile = fileUploadFilePath.replace(this.envConfig.upload, "").replace(/\\+/g,"/")
             yield Order.updateNextStatus(OrderNo, 6, 7)
         }
 
