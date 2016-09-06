@@ -21,6 +21,6 @@ router.get('/pay-error', pay.payError);
 router.get('/pay-success', pay.paySuccess);
 
 //report
-router.get('/report', report.report);
+router.get('/report/:OrderNo', report.report);
 
 module.exports = router.middleware();

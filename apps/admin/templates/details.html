@@ -74,8 +74,9 @@
                         <label class="col-sm-2 control-label"></label>
                         <div class="col-sm-4">
                             {{#compare order.Status 'in' '1,2,3,4,5'}}
-                               <button type="button" status ={{order.Status}} class="btn  btn-success pull-left">
-                                   <i class="fa  fa-hand-grab-o "></i> {{nextStatus order.Status}}
+                               <button type="button" status ={{order.Status}}
+                                    class="btn  btn-success pull-left" >
+                                   <i class="fa  fa-hand-grab-o"></i> {{nextStatus order.Status}}
                                </button>
                             {{/compare}}
                             {{#compare order.Status '==' '6'}}
@@ -93,7 +94,9 @@
                             </a>
                             {{/compare}}
                             {{#compare order.Status 'in' '-1,0'}}
-                                 <button type="button" class="btn btn-danger pull-right"><i class="fa fa-remove "></i> 取消 </button>
+                                 <button type="button" class="btn btn-danger pull-left" data-toggle="modal" data-target="#msgDialog">
+                                     <i class="fa fa-remove "></i> 取消订单
+                                 </button>
                             {{/compare}}
                         </div>
                     </div>
@@ -102,8 +105,33 @@
         </div><!-- /.box -->
     </div><!-- /.col -->
 </div><!-- /.row -->
+
+<div class="modal fade" id="msgDialog" role="dialog" aria-labelledby="MsgDialogLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">确认取消</h4>
+            </div>
+            <div class="modal-body">
+                <p>你确定取消该订单吗？，取消后无法还原订单</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-danger btn-cancel">确定取消</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 <script>
     $(function ($) {
+        function refresh() {
+            window.location.href=window.location.href;
+        }
         $(".btn-success").click(function (e) {
             $.ajax({
                 type: "post",
@@ -111,23 +139,25 @@
                 data: {OrderNo:'{{order.OrderNo}}',Status:'{{order.Status}}'},
                 dataType: 'json'
             }).success(function (items) {
-                window.location.href=window.location.href;
+                refresh();
             }).fail(function () {
                 alert("更新失败")
-                window.location.href=window.location.href;
+                refresh();
             })
         })
-        $(".btn-danger").click(function (e) {
+
+        $(".btn-cancel").click(function (e) {
+            $('#msgDialog').modal('hide');
             $.ajax({
                 type: "post",
                 url: "orderCancel",
                 data: {OrderNo:'{{order.OrderNo}}',Status:'{{order.Status}}'},
                 dataType: 'json'
             }).success(function (items) {
-                window.location.href=window.location.href;
+                refresh();
             }).fail(function () {
                 alert("取消失败")
-               window.location.href=window.location.href;
+                refresh();
             })
         })
     })

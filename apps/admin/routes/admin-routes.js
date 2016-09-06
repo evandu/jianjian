@@ -7,6 +7,7 @@
 const router = require('koa-router')(); // router middleware for koa
 const order = require('../actions/order');
 const user = require('../actions/user.js');
+var bodyParse =require('koa-body');
 
 router.get('/', order.list);
 router.get('/ajaxQuery', order.ajaxQuery);
@@ -18,7 +19,7 @@ router.post('/order/orderCancel', order.orderCancel);
 
 router.get('/order/upload/:OrderNo', order.upload);
 
-router.post('/order/upload/:OrderNo', order.processUpload);
+router.post('/order/upload/:OrderNo', bodyParse({multipart:true}), order.processUpload);
 
 
 router.get('/user/modify',                user.edit);

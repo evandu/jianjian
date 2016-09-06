@@ -44,6 +44,13 @@
             <a href="javascript:void(0);" class="btn-pay fn-right">去支付</a>
         </div>
     {{/compare}}
+
+    {{#compare Status '==' 7}}
+    <div class="w-50">
+        <a href="{{ctx}}/report/{{OrderNo}}" class="btn-pay fn-right">查看报告</a>
+    </div>
+    {{/compare}}
+
 </div>
 <script type="text/javascript" src="{{static}}/js/rem.js"></script>
 <script type="text/javascript" src="{{static}}/js/jquery-2.2.4.min.js"></script>

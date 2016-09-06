@@ -127,8 +127,5 @@ Order.getByOrderNo = function*(OrderNo) {
 Order.updateNextStatus = function*(OrderNo, Status, NextStatus) {
     const sql = 'Update JJOrder Set Status = :NextStatus Where OrderNo =:OrderNo And Status = :Status';
     const [orders] = yield global.db.query({sql: sql, namedPlaceholders: true}, {OrderNo, Status, NextStatus});
-    if(orders.affectedRows<1){
-        throw ModelError(404, '订单不存在');
-    }
-    return orders.affectedRows;
+    return orders;
 }

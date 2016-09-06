@@ -4,10 +4,16 @@
 
 
 'use strict';
-
+const Order = require('../../../models/order');
+const Report = require('../../../models/report');
 
 const report = module.exports = {};
 
 report.report = function*() {
-    yield this.render('templates/report');
+    const healthLabToken = this.healthLabToken;
+    const OrderNo = this.params.OrderNo
+    const order = yield Order.get(OrderNo,healthLabToken)
+    const report = yield Report.getByOrderNo(order.OrderNo)
+
+    yield this.render('templates/report',{order:order,report:report});
 };

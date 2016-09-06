@@ -23,7 +23,7 @@ app.use(compress({}));
 
 app.use(function* robots(next) {
     yield next;
-    if (this.hostname.slice(0,3) != 'www') this.response.set('X-Robots-Tag', 'noindex, nofollow');
+    if (this.hostname.slice(0, 3) != 'www') this.response.set('X-Robots-Tag', 'noindex, nofollow');
 });
 
 app.use(body());
@@ -39,11 +39,20 @@ handlebars.registerHelper('ctx', function () {
 });
 
 handlebars.registerHelper('YYYY年MM月DD日', function (timestamp) {
-    return moment(new Date(timestamp)).format('YYYY年MM月DD日')
+    if (!timestamp) {
+        return '-';
+    } else {
+        return moment(new Date(timestamp)).format('YYYY年MM月DD日');
+    }
+
 });
 
-handlebars.registerHelper('yyy-MM-ddHHmmss', function(timestamp) {
-    return moment(new Date(timestamp)).format('YYYY-MM-DD HH:mm:ss')
+handlebars.registerHelper('yyy-MM-ddHHmmss', function (timestamp) {
+    if (!timestamp) {
+        return '-';
+    } else {
+        return moment(new Date(timestamp)).format('YYYY-MM-DD HH:mm:ss');
+    }
 });
 
 
@@ -53,14 +62,14 @@ handlebars.registerHelper('price', function (price1, price2) {
     return (price2 + price1) / 100.00
 });
 
-
-handlebars.registerHelper('amount', function (price1) {
-    if (!price1) price1 = 0;
-    return (price1) / 100.00
+handlebars.registerHelper('amount', function (price) {
+    if (!price) price = 0;
+    return (price) / 100.00
 });
 
+
 handlebars.registerHelper('gender', function (status) {
-   return status == 1? '男':'女'
+    return status == 1 ? '男' : '女'
 });
 
 
@@ -69,21 +78,21 @@ handlebars.registerHelper('OrderStatus', function (key) {
 });
 
 handlebars.registerHelper('nextStatus', function (key) {
-    return Order.Status[1+parseInt(key)];
+    return Order.Status[1 + parseInt(key)];
 });
 
 
 handlebars.registerHelper('OrderTimeline', function (currStatus, status) {
-    if(currStatus > status){
+    if (currStatus > status) {
         return 'prev'
-    }else if(currStatus  == status) {
+    } else if (currStatus == status) {
         return 'active'
-    }else{
+    } else {
         return ''
     }
 });
 
-handlebars.registerHelper('compare', function(left, operator, right, options) {
+handlebars.registerHelper('compare', function (left, operator, right, options) {
     if (arguments.length < 3) {
         throw new Error('Handlerbars Helper "compare" needs 2 parameters');
     }
@@ -113,13 +122,13 @@ handlebars.registerHelper('compare', function(left, operator, right, options) {
     }
 });
 
-const config = require('./config/db-'+app.env+'.json');
-global.connectionPool = mysql.createPool(config.db);
+const envConfig = require('./config/app-' + app.env + '.json');
+global.connectionPool = mysql.createPool(envConfig.db);
 
 app.use(function* subApp(next) {
     /* eslint no-unused-vars:off */
     const subapp = this.hostname.split('.')[0];
-
+    this.envConfig = envConfig
     switch (subapp) {
         case 'admin':
             yield compose(require('./apps/admin/app-admin.js').middleware);
@@ -129,15 +138,14 @@ app.use(function* subApp(next) {
             break;
         default: // no (recognised) subdomain? canonicalise host to www.host
             // note switch must include all registered subdomains to avoid potential redirect loop
-            this.redirect(this.protocol+'://'+'www.'+this.host+this.path+this.search);
+            this.redirect(this.protocol + '://' + 'www.' + this.host + this.path + this.search);
             break;
     }
 });
 
 if (!module.parent) {
     /* eslint no-console:off */
-    const port = process.env.PORT||9000;
+    const port = process.env.PORT || 9000;
     app.listen(port);
-    const db = require('./config/db-'+app.env+'.json').db.database;
-    console.log(process.version+' listening on port '+port+' ('+app.env+'/'+db+')');
+    console.log(process.version + ' listening on port ' + port + ' (' + app.env + '/' + envConfig.db.database + ')');
 }

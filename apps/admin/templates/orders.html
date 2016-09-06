@@ -138,13 +138,13 @@
                     {
                         "render" : function(data, type, row) {
                             if(data =='预定成功'){
-                                return '<a href="/order/' +data+'"><span class="label label-success">' + data + '</span></a>'
+                                return '<span class="label label-success">' + data + '</span>'
                             }else if(data == '支付失败' || data == '已取消'){
-                                return '<a href="/order/' +data+'"><span class="label label-default">' + data + '</span></a>'
+                                return '<span class="label label-default">' + data + '</span>'
                             }else if(data == '待支付'){
-                                return '<a href="/order/' +data+'"><span class="label label-primary">' + data + '</span></a>'
+                                return '<span class="label label-primary">' + data + '</span>'
                             }else {
-                                return '<a href="/order/' +data+'"><span class="label label-info"> ' + data + '</span></a>'
+                                return '<span class="label label-info"> ' + data + '</span>'
                             }
                         },
                         "targets" : 3

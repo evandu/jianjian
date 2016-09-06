@@ -9,6 +9,8 @@ const Order = require('../../../models/order');
 const Lib = require('../../../lib/lib');
 const HttpRequest = require('koa-request');
 const xmlify = require('xmlify');
+const orders = module.exports = {};
+
 
 orders.create = function*() {
     yield this.render('templates/order');
@@ -71,4 +73,3 @@ orders.weixinPay = function*(order) {
     this.body = xmlify(response.body, 'xml');
 }
 
-const orders = module.exports = {};
