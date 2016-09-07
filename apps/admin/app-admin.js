@@ -17,7 +17,8 @@ const handlebars = require('handlebars');
 
 
 const app = module.exports = koa();
-// logging
+
+
 const access = { type: 'rotating-file', path: './logs/admin-access.log', level: 'trace', period: '1d', count: 4 };
 const error  = { type: 'rotating-file', path: './logs/admin-error.log',  level: 'error', period: '1d', count: 4 };
 const logger = bunyan.createLogger({ name: 'admin', streams: [access, error] });
@@ -30,11 +31,9 @@ app.use(function* mysqlConnection(next) {
     this.db.release();
 });
 
-
 require('./passport.js');
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 app.use(function* handleErrors(next) {
     try {
@@ -54,7 +53,7 @@ app.use(function* handleErrors(next) {
             case 500:
                 context = app.env=='production' ? {} : { e: e };
                 yield this.render('templates/500-internal-server-error', context);
-                this.app.emit('error', e, this); // github.com/koajs/examples/blob/master/errors/app.js
+                this.app.emit('error', e, this);
                 break;
         }
     }
@@ -104,7 +103,6 @@ app.use(function* authSecureRoutes(next) {
 
 
 app.use(require('./routes/admin-routes.js'));
-app.use(require('./routes/logs-routes.js'));
 
 app.use(function* notFound(next) {
     yield next;
@@ -113,6 +111,3 @@ app.use(function* notFound(next) {
         name:    '404页面'
     }});
 });
-
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
