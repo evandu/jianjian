@@ -6,7 +6,7 @@
 
 const Order = require('../../../models/order');
 const Report = require('../../../models/report');
-const Lib = require('../../../lib/Lib');
+const Lib = require('../../../lib/lib');
 const _ = require('lodash');
 const moment = require('moment');
 const fs = require('fs')
