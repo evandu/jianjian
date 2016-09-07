@@ -89,7 +89,12 @@ orders.ajaxQuery = function*() {
 orders.upload = function*() {
     const OrderNo = this.params.OrderNo
     const order = yield Order.getByOrderNo(OrderNo)
-    const report = yield Report.getByOrderNo(OrderNo)
+    let report;
+    try{
+        report =  yield Report.getByOrderNo(OrderNo)
+    }catch (e){
+
+    }
     const context = {
         module: {
             name: '订单',
