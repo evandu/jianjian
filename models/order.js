@@ -129,3 +129,11 @@ Order.updateNextStatus = function*(OrderNo, Status, NextStatus) {
     const [orders] = yield global.db.query({sql: sql, namedPlaceholders: true}, {OrderNo, Status, NextStatus});
     return orders;
 }
+
+
+Order.paySuccess = function*(OrderNo,PayDepositAmount,PayServiceAmount) {
+    const sql = 'Update JJOrder Set Status = 1, PayDate=sysdate(), PayDepositAmount=:PayDepositAmount, PayServiceAmount=:PayServiceAmount Where OrderNo =:OrderNo And Status in (-1,0) ';
+    const [orders] = yield global.db.query({sql: sql, namedPlaceholders: true}, {OrderNo,PayDepositAmount,PayServiceAmount});
+    return orders;
+}
+

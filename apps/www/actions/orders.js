@@ -47,14 +47,18 @@ orders.processCreate = function*() {
         this.status = 400;
     } else {
         const healthLabToken = this.healthLabToken;
+        const OrderNo = Lib.generateOrderNo()
         const id = yield Order.insert(
             {
                 Name, Gender, Age, Height, Weight,
                 BornDate, Area, Address, Mobile, PromoteCode, Email,
-                OrderNo: Lib.generateOrderNo(),
-                OpenId: healthLabToken
+                OrderNo: OrderNo,
+                OpenId: healthLabToken,
+                CreateDate:new Date()
             });
-        this.body = {OrderId: id}
+        //mock
+        yield Order.paySuccess(OrderNo,40000,10000)
+        yield this.render('templates/pay-success')
     }
 }
 
