@@ -102,8 +102,10 @@
                                 <label class="col-sm-3 control-label">上传体检报告：</label>
                                 <div class="col-sm-4">
                                     <input type="file" name="Report">
+                                    {{#if report.ReportFile}}
                                     {{report.ReportFile}}<br>
-                                    <a href="{{ctx}}/download/{{report.ReportFile}}">下载报告</a>
+                                       <a href="{{ctx}}/download/{{report.ReportFile}}">下载报告</a>
+                                    {{/if}}
                                 </div>
                             </div>
 
