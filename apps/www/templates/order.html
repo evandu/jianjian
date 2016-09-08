@@ -100,7 +100,8 @@
                 <input type="email" name="Email" placeholder="邮箱（选填）">
             </div>
         </div>
-        <button type="button" class="radius-btn">下一步</button>
+        <button type="button" class="radius-btn pre">上一步</button>
+        <button type="button" class="radius-btn next">下一步</button>
     </div>
 
     <!-- 第三步 =======================================================================================-->
@@ -296,7 +297,11 @@
             }
         });
 
-        $("#step2 .radius-btn").click(function () {
+        $("#step2 .pre").click(function () {
+            slide("step2", "step1")
+        })
+
+        $("#step2 .next").click(function () {
             if (!checkThisForm.isEmpty($("#step2"))) {
                 var c = $(".serve-bg .user-msg").html();
                 c = c.replace(/\{(\w+)\}/g, function (m, i) {
