@@ -80,9 +80,7 @@ orders.ajaxQuery = function*() {
         order.LastUpdateDate = moment(order.LastUpdateDate).format('YYYY-MM-DD HH:mm:ss')
         return order
     })
-
     this.body = {data: orders}
-
 }
 
 

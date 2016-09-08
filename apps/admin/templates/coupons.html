@@ -1,0 +1,206 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="box-header with-border">
+                    <form class="form-horizontal">
+                        <label for="dateRange" class="col-sm-2 control-label">创建日期：</label>
+                        <div class="form-group col-sm-4">
+                            <div class="input-group" >
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input  type="text" name="DateRange"  class="form-control pull-right" id="dateRange" placeholder="查询日期范围">
+                            </div>
+                        </div>
+                        <label for="orderNo" class="col-sm-2 control-label">订单号：</label>
+                        <div class="form-group col-sm-4 ">
+                            <input type="text" id="orderNo" name="OrderNo" class="form-control"  placeholder="订单号">
+                        </div>
+                        <label for="select3"  class="col-sm-2 control-label">体检码状态：</label>
+                        <div class="form-group col-sm-4 ">
+                            <select  id="select3" class="form-control" name="Status">
+                                <option>请选择状态</option>
+                               {{#couponStatusList}}
+                                <option value="{{0}}">{{1}}</option>
+                               {{/couponStatusList}}
+                            </select>
+                        </div>
+
+                        <label for="name"  class="col-sm-2 control-label">体检码：</label>
+                        <div class="form-group col-sm-4 ">
+                            <input type="text" name="PromoteCode" id="name" class="form-control"  placeholder="体检码">
+                        </div>
+
+                        <div class="form-group  col-sm-2 ">
+                            <button type="submit" class="btn pull-right btn-primary"><i class="fa   fa-search "></i>  查询 </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class='box-body'>
+                <table id="data" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>体检码</th>
+                        <th>状态</th>
+                        <th>优惠券金额（元）</th>
+                        <th>相关订单号</th>
+                        <th>创建日期</th>
+                        <th>OpenId</th>
+                        <th>最近一次变更时时间</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class='overlay tableLoading'><i class='fa fa-refresh fa-spin'></i></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#dateRange").daterangepicker({format:"YYYY/MM/DD"});
+        var jdatatables;
+        function renderTable(options, render) {
+            $(".tableLoading").show();
+            var p = options.params();
+            if(options.pageSize){
+                p.size = options.pageSize
+            }
+            if(options.pageCur){
+                p.cur = options.pageCur
+            }
+            $.ajax({
+                type: options.method || "GET",
+                url: options.url,
+                data: p,
+                dataType: 'json'
+            }).success(function (items) {
+                render(options, items);
+                $(".tableLoading").hide();
+            }).fail(function () {
+                $(".tableLoading").hide();
+                alert("load error")
+            })
+        }
+        function dataTable(options, items) {
+            jdatatables = $(options.target).DataTable({
+                "serverSide": true,
+                "ajax": function (data, callback) {
+                    if (!options.row) {
+                        callback({
+                            draw: 0,
+                            recordsTotal: items.data.total,
+                            recordsFiltered: items.data.total,
+                            data: items.data.coupons
+                        })
+                        options.row = true;
+                    } else {
+                        options.pageSize = data.length;
+                        options.pageCur = Math.ceil(data.start / data.length) + 1;
+                        renderTable(options, function (opts, i) {
+                            callback({
+                                recordsTotal: i.data.total,
+                                recordsFiltered: i.data.total,
+                                data: i.data.coupons
+                            })
+                        })
+                    }
+                },
+                "columns": options.columns,
+                "paging": true,
+                "lengthChange": true,
+                "searching": false,
+                "scrollX": true,
+                "ordering": false,
+                "showFoot": false,
+                "autoWidth": true,
+                "pagingType": "full_numbers",
+                "bFilter": false,
+                "columnDefs":[
+                    {
+                        "render" : function(data, type, row) {
+                           return   data ? '<a href="{{ctx}}/order/' +data+'">' + data + '</a>' :'';
+                        },
+                        "targets" : 3
+                    },
+                    {
+                        "render" : function(data, type, row) {
+                            if(data =='未使用'){
+                                return '<span class="label label-success">' + data + '</span>'
+                            }else if(data == '已使用'){
+                                return '<span class="label label-primary">' + data + '</span>'
+                            }else {
+                                return '<span class="label label-default">' + data + '</span>'
+                            }
+                        },
+                        "targets" : 1
+                    }
+                ],
+                "language": {
+                    sEmptyTable: "<b>符合条件的数据为空</b>",
+                    sInfo: "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    sInfoEmpty: "显示第 0 至 0 项结果，共 0 项",
+                    sInfoFiltered: "(filtered from _MAX_ total entries)",
+                    sInfoThousands: ",",
+                    sLengthMenu: "显示 _MENU_ 项",
+                    sLoadingRecords: "数据加载中，请稍后...",
+                    sProcessing: "加载中...",
+                    sSearch: "搜索:",
+                    sZeroRecords: "未找到匹配的元素",
+                    errMode: function (settings, tn, msg) {
+                        console.log(msg)
+                    },
+                    oPaginate: {
+                        sFirst: "首页",
+                        sLast: "尾页",
+                        sNext: "下页",
+                        sPrevious: "上页"
+                    },
+                    oAria: {
+                        sSortAscending: ": 以升序排列此列",
+                        sSortDescending: ": 以降序排列此列"
+                    }
+                }
+            });
+        }
+
+        var DataTables = function (opts) {
+            renderTable(opts, dataTable)
+        }
+
+         DataTables({
+            target: "#data",
+            url: "ajaxQuery",
+            columns: [
+                {"data": "PromoteCode"},
+                {"data": "Status"},
+                {"data": "Amount"},
+                {"data": "OrderNo"},
+                {"data": "CreateDate"},
+                {"data": "OpenId"},
+                {"data": "LastUpdateDate"}
+            ], params:function () {
+                var obj=new Object();
+                $.each($('form').serializeArray(),function(index,param){
+                    if(!(param.name in obj)){
+                        if(param.value && '请选择状态' !=param.value &&param.value !=''){
+                            obj[param.name]=param.value;
+                        }
+                    }
+                });
+                obj.size = 10;
+                obj.cur=1
+                return obj;
+            }
+        })
+
+        $("form").on("submit",function (event) {
+            event.preventDefault();
+            jdatatables.ajax.reload();
+        })
+
+
+    });
+</script>

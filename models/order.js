@@ -78,7 +78,7 @@ Order.query = function*(values) {
         count += ' Where ' + filter;
     }
 
-    sql += ' Order By CreateDate';
+    sql += ' Order By CreateDate DESC';
     sql += ' Limit :pageStart , :pageSize'
 
     let pageStart = values.size * (values.cur - 1)
@@ -122,7 +122,6 @@ Order.getByOrderNo = function*(OrderNo) {
     }
     return orders[0];
 }
-
 
 Order.updateNextStatus = function*(OrderNo, Status, NextStatus) {
     const sql = 'Update JJOrder Set Status = :NextStatus Where OrderNo =:OrderNo And Status = :Status';

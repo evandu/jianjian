@@ -74,6 +74,21 @@
                     </li>
                 </ul>
                 </li>
+
+                <li {{#compare module.name '==' '体检码'}} class="treeview active" {{else}} class="treeview" {{/compare}} >
+                <a><i class="fa  fa-qrcode"></i>
+                    <span>体检码</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li {{#compare module.subName '==' '体检码列表'}} class="active" {{/compare}} >
+                       <a href="{{ctx}}/coupon/query"><i class="fa  fa-reorder "></i>体检码列表</a>
+                    </li>
+                    <li {{#compare module.subName '==' '生成体检码'}} class="active" {{/compare}} >
+                       <a href="{{ctx}}/coupon/generate"><i class="fa  fa-cubes"></i>生成体检码</a>
+                    </li>
+                </ul>
+                </li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>

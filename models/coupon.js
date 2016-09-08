@@ -1,0 +1,88 @@
+/**
+ * Created by evan on 2016/8/28.
+ */
+'use strict';
+
+const Lib = require('../lib/lib.js');
+const ModelError = require('./modelerror.js');
+const _ = require('lodash');
+
+const Coupon = module.exports = {};
+
+Coupon.Status = {
+    '0': "未使用",
+    '1': "已使用",
+    '2': '已禁用',
+}
+
+Coupon.insert = function*(values) {
+    try {
+        const [result] = yield global.db.query('Insert Into Coupon Set ?', values);
+        return result.insertId;
+    } catch (e) {
+        switch (e.code) {
+            // recognised errors for Order.update - just use default MySQL messages for now
+            case 'ER_BAD_NULL_ERROR':
+            case 'ER_NO_REFERENCED_ROW_2':
+            case 'ER_NO_DEFAULT_FOR_FIELD':
+                throw ModelError(403, e.message); // Forbidden
+            case 'ER_DUP_ENTRY':
+                throw ModelError(409, e.message); // Conflict
+            default:
+                Lib.logException('Coupon.insert', e);
+                throw ModelError(500, e.message); // Internal Server Error
+        }
+    }
+};
+
+Coupon.query = function*(values) {
+    let sql = 'Select * From Coupon';
+    let count = 'Select count(*) From Coupon';
+    values = _.merge({size: 10, cur: 1}, values);
+    const data = _.filter(_.keys(values), key => (key != 'size' && key != 'cur' && values[key] != ''))
+    if (data.length > 0) {
+        const filter = data.map(function (q) {
+            if (q == 'DateRange' && values['DateRange'].length > 0) {
+                values.StartDate = values['DateRange'].split("-")[0].trim()
+                values.EndDate = values['DateRange'].split("-")[1].trim()
+                return 'CreateDate > :StartDate And CreateDate < :EndDate'
+            } else {
+                return q + ' = :' + q;
+            }
+        }).join(' and ');
+        sql += ' Where ' + filter;
+        count += ' Where ' + filter;
+    }
+
+    sql += ' Order By CreateDate DESC';
+    sql += ' Limit :pageStart , :pageSize'
+
+    let pageStart = values.size * (values.cur - 1)
+    let pageSize = parseInt(values.size)
+    if (pageStart < 0) {
+        pageStart = 0;
+    }
+    if (pageSize < 0 || pageSize > 100) {
+        pageSize = 10;
+    }
+    values.pageStart = pageStart
+    values.pageSize = pageSize
+
+
+    const [coupons] = yield global.db.query({sql: sql, namedPlaceholders: true}, values);
+
+    const [[total]] = yield global.db.query({sql: count, namedPlaceholders: true}, values);
+
+    return {
+        total: total['count(*)'],
+        coupons: coupons,
+        size: pageSize,
+        cur: parseInt(values.cur) < 1 ? 1 : parseInt(values.cur)
+    }
+}
+
+Coupon.updateNextStatus = function*(PromoteCode, Status, NextStatus) {
+    const sql = 'Update Coupon Set Status = :NextStatus Where PromoteCode =:PromoteCode And Status = :Status';
+    const [orders] = yield global.db.query({sql: sql, namedPlaceholders: true}, {PromoteCode, Status, NextStatus});
+    return orders;
+}
