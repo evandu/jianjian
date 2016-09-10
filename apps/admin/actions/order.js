@@ -37,10 +37,11 @@ orders.details = function*() {
     const OrderNo = this.params.OrderNo
     const order = yield Order.getByOrderNo(OrderNo)
     yield this.render('templates/details',
-         {   module: context.module,
+        {
+            module: context.module,
             order: order,
-            refundDepositStatusList:_.toPairs(Order.RefundDepositStatus)
-         });
+            refundDepositStatusList: _.toPairs(Order.RefundDepositStatus)
+        });
 };
 
 
@@ -48,38 +49,50 @@ orders.orderStatusNext = function*() {
     const {OrderNo, Status} = this.request.body
     const _Status = parseInt(Status)
     if (_Status >= 1 && _Status < 7) {
-        const order =  yield Order.updateNextStatus(OrderNo, _Status, _Status + 1)
-        if(order.affectedRows<1){
+        const order = yield Order.updateNextStatus(OrderNo, _Status, _Status + 1)
+        if (order.affectedRows < 1) {
             throw ModelError(409, '更新报错');
         }
-        this.body =order.affectedRows
+        this.body = order.affectedRows
     } else {
         throw ModelError(409, '更新报错');
     }
 };
 
 
-
 orders.update2Status = function*() {
-    const {OrderNo, DeliverName,DeliverNum} = this.request.body
-    const order = yield Order.update2Status(OrderNo,DeliverName,DeliverNum)
-    if(order.affectedRows<1){
-        this.flash = {op: {status: false, msg: '设备已寄出更新报错'}};
-    }else{
-        this.flash = {op: {status: true, msg: '设备已寄出'}};
+    const {OrderNo, DeliverName, DeliverNum} = this.request.body
+    const order = yield Order.update2Status(OrderNo, DeliverName, DeliverNum)
+    if (!DeliverName || DeliverName == '') {
+        this.flash = {op: {status: false, msg: '物流公司不能为空'}};
+        this.redirect('/order/' + OrderNo);
+    } else if (!DeliverNum || DeliverNum == '') {
+        this.flash = {op: {status: false, msg: '物流单号不能为空'}};
+        this.redirect('/order/' + OrderNo);
+    } else {
+        if (order.affectedRows < 1) {
+            this.flash = {op: {status: false, msg: '设备已寄出更新报错'}};
+        } else {
+            this.flash = {op: {status: true, msg: '设备已寄出'}};
+        }
+        this.redirect('/order/' + OrderNo);
     }
-    this.redirect('/order/' +OrderNo);
 };
 
 orders.update4Status = function*() {
-    const {OrderNo, RefundDeposit,RefundDepositStatus} = this.request.body
-    const order = yield Order.update4Status(OrderNo,_.toInteger(RefundDeposit) *100,RefundDepositStatus)
-    if(order.affectedRows<1){
-        this.flash = {op: {status: false, msg: '押金退款更新报错'}};
-    }else{
-        this.flash = {op: {status: true, msg: '押金退款'}};
+    const {OrderNo, RefundDeposit, RefundDepositStatus} = this.request.body
+    if (!RefundDeposit || RefundDeposit == '') {
+        this.flash = {op: {status: false, msg: '押金退款金额不能为空'}};
+        this.redirect('/order/' + OrderNo);
+    } else {
+        const order = yield Order.update4Status(OrderNo, _.toInteger(RefundDeposit) * 100, RefundDepositStatus)
+        if (order.affectedRows < 1) {
+            this.flash = {op: {status: false, msg: '押金退款更新报错'}};
+        } else {
+            this.flash = {op: {status: true, msg: '押金退款'}};
+        }
+        this.redirect('/order/' + OrderNo);
     }
-    this.redirect('/order/' +OrderNo);
 };
 
 
@@ -117,9 +130,9 @@ orders.upload = function*() {
     const OrderNo = this.params.OrderNo
     const order = yield Order.getByOrderNo(OrderNo)
     let report;
-    try{
-        report =  yield Report.getByOrderNo(OrderNo)
-    }catch (e){
+    try {
+        report = yield Report.getByOrderNo(OrderNo)
+    } catch (e) {
 
     }
     const context = {
@@ -146,14 +159,14 @@ orders.processUpload = function*() {
         if (item) {
             const nameArray = item['name'].split('.');
             const ext = nameArray[nameArray.length - 1];
-            const uploadPath = path.join(this.envConfig.upload,moment().format('YYYYMMDD'))
+            const uploadPath = path.join(this.envConfig.upload, moment().format('YYYYMMDD'))
             if (!fs.existsSync(uploadPath)) {
                 fs.mkdirSync(uploadPath);
             }
             const fileUploadFilePath = path.join(uploadPath, OrderNo + "_" + moment().format('HHmmss') + "." + ext);
             var stream = fs.createWriteStream(fileUploadFilePath);
             fs.createReadStream(item['path']).pipe(stream);
-            ReportFile = fileUploadFilePath.replace(this.envConfig.upload, "").replace(/\\+/g,"/")
+            ReportFile = fileUploadFilePath.replace(this.envConfig.upload, "").replace(/\\+/g, "/")
             yield Order.updateNextStatus(OrderNo, 6, 7)
         }
 
