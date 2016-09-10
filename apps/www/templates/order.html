@@ -313,11 +313,12 @@
             }
         });
 
-//        $(".btn-cancel").click(function () {
+        $(".btn-cancel").click(function () {
+            slide("step3", "step1")
 //            $.toast.alert('取消预约', '是否取消本次服务预约？', function () {
 //                slide("step3", "step1")
 //            })
-//        })
+        })
         $(".btn-pay").click(function () {
             $("form").submit()
         })
