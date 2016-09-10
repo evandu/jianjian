@@ -33,7 +33,7 @@
                             <br>
                             <b>订单编号:</b> {{order.OrderNo}}<br>
                             <b>支付日期:</b> {{yyy-MM-ddHHmmss order.PayDate}}<br>
-                            <b>OPEN_ID:</b> {{order.OpenId}}
+                            <b>押金退款:</b> {{RefundDepositStatus order.RefundDepositStatus}} {{amount RefundDeposit}} 元 {{yyy-MM-ddHHmmss order.RefundDepositDate}}
                         </div>
                         <!-- /.col -->
                     </div>
@@ -59,7 +59,7 @@
                             <div class="form-group" >
                                 <label class="col-sm-3 control-label">ODI：</label>
                                 <div class="col-sm-4">
-                                    <input  name="ODI"  value="{{report.ODI}}" type="text" class="form-control"  placeholder="ODI">
+                                    <input  name="ODI"  value="{{ODI order.Weight order.Height}}" type="text" class="form-control"  placeholder="ODI">
                                 </div>
                             </div>
 

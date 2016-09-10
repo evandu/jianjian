@@ -23,6 +23,12 @@ Order.Status = {
     '7': '报告上传',
 }
 
+Order.RefundDepositStatus = {
+    '0': "无需退款",
+    '1': '已退款',
+    '2': '未退款',
+}
+
 Order.Init = {
     'ServiceName': '睡眠监测暂停分析服务',
     'ServicePrice': 10000,
@@ -30,6 +36,8 @@ Order.Init = {
     'Status': 0,
     'PayDepositAmount': 0,
     'PayServiceAmount': 0,
+    'RefundDepositStatus': 0,
+    'RefundDeposit': 0,
 }
 
 /**
@@ -136,3 +144,15 @@ Order.paySuccess = function*(OrderNo,PayDepositAmount,PayServiceAmount) {
     return orders;
 }
 
+
+Order.update2Status = function*(OrderNo,DeliverName,DeliverNum) {
+    const sql = 'Update JJOrder Set Status = 2, DeliverName =:DeliverName, DeliverNum =:DeliverNum, DeliverDate=sysdate() Where OrderNo =:OrderNo And Status = 1';
+    const [orders] = yield global.db.query({sql: sql, namedPlaceholders: true}, {OrderNo, DeliverName, DeliverNum});
+    return orders;
+}
+
+Order.update4Status = function*(OrderNo,RefundDeposit,RefundDepositStatus) {
+    const sql = 'Update JJOrder Set Status = 4, RefundDeposit =:RefundDeposit, RefundDepositStatus =:RefundDepositStatus, RefundDepositDate=sysdate() Where OrderNo =:OrderNo And Status = 3';
+    const [orders] = yield global.db.query({sql: sql, namedPlaceholders: true}, {OrderNo, RefundDeposit, RefundDepositStatus});
+    return orders;
+}

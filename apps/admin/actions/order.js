@@ -36,7 +36,11 @@ orders.details = function*() {
     };
     const OrderNo = this.params.OrderNo
     const order = yield Order.getByOrderNo(OrderNo)
-    yield this.render('templates/details', {module: context.module, order: order});
+    yield this.render('templates/details',
+         {   module: context.module,
+            order: order,
+            refundDepositStatusList:_.toPairs(Order.RefundDepositStatus)
+         });
 };
 
 
@@ -52,6 +56,30 @@ orders.orderStatusNext = function*() {
     } else {
         throw ModelError(409, '更新报错');
     }
+};
+
+
+
+orders.update2Status = function*() {
+    const {OrderNo, DeliverName,DeliverNum} = this.request.body
+    const order = yield Order.update2Status(OrderNo,DeliverName,DeliverNum)
+    if(order.affectedRows<1){
+        this.flash = {op: {status: false, msg: '设备已寄出更新报错'}};
+    }else{
+        this.flash = {op: {status: true, msg: '设备已寄出'}};
+    }
+    this.redirect('/order/' +OrderNo);
+};
+
+orders.update4Status = function*() {
+    const {OrderNo, RefundDeposit,RefundDepositStatus} = this.request.body
+    const order = yield Order.update4Status(OrderNo,_.toInteger(RefundDeposit) *100,RefundDepositStatus)
+    if(order.affectedRows<1){
+        this.flash = {op: {status: false, msg: '押金退款更新报错'}};
+    }else{
+        this.flash = {op: {status: true, msg: '押金退款'}};
+    }
+    this.redirect('/order/' +OrderNo);
 };
 
 
@@ -71,9 +99,10 @@ orders.ajaxQuery = function*() {
     const data = _.map(orders.orders, order=> {
         order.Deposit = order.Deposit / 100.0
         order.PayServiceAmount = order.PayServiceAmount / 100.0
-        order.PayServiceAmount = order.PayServiceAmount / 100.0
+        order.PayDepositAmount = order.PayDepositAmount / 100.0
         order.ServicePrice = order.ServicePrice / 100.0
         order.Status = Order.Status[order.Status]
+        order.RefundDepositStatus = Order.RefundDepositStatus[order.RefundDepositStatus]
         order.UserInfo = `${order.Name} ${order.Gender == '1' ? '男' : '女'} ${order.Age}岁 ${order.Height} cm ${order.Weight} kg`
         order.AddressInfo = `${order.Area} ${order.Address}`
         order.CreateDate = moment(order.CreateDate).format('YYYY-MM-DD HH:mm:ss')

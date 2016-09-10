@@ -4,7 +4,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">订单编号:{{order.OrderNo}}详细</h3>
             </div><!-- /.box-header -->
-            <form class="form-horizontal" name="edit_member" >
+            <form class="form-horizontal" >
                 <div class="box-body">
                     <div class="form-group" >
                         <label class="col-sm-2 control-label">姓名：</label>
@@ -58,6 +58,51 @@
                     </div>
 
                     <div class="form-group" >
+                        <label class="col-sm-2 control-label">物流公司：</label>
+                        <div class="col-sm-4">
+                            {{order.DeliverName}}
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">物流单号：</label>
+                        <div class="col-sm-4">
+                            {{order.DeliverNum}}
+                        </div>
+                    </div>
+
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">配送时间：</label>
+                        <div class="col-sm-4">
+                            {{yyy-MM-ddHHmmss  order.DeliverDate}}
+                        </div>
+                    </div>
+
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">押金退款状态：</label>
+                        <div class="col-sm-4">
+                            {{RefundDepositStatus order.RefundDepositStatus}}
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">押金退款时间：</label>
+                        <div class="col-sm-4">
+                            {{yyy-MM-ddHHmmss order.RefundDepositDate}}
+                        </div>
+                    </div>
+
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">押金退款金额：</label>
+                        <div class="col-sm-4">
+                            {{amount order.RefundDeposit}}
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" >
                         <label class="col-sm-2 control-label">创建时间：</label>
                         <div class="col-sm-4">
                              {{yyy-MM-ddHHmmss order.CreateDate}}
@@ -73,12 +118,28 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label"></label>
                         <div class="col-sm-4">
-                            {{#compare order.Status 'in' '1,2,3,4,5'}}
+
+                            {{#compare order.Status '==' '1'}}
+                                <button type="button" status ={{order.Status}}
+                                        class="btn  btn-primary pull-left" data-toggle="modal" data-target="#status2Dialog" >
+                                    <i class="fa  fa-hand-grab-o"></i> {{nextStatus order.Status}}
+                                </button>
+                            {{/compare}}
+
+                            {{#compare order.Status '==' '3'}}
+                                <button type="button" status ={{order.Status}}
+                                        class="btn  btn-primary pull-left" data-toggle="modal" data-target="#status4Dialog" >
+                                    <i class="fa  fa-hand-grab-o"></i> {{nextStatus order.Status}}
+                                </button>
+                            {{/compare}}
+
+                            {{#compare order.Status 'in' '2,4,5'}}
                                <button type="button" status ={{order.Status}}
                                     class="btn  btn-success pull-left" >
                                    <i class="fa  fa-hand-grab-o"></i> {{nextStatus order.Status}}
                                </button>
                             {{/compare}}
+
                             {{#compare order.Status '==' '6'}}
                               <a href="upload/{{order.OrderNo}}">
                                   <button type="button" class="btn  btn-primary pull-left">
@@ -86,6 +147,7 @@
                                   </button>
                               </a>
                             {{/compare}}
+
                             {{#compare order.Status '==' '7'}}
                             <a href="upload/{{order.OrderNo}}">
                                 <button type="button"  class="btn btn-primary pull-left">
@@ -93,6 +155,7 @@
                                 </button>
                             </a>
                             {{/compare}}
+
                             {{#compare order.Status 'in' '-1,0'}}
                                  <button type="button" class="btn btn-danger pull-left" data-toggle="modal" data-target="#msgDialog">
                                      <i class="fa fa-remove "></i> 取消订单
@@ -127,11 +190,92 @@
     <!-- /.modal-dialog -->
 </div>
 
+
+<div class="modal fade" id="status2Dialog" role="dialog" aria-labelledby="status2DialogLabel" aria-hidden="true">
+    <form class="form-horizontal" method="post" action="update2Status">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">设备已寄出</h4>
+            </div>
+              <div class="modal-body">
+                    <input  name="OrderNo"  type="hidden" value="{{order.OrderNo}}"/>
+                    <div class="form-group" >
+                        <label class="col-sm-4 control-label">物流公司：</label>
+                        <div class="col-sm-6">
+                            <input  name="DeliverName"  type="text" class="form-control"  placeholder="物流公司"/>
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="col-sm-4 control-label">物流单号：</label>
+                        <div class="col-sm-6">
+                            <input  name="DeliverNum"  type="text" class="form-control"  placeholder="物流单号"/>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn btn-danger">设备已寄出</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+    </form>
+</div>
+
+
+<div class="modal fade" id="status4Dialog" role="dialog" aria-labelledby="status4DialogLabel" aria-hidden="true">
+    <form class="form-horizontal"  method="post" action="update4Status" >
+        <input  name="OrderNo"  type="hidden" value="{{order.OrderNo}}"/>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">押金退还</h4>
+            </div>
+            <div class="modal-body">
+                    <div class="form-group" >
+                        <label class="col-sm-4 control-label">押金退款：</label>
+                        <div class="col-sm-4">
+                            <div class="form-group col-sm-12 ">
+                                <select class="form-control" name="RefundDepositStatus">
+                                    <option value="0">无需退款</option>
+                                    <option value="1" selected>已退款</option>
+                                    <option value="2">未退款</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="col-sm-4 control-label">押金退款金额：</label>
+                        <div class="col-sm-6">
+                            <input  name="RefundDeposit"  value= "{{amount order.PayDepositAmount}}" type="text" class="form-control"  placeholder="押金退款金额"/>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn btn-danger">押金退款</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+    </form>
+</div>
+
+
+
 <script>
     $(function ($) {
         function refresh() {
             window.location.href=window.location.href;
         }
+
         $(".btn-success").click(function (e) {
             $.ajax({
                 type: "post",

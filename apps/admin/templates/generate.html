@@ -4,24 +4,33 @@
             <div class="box-header with-border">
                 <h3 class="box-title">生成体检码</h3>
             </div><!-- /.box-header -->
-            <form class="form-horizontal" name="edit_member" >
+            <form class="form-horizontal" method="post" >
                 <div class="box-body">
                     <div class="form-group" >
-                        <label class="col-sm-2 control-label">体检码金额</label>
+                        <label class="col-sm-2 control-label">设置体检码金额</label>
                         <div class="col-sm-4">
-                            <input  name="amount"  type="text" class="form-control"  placeholder="体检码金额">
+                            <input  name="Amount"  type="text" class="form-control"  placeholder="设置体检码金额"/>
                         </div>
                     </div>
                     <div class="form-group" >
-                        <label class="col-sm-2 control-label">生成张数</label>
+                        <label class="col-sm-2 control-label">设置生成张数</label>
                         <div class="col-sm-4">
-                            <input  name="num"  type="text" class="form-control"  placeholder="生成张数">
+                            <input  name="Num"  type="text" class="form-control"  placeholder="设置生成张数"/>
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="dateRange" class="col-sm-2 control-label">设置体检码有效期：</label>
+                        <div class="input-group col-sm-4"  >
+                            <div class="input-group-addon"> <i class="fa fa-calendar"></i></div>
+                            <input  type="text" name="DateRange" class="form-control"
+                                    id="dateRange" placeholder="设置体检码有效期">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label class="col-sm-2 control-label"></label>
                         <div class="col-sm-4">
-                            <button type="button"  class="btn  btn-success pull-left" >
+                            <button type="submit"  class="btn  btn-success pull-left" >
                                 <i class="fa  fa-hand-grab-o"></i> 确认生成优惠券
                             </button>
                         </div>
@@ -33,5 +42,7 @@
 </div><!-- /.row -->
 
 <script>
-
+   $(function ($) {
+       $("#dateRange").daterangepicker({format:"YYYY/MM/DD"});
+   })
 </script>

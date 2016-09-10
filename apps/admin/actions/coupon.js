@@ -35,7 +35,6 @@ coupons.ajaxQuery = function*() {
 }
 
 
-
 coupons.generate = function*() {
     const context = {
         module: {
@@ -44,4 +43,22 @@ coupons.generate = function*() {
         },
     };
     yield this.render('templates/generate', {module: context.module});
+};
+
+coupons.processGenerate = function*() {
+    const {Amount,Num,DateRange} = this.request.body
+    const couponSet = new Set();
+    for(let i=0;i< _.toInteger(Num); i++){
+        const c = {
+            PromoteCode:i,
+            Amount:Amount,
+            StartDate:DateRange.split("-")[0].trim(),
+            EndDate:DateRange.split("-")[1].trim()
+        }
+        couponSet.add(c)
+        yield Coupon.insert(c)
+    }
+    const fileName = "promoteCodes" + DateRange.replace(/\//g, "") + ".txt"
+    this.set('Content-disposition','attachment;filename=' + fileName)
+    this.body="sadsadsadsa"
 };

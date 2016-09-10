@@ -77,6 +77,14 @@ handlebars.registerHelper('OrderStatus', function (key) {
     return Order.Status[key];
 });
 
+handlebars.registerHelper('ODI', function (h,w) {
+    return _.toInteger((_.toInteger(w)/((_.toNumber(h)/100.00)*(_.toNumber(h)/100.00))));
+});
+
+handlebars.registerHelper('RefundDepositStatus', function (key) {
+    return Order.RefundDepositStatus[key];
+});
+
 handlebars.registerHelper('nextStatus', function (key) {
     return Order.Status[1 + parseInt(key)];
 });

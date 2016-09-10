@@ -305,18 +305,19 @@
             if (!checkThisForm.isEmpty($("#step2"))) {
                 var c = $(".serve-bg .user-msg").html();
                 c = c.replace(/\{(\w+)\}/g, function (m, i) {
-                    return $("input[name='" + m.replace(/\{|\}/g, "") + "']").val() || $("select[name='" + m.replace(/\{|\}/g, "") + "']").val() || "";
+                    var key = m.replace(/\{|\}/g, "")
+                    return $("input[name='" + key + "']").val() || $("select[name='" + key + "']").find("option:selected").text() || "";
                 })
                 $(".serve-bg .user-msg").html(c)
                 slide("step2", "step3")
             }
         });
 
-        $(".btn-cancel").click(function () {
-            $.toast.alert('取消预约', '是否取消本次服务预约？', function () {
-                slide("step3", "step1")
-            })
-        })
+//        $(".btn-cancel").click(function () {
+//            $.toast.alert('取消预约', '是否取消本次服务预约？', function () {
+//                slide("step3", "step1")
+//            })
+//        })
         $(".btn-pay").click(function () {
             $("form").submit()
         })
