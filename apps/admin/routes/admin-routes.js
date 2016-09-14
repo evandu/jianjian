@@ -17,6 +17,7 @@ router.get('/order/ajaxQuery', order.ajaxQuery);
 router.get('/order/:OrderNo', order.details);
 router.post('/order/update2Status', order.update2Status);
 router.post('/order/update4Status', order.update4Status);
+router.post('/order/updateRandomStatus', order.updateRandomStatus);
 router.post('/order/orderStatusNext', order.orderStatusNext);
 router.post('/order/orderCancel', order.orderCancel);
 router.get('/order/upload/:OrderNo', order.upload);

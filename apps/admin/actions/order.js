@@ -40,7 +40,8 @@ orders.details = function*() {
         {
             module: context.module,
             order: order,
-            refundDepositStatusList: _.toPairs(Order.RefundDepositStatus)
+            refundDepositStatusList: _.toPairs(Order.RefundDepositStatus),
+            orderStatusList: _.toPairs(Order.Status)
         });
 };
 
@@ -51,11 +52,11 @@ orders.orderStatusNext = function*() {
     if (_Status >= 1 && _Status < 7) {
         const order = yield Order.updateNextStatus(OrderNo, _Status, _Status + 1)
         if (order.affectedRows < 1) {
-            throw ModelError(409, '更新报错');
+            throw ModelError(409, Order.Status[''+(_Status + 1)] + '状态更新报错');
         }
         this.body = order.affectedRows
     } else {
-        throw ModelError(409, '更新报错');
+        throw ModelError(409, Order.Status[''+(_Status + 1)] + '状态更新报错');
     }
 };
 
@@ -94,6 +95,19 @@ orders.update4Status = function*() {
         this.redirect('/order/' + OrderNo);
     }
 };
+
+orders.updateRandomStatus = function*() {
+    const {OrderNo, randomStatus,Status} = this.request.body
+    const order = yield Order.updateNextStatus(OrderNo,Status,randomStatus)
+    if (order.affectedRows < 1) {
+        this.flash = {op: {status: false, msg: Order.Status[randomStatus] + '状态更新状态出错'}};
+    } else {
+        this.flash = {op: {status: true, msg:  Order.Status[randomStatus] + '状态更新成功'}};
+    }
+    this.redirect('/order/' + OrderNo);
+};
+
+
 
 
 orders.orderCancel = function*() {

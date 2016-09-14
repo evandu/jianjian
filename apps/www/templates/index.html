@@ -4,11 +4,11 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
 		<!-- <meta name="viewport" content="width=320, user-scalable=no, maximum-scale=1.3"> -->
-		<title>关于我们</title>
+		<title>简检e简家-关于我们</title>
 		<meta name="format-detection" content="telephone=no" />
 		<meta name="format-detection" content="email=no" />
 		<meta name="apple-moblie-web-app-capable" content="yes" />
-		<link rel="stylesheet" href="lib/css/mobase.css" type="text/css" />
+		<link rel="stylesheet" href="{{static}}/css/mobase.css" type="text/css" />
 	</head> 
 	<body class="about-index">
 		<header>
@@ -22,11 +22,11 @@
 		</header>
 
 		<div class="swiper-container">
-			<div class="parallax-bg2" style="background-image:url(lib/imgs/index3.jpg); height: 130%;" data-swiper-parallax-y="-30%"></div>
+			<div class="parallax-bg2" style="background-image:url({{static}}/imgs/index3.jpg); height: 130%;" data-swiper-parallax-y="-30%"></div>
 			<div class="swiper-wrapper">
 				<div class="swiper-slide index-part1" id="part1" name="part1">
-					<div class="parallax-bg" style="background-image:url(lib/imgs/index1.jpg); height: 130%;" data-swiper-parallax-y="50%"></div>
-					<img src="lib/imgs/index1.jpg" class="index-img-bg">
+					<div class="parallax-bg" style="background-image:url({{static}}/imgs/index1.jpg); height: 130%;" data-swiper-parallax-y="50%"></div>
+					<img src="{{static}}/imgs/index1.jpg" class="index-img-bg">
 					<div>
 						<div class="img-msg">
 							<h2>为您定制专业便捷的医疗级健康检测</h2>
@@ -50,20 +50,20 @@
 						<h3 class="index-title">服务内容</h3>
 						<ul class="part3-ul clearfix">
 							<li>
-								<div class="img-box"><img src="lib/imgs/pho1.png"></div>
+								<div class="img-box"><img src="{{static}}/imgs/pho1.png"></div>
 								<h4 class="part3-title">健康检测服务<p>HEALTH CHECK SERVICE</p></h4>
 								<p>针对各类高发疾病（如糖尿病、高血压、心脏病、胃癌、肺癌等），通过流行病理理论学建立高危人群定位模型，进行人群画像，精准找到高风险患病人群。</p>
 								<p>对定位的高危群人，提供专业医疗级别检测及监测，生成互联网报告，帮助用户确认是否患有疾病，以及疾病发展情况等，进一步支持实施健康管理。</p>
 							</li>
 							<li>
-								<div class="img-box"><img src="lib/imgs/pho3.png"></div>
+								<div class="img-box"><img src="{{static}}/imgs/pho3.png"></div>
 								<h4 class="part3-title">专业医疗服务<p>MEDICAL SERVICE</p></h4>
 								<p>为检测用户提供爆发哦分析及咨询，抱住用户了解健康状况。</p>
 								<p>为需要治疗用户提供诊疗建议及计划，帮助用户有效且高效的实现疾病控制和健康改善。</p>
 								<p>针对有特殊需要的用户，提供专业医疗资源对接，如专家建议、专家预约、住院及手术安排、绿色通道、电话医生等。</p>
 							</li>
 							<li>
-								<div class="img-box"><img src="lib/imgs/pho5.png"></div>
+								<div class="img-box"><img src="{{static}}/imgs/pho5.png"></div>
 								<h4 class="part3-title">移动信息平台<p>INFOMATION PLATFORM</p></h4>
 								<p>建立移动化信息平台，用户的报告生成和读取在手机端即可实现完成，提高检测及监测效率。</p>
 								<p>根据企业客户需求，做信息化平台定制，将医疗监测及服务系统有效整合进企业已有系统（APP、微信）中。</p>
@@ -98,10 +98,10 @@
 				<div class="swiper-nav"></div>
 			</div>
 		</div>
-		<script type="text/javascript" src="lib/js/rem.js"></script>
-		<script type="text/javascript" src="lib/js/jquery-1.11.1.min.js"></script>
-		<script type="text/javascript" src="lib/plus/swiper/swiper3.07.min.js"></script>
-		<script type="text/javascript" src="lib/js/pub.js"></script>
+		<script type="text/javascript" src="{{static}}/js/rem.js"></script>
+		<script type="text/javascript" src="{{static}}/js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="{{static}}/plus/swiper/swiper3.07.min.js"></script>
+		<script type="text/javascript" src="{{static}}/js/pub.js"></script>
 		<script type="text/javascript">
 		$(function(){
 			$(".nav-btn").click(function(){
@@ -116,7 +116,7 @@
 				$(".parallax-bg2").show();
 				$("header").hide();
 			}else{
-				$("head").append('<link rel="stylesheet" href="lib/css/aboutme-2.css" type="text/css" />');
+				$("head").append('<link rel="stylesheet" href="{{static}}/css/aboutme-2.css" type="text/css" />');
 				$(".index-img-bg").show();
 				$("header").show();
 			}

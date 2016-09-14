@@ -84,37 +84,43 @@
 })(jQuery);
 
 function checkForm(){};
-checkForm.prototype.isEmpty = function(){
-   var notEmpty = $("[data-empty='no']");
-      $.each(notEmpty, function(idx, elem){
-        var val = $(this).val();
-        if(val.length == 0){
-          $.toast.error("不能为空");
-          return false;
-        };
-      })
-}
-checkForm.prototype.isTel = function(){
-  var $Tel = $("input[type='tel']");
-      if($Tel){
-        var tel = $Tel.val();
-        if(!(/^1[3|4|5|7|8]\d{9}$/.test(tel))){ 
-          $.toast.error("您填写的手机格式不正确，请重新填写。");
-          return false; 
+checkForm.prototype.isEmpty = function (target) {
+    var hasError = false;
+    var notEmpty = $(target).find("[data-empty='no']");
+    $.each(notEmpty, function (idx, elem) {
+        var val = $(elem).val();
+        if($(elem).is("select")){
+            val = $(elem).prev().val();
         }
-      }
-}
-checkForm.prototype.isLimit = function(){
-  var $Li = $("[data-length]");
-      if($Li){
-        var str = $Li.val();
-        var limit = parseInt($Li.attr("data-length"));
-        if(str.length <= limit){ 
-          $.toast.error("详细地址不能少于5个汉字");
-          return false; 
+        if (!hasError && val.length == 0) {
+            hasError = true;
+            $.toast.error($(elem).attr("placeholder") + "不能为空", 5000);
+            return;
         }
-      }
+
+
+        if (!hasError && $(elem).attr("type") == "tel") {
+            if (!(/^1[3|4|5|7|8]\d{9}$/.test(val))) {
+                hasError = true;
+                $.toast.error("您填写的手机格式不正确，请重新填写。");
+            }
+        }
+    })
+
+    var isLimit = $(target).find("[data-length]");
+    $.each(isLimit, function (idx, elem) {
+        var val = $(elem).val();
+        var limit = parseInt($(elem).attr("data-length"));
+        if(!hasError && val.length < limit){
+            $.toast.error($(elem).attr("placeholder") + "不能少于"+limit+"个汉字");
+            hasError = true;
+            return;
+        }
+    })
+
+    return hasError;
 }
+
 
 function initHeight(){
     var h = $(window).height()*0.78;
@@ -132,8 +138,8 @@ function IsPC () {
 }  
 
 function initSwiper(){
-    $("head").append('<link rel="stylesheet" href="lib/plus/swiper/swiper3.07.min.css" />');
-    $("head").append('<link rel="stylesheet" href="lib/css/aboutme.css" type="text/css" />');
+    $("head").append('<link rel="stylesheet" href="/plus/swiper/swiper3.07.min.css" />');
+    $("head").append('<link rel="stylesheet" href="/css/aboutme.css" type="text/css" />');
     var navObj = ["首页","关于何勒","产品服务","联系我们"];
     var mySwiper = new Swiper(".swiper-container", {
         direction : 'vertical',

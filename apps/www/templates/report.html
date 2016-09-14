@@ -14,8 +14,12 @@
 	<body class="report-body">
 		<div class="head-container">
 			<img src="{{static}}/imgs/head-bg.png" class="head-bg">
-			<img src="{{static}}/imgs/header-img.png" class="head-img">
-			<p class="head-user-msg">姓名：<b>{{order.Name}}</b>性别：<b>{{gender order.Name}}</b>年龄：<b>{{order.Age}}岁</b></p>
+			{{#compare order.Gender '==' 1}}
+			  <img src="{{static}}/imgs/header-img.png" class="head-img">
+		    {{else}}
+			  <img src="{{static}}/imgs/header-img2.png" class="head-img">
+			{{/compare}}
+			<p class="head-user-msg">姓名：<b>{{order.Name}}</b>性别：<b>{{gender order.Gender}}</b>年龄：<b>{{order.Age}}岁</b></p>
 			<p class="head-bmi"><span class="font14">BMI指数：</span><b class="font17">{{report.BMI}}</b>
 				(BMI指数是用体重公斤数除以身高米数平方得出的数字，是目前国际上常用的衡量人体胖瘦程度以及是否健康的一个标准：过轻：低于18.5 正常：18.5-24.99 过重：25-28 肥胖：28-32 非常肥胖，高于32)</p>
 		</div>
