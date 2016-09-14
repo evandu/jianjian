@@ -8,3 +8,4 @@ npm-debug*
 weixin.json
 config/*
 *.sql
+temp

@@ -37,3 +37,8 @@ body {
 @media(min-width:640px){
 	html{font-size: 200px !important;}
 }
+
+.parallax-bg, .parallax-bg2 {
+	display: none;
+}
+.index-img-bg { display: none; }

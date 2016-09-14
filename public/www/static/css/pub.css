@@ -2,7 +2,7 @@
 .toast {
 	position: fixed;
 	left: 0;
-	top: 0;
+	bottom: 0;
 	width: 100%;
 	height: .15rem;
 	color: #d78d8d;
@@ -94,7 +94,7 @@
 	display: inline-block;
 	position: relative;
 }
-.form-title-p:after {
+/*.form-title-p:after {
 	position: absolute;
 	right: -.1rem;
 	bottom: .07rem;
@@ -103,7 +103,7 @@
 	width: .08rem;
 	height: .02rem;
 	background-color: #06cc9b;
-}
+}*/
 .form-title-count {
 	float: left;
 	display: block;
@@ -139,9 +139,16 @@
 	border-top: 0.06rem solid #666;
 	border-left: 0.05rem solid transparent;
 	border-right: 0.05rem solid transparent;
-
 }
-
+.star-msg { position: relative; }
+.star-msg:before {
+	position: absolute;
+	left: 0.1rem;
+	top: 0.09rem;
+	content: "*";
+	color: #cc0606;
+	font-size: 0.14rem;
+}
 /*填写个人资料*/
 .msg-form {
 	margin: 0 .14rem;
@@ -163,12 +170,19 @@
 .msg-form input, .msg-form select {
 	float: left;
 	width: 100%;
-	height: 100%;
+	height: 0.17rem;
+	padding: 0.09rem 0;
 	font-size: 0.16rem;
-	line-height: 0.35rem;
+	line-height: 0.17rem;
 	text-indent: 0.14rem;
 	border-radius: 0;
 	border-bottom: 1px solid #cacaca;
+}
+.btn-group { margin: .88rem 0 0; }
+.btn-group button {
+	float: left;
+	width: 40%;
+	margin: 0 5%;
 }
 
 /*服务列表*/
@@ -402,13 +416,13 @@
 .about-title {
 	position: relative;
 	margin-bottom: 0.08rem;
-	padding-left: 0.13rem;
+	/*padding-left: 0.13rem;*/
 	color: #363d44;
 	font-weight: bold;
 	font-size: 0.15rem;
 	line-height: 0.18rem;
 }
-.about-title:after {
+/*.about-title:after {
 	position: absolute;
 	left: 0;
 	bottom: 0.02rem;
@@ -416,7 +430,7 @@
 	height: 0.02rem;
 	content: "";
 	background-color: #444;
-}
+}*/
 .font10 { font-size: 0.105rem !important; }
 .font12 { font-size: 0.12rem !important; }
 .font13 { font-size: 0.13rem !important; }
@@ -557,12 +571,33 @@
 .about-container .s-btn-group {
 	margin: 0.3rem -0.15rem 0.07rem;
 }
+.about-container .btn-cancel {
+	margin-top: 0.4rem;
+}
+.fixed-btn {
+	position: fixed;
+	right: 0.3rem;
+	bottom: 0.24rem;
+	width: 0.6rem;
+	height: 0.6rem;
+	padding: 0.1rem 0.1rem;
+	color: #fff;
+	font-size: 0.18rem;
+    text-align: center;
+    line-height: 0.2rem;
+    border-radius: 50%;
+	background-color: rgba(6,204,155,0.6);
+	box-sizing: border-box;
+}
 
 /*其他详情 other-details.html*/
 .other-container {
 	padding: 0.2rem 0.15rem 0;
 	color: #444;
 	box-sizing: border-box;
+	background: url(../imgs/about-bg.png) no-repeat;
+    background-size: 75px;
+    background-position: right top;
 }
 .other-container .about-title { margin-bottom: 0.06rem; }
 .o-c-img { width: 107%; margin-top: 0.15rem; margin-left: -0.1rem; margin-right: -0.1rem;}
@@ -599,11 +634,20 @@
 	position: relative;
 	text-align: center;
 	margin-bottom: 0.12rem;
+	padding-top: 0.4rem;
 }
 .head-img {
 	width: 0.64rem;
 	height: 0.64rem;
-	margin: 0.4rem auto 0.14rem;
+	margin: 0 auto 0.14rem;
+}
+.head-img.man {
+	background: url(../imgs/header-img.png) no-repeat;
+	background-size: 100% 100%;
+}
+.head-img.woman {
+	background: url(../imgs/header-img2.png) no-repeat;
+	background-size: 100% 100%;
 }
 .head-user-msg {
 	color: #444;
@@ -777,175 +821,3 @@
 	text-indent: 1em;
 }
 
-/*aboutus.html*/
-header {
-	height: 0.5rem;
-	position: relative;
-	background-color: rgba(102,241,200,1);
-}
-.nav-btn {
-	position: absolute;
-	right: 0.2rem;
-	top: 0;
-	display: block;
-	width: 0.46rem;
-	height: 0.38rem;
-	background: url(../imgs/btn-bg.jpg) no-repeat rgba(74, 76, 103, 1);
-	background-position: center;
-	border-bottom-left-radius: 0.04rem;
-	border-bottom-right-radius: 0.04rem;
-	border: 0.02rem solid #fefdfe;
-	border-top: none 0;
-}
-.nav-ul {
-	display: none;
-	position: absolute;
-	top: 0.4rem;
-	right: 0.2rem;
-	width: 2.8rem;
-	background-color: rgba(74, 76, 103, .9);
-	border: 0.01rem solid #fefdfe;
-	border-bottom: none 0;
-	border-radius: 0.04rem;
-	z-index: 9999;
-}
-.nav-ul li {
-	padding: 0.08rem;
-	color: #fefdfe;
-	font-size: 0.14rem;
-	line-height: 1.8;
-	border-bottom: 0.01rem solid #fefdfe;
-}
-.nav-ul li:hover {
-	background-color: #fcf390;
-}
-.nav-ul li a {
-	display: block;
-}
-.index-title {
-	position: relative;
-	padding: 0.36rem 0;
-	color: #fff;
-	text-align: center;
-	font-size: 0.32rem;
-	letter-spacing: 0.2em;
-}
-.index-title:before {
-	position: absolute;
-	left: 57%;
-	top: 0rem;
-	display: block;
-	content: "";
-	width: 0.06rem;
-	height: 0.28rem;
-	background-color: #fcf390;
-	transform: rotate(30deg);
-}
-.index-title:after {
-	position: absolute;
-	left: 43%;
-	bottom: 0rem;
-	display: block;
-	content: "";
-	width: 0.06rem;
-	height: 0.28rem;
-	background-color: #fcf390;
-	transform: rotate(30deg);
-}
-.index-title.green:before, .index-title.green:after { background-color: rgba(102,241,200,1); }
-.index-part1 {
-	position: relative;
-	background: url(../imgs/index1.jpg) no-repeat;
-	background-size: cover;
-}
-.index-img-bg {
-	width: 100%;
-}
-.index-part1 .img-msg {
-	position: absolute;
-	left: 0;
-	top: 40%;
-	text-align: center;
-	padding: 0 0.2rem;
-	color: #fefdfe;
-}
-.img-msg h2 { font-size: 0.26rem; margin-bottom: 0.1rem;}
-.img-msg p { font-family: Arial,helvetica,sans-serif; font-weight: bold; letter-spacing: 2.8px; }
-.index-part2 {
-	padding: 0.4rem 0;
-	background-color: #4a4c67;
-}
-.index-part2 h4 {
-	margin: 0.2rem auto;
-	text-align: center;
-	letter-spacing: 2px;
-	font-size: 0.28rem;
-	color: #fefdfe;
-}
-.index-part2 p {
-	margin: 0.1rem 0.2rem;
-	font-size: 0.16rem;
-	line-height: 1.6;
-	text-align: center;
-	letter-spacing: 0.1em;
-	color: #fefdfe;
-}
-.index-part3 {
-	padding: 0.4rem 0;
-	background: url(../imgs/index-bg.jpg) no-repeat;
-	background-size: cover;
-}
-.index-part3 .index-title {
-	color: #4a4c67;
-}
-.index-part3 .img-box {
-	width: 2.6rem;
-	margin: 0.6rem auto 0;
-}
-.img-box img { width: 100%; }
-.index-part3 p {
-	margin: 0 0.2rem;
-	color: #4a4c67;
-	font-size: 0.16rem;
-	letter-spacing: 0.1em;
-	line-height: 1.6;
-	text-align: center;
-}
-.part3-title {
-	margin: 0.4rem 0 0.4rem;
-	text-align: center;
-	font-size: 0.24rem;
-	color: #4a4c67;
-	line-height: 1.4;
-	font-family: sans-serif;
-}
-.part3-title p {
-	font-size: 0.16rem;
-	font-weight: normal;
-	font-family: Arial,helvetica,sans-serif;
-}
-.index-part4 {
-	padding: 0.8rem 0 1.4rem; 
-	color: #4a4c67;
-	font-size: 0.36rem;
-	text-align: center;
-	font-weight: bold;
-	background-color: #fcf390;
-}
-.index-part5 {
-	padding: 0.6rem 0 0.8rem;
-	background-color: #4a4c67;
-	border-bottom: 0.32rem solid #67f1c8;
-}
-.part5-div {
-	color: #fff;
-	margin-left: 0.16rem;
-	margin-right: 0.16rem;
-	margin-bottom: 0.2rem;
-}
-.part5-div b {
-	font-size: 0.22rem;
-}
-.part5-div p {
-	line-height: 0.4rem;
-}

@@ -1,0 +1,201 @@
+/*aboutus.html*/
+html,body {
+  height: 100%;
+}
+.swiper-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+header {
+  height: 0.5rem;
+  position: relative;
+  background-color: rgba(102,241,200,1);
+}
+.nav-btn {
+  position: absolute;
+  right: 0.2rem;
+  top: 0;
+  display: block;
+  width: 0.46rem;
+  height: 0.38rem;
+  background: url(../imgs/btn-bg.jpg) no-repeat rgba(74, 76, 103, 1);
+  background-position: center;
+  border-bottom-left-radius: 0.04rem;
+  border-bottom-right-radius: 0.04rem;
+  border: 0.02rem solid #fefdfe;
+  border-top: none 0;
+}
+.nav-ul {
+  display: none;
+  position: absolute;
+  top: 0.4rem;
+  right: 0.2rem;
+  width: 2.8rem;
+  background-color: rgba(74, 76, 103, .9);
+  border: 0.01rem solid #fefdfe;
+  border-bottom: none 0;
+  border-radius: 0.04rem;
+  z-index: 9999;
+}
+.nav-ul li {
+  padding: 0.08rem;
+  color: #fefdfe;
+  font-size: 0.14rem;
+  line-height: 1.8;
+  border-bottom: 0.01rem solid #fefdfe;
+}
+.nav-ul li:hover {
+  background-color: #fcf390;
+}
+.nav-ul li a {
+  display: block;
+}
+.index-title {
+  position: relative;
+  padding: 0.36rem 0;
+  color: #fff;
+  text-align: center;
+  font-size: 0.32rem;
+  letter-spacing: 0.2em;
+}
+.index-title:before {
+  position: absolute;
+  left: 57%;
+  top: 0rem;
+  display: block;
+  content: "";
+  width: 0.06rem;
+  height: 0.28rem;
+  background-color: #fcf390;
+  transform: rotate(30deg);
+}
+.index-title:after {
+  position: absolute;
+  left: 43%;
+  bottom: 0rem;
+  display: block;
+  content: "";
+  width: 0.06rem;
+  height: 0.28rem;
+  background-color: #fcf390;
+  transform: rotate(30deg);
+}
+.index-title.green:before, .index-title.green:after { background-color: rgba(102,241,200,1); }
+.index-part1 {
+  position: relative;
+}
+.index-part1 .parallax-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 130%;
+  background-size: 100%;
+  background-position: center top;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+.index-img-bg {
+  display: block !important;
+  width: 100%;
+}
+.index-part1 .img-msg {
+  position: absolute;
+  left: 0;
+  top: 40%;
+  text-align: center;
+  padding: 0 0.2rem;
+  color: #fefdfe;
+}
+.img-msg h2 { font-size: 0.26rem; margin-bottom: 0.1rem;}
+.img-msg p { font-family: Arial,helvetica,sans-serif; font-weight: bold; letter-spacing: 2.8px; }
+.index-part2 {
+  padding: 0.4rem 0;
+  background-color: #4a4c67;
+}
+.index-part2 h4 {
+  margin: 0.2rem auto;
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: 0.28rem;
+  color: #fefdfe;
+}
+.index-part2 p {
+  margin: 0.1rem 0.2rem;
+  font-size: 0.16rem;
+  line-height: 1.6;
+  text-align: center;
+  letter-spacing: 0.1em;
+  color: #fefdfe;
+}
+.index-part3 {
+  padding: 0.4rem 0 0;
+  background: url(../imgs/index-bg.jpg) no-repeat;
+  background-size: cover;
+}
+.index-part3>div:first-child {
+  margin-bottom: 0.4rem;
+}
+.index-part3 .index-title {
+  color: #4a4c67;
+}
+.index-part3 .img-box {
+  width: 2.6rem;
+  margin: 0.6rem auto 0;
+}
+.img-box img { width: 100%; }
+.index-part3 p {
+  margin: 0 0.2rem;
+  color: #4a4c67;
+  font-size: 0.16rem;
+  letter-spacing: 0.1em;
+  line-height: 1.6;
+  text-align: center;
+}
+.part3-title {
+  margin: 0.4rem 0 0.4rem;
+  text-align: center;
+  font-size: 0.24rem;
+  color: #4a4c67;
+  line-height: 1.4;
+  font-family: sans-serif;
+}
+.part3-title p {
+  font-size: 0.16rem;
+  font-weight: normal;
+  font-family: Arial,helvetica,sans-serif;
+}
+.index-part4 {
+  padding: 0.8rem 0 1.4rem; 
+  color: #4a4c67;
+  font-size: 0.36rem;
+  text-align: center;
+  font-weight: bold;
+  background-color: #fcf390;
+}
+.index-part5 {
+  padding: 0.6rem 0 0.8rem;
+  background-color: #4a4c67;
+  border-bottom: 0.32rem solid #67f1c8;
+}
+.index-part5 .index-title {
+  margin-bottom: 0.5rem;
+}
+.part5-div {
+  color: #fff;
+  margin-left: 0.16rem;
+  margin-right: 0.16rem;
+  margin-bottom: 0.2rem;
+}
+.part5-div-50 {
+  float: left;
+  width: 50%;
+}
+.part5-div b {
+  font-size: 0.22rem;
+}
+.part5-div p {
+  line-height: 0.4rem;
+}
+

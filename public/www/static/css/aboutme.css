@@ -1,0 +1,229 @@
+/*aboutme.html*/
+body {
+	width: 100% !important;
+	max-width: 100%;
+}
+html,body {
+	height: 100%;
+}
+.nav-ul {
+	background-color: #66f1c8;
+}
+.nav-ul li {
+	float: left;
+	color: #000;
+}
+.nav-ul li:hover {
+	color: rgba(0,0,0,.5);
+}
+.swiper-container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+.swiper-slide>div {
+	width: 980px;
+	margin: 0 auto;
+}
+.index-title {
+	position: relative;
+	padding: 50px;
+	color: rgb(254,253,254);
+	letter-spacing: 10.8px;
+	text-align: center;
+	font: normal normal normal 54px/1.4em helvetica-w01-bold,helvetica-w02-bold,helvetica-lt-w10-bold,sans-serif;
+	font-weight: bold;
+}
+.index-title:before {
+	position: absolute;
+	left: 53%;
+	top: 0;
+	display: block;
+	content: "";
+	width: 6px;
+	height: 56px;
+	background-color: #fcf390;
+	transform: rotate(35deg);
+}
+.index-title:after {
+	position: absolute;
+	left: 45%;
+	bottom: 0;
+	display: block;
+	content: "";
+	width: 6px;
+	height: 56px;
+	background-color: #fcf390;
+	transform: rotate(35deg);
+}
+.index-part1 {
+	position: relative;
+	overflow-y: hidden;
+}
+.index-part1 .parallax-bg {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 130%;
+	background-size: 100% 80%;
+	background-position: center top;
+	background-repeat: no-repeat;
+	z-index: -1;
+}
+.index-part1 .img-msg {
+	margin-bottom: 260px;
+}
+.index-part1 h2 {
+	margin-top: 361px;
+	margin-bottom: 48px;
+	padding: 0 3px;
+	text-align: center;
+	font: normal normal normal 80px/1em helvetica-w01-bold,helvetica-w02-bold,helvetica-lt-w10-bold,sans-serif;
+	letter-spacing: normal;
+	font-weight: bold;
+	color: #fefdfe;
+}
+.index-part1 .img-msg>p {
+	text-align: center;
+	font-weight: bold;
+	letter-spacing: 0.3em;
+	font-size: 18px;
+	color: #fefdfe;
+	font-family: Helvetica,sans-serif;
+}
+.index-part2 {
+	width: 100%;
+	padding: 50px 0 72px;
+	background-color: #4a4c67;
+}
+.index-part2 .index-title:after, .index-part2 .index-title:before {
+	background-color: #67f1c8;
+}
+.index-part2 h4 {
+	margin: 60px auto;
+	text-align: center;
+	letter-spacing: 2px;
+	color: rgb(254,253,254);
+	font-size: 36px;
+}
+.index-part2 p {
+	width: 623px;
+	margin: 0 auto 28px;
+	font-size: 16px;
+	line-height: 1.6em;
+	text-align: center;
+	letter-spacing: 0.1em;
+	color: #fefdfe;
+}
+.index-part3 {
+	position: relative;
+	padding: 100px 0;
+	height: 1242px;
+	overflow-y: hidden;
+}
+.parallax-bg2 {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	background-size: cover;
+	background-position: center;
+	z-index: -1;
+}
+.index-part3 .index-title {
+	color: #4a4c67;
+}
+.index-part3>div:first-child {
+	margin-bottom: 40px;
+}
+.part3-ul {
+	margin-top: 100px;
+}
+.part3-ul li {
+	float: left;
+	width: 248px;
+	margin: 0 39.333px;
+	text-align: center;
+	color: #4A4C67;;
+	font: 16px/1.6em sans-serif;
+    color: #4A4C67;
+    letter-spacing: 1px;
+}
+.part3-ul li img {
+	width: 100%;
+	margin-bottom: 50px;
+}
+.part3-title {
+	font-size: 25px;
+	line-height: 35px;
+	color: #4A4C67;
+}
+.part3-title p {
+	margin: 8px auto 24px;
+	font: 14px/1.4em helvetica,sans-serif;
+    color: #4A4C67;
+}
+.index-part3 .index-part4 {
+	width: 100%;
+	padding: 200px 0;
+	font: 76px/1.4em sans-serif;
+    color: #4A4C67;
+    text-align: center;
+    font-weight: bold;
+	background-color: #fcf390;
+}
+.index-part5 {
+	height: 249.8px;
+	padding: 20px 0 240px;
+	background-color: #4a4c67;
+	border-bottom: 60px solid #67f1c8;
+}
+.index-part5 .index-title:after, .index-part5 .index-title:before {
+	background-color: #67f1c8;
+}
+
+.part5-div {
+	float: left;
+	width: 218px;
+	margin-top: 30px;
+	margin-right: 162px;
+	color: #fff;
+	letter-spacing: 0.1em;
+	line-height: 1.8em;
+}
+.part5-div b {
+	font-size: 25px;
+}
+.part5-div p {
+	font-size: 15px;
+	line-height: 1.4em;
+	letter-spacing: 2px;
+}
+.part5-div:last-child {
+	margin-right: 0;
+}
+
+.swiper-pagination-nav {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	height: 60px;
+	line-height: 2px;
+	background-color: #67f1c8;
+	z-index: 99999;
+}
+.swiper-nav {
+	width: 780px;
+	margin: 0 auto;
+}
+.swiper-nav .swiper-pagination-bullet {
+	width: 88px;
+	height: 60px;
+	color: #4a4c67;
+	font-size: 14px;
+	line-height: 60px;
+	border-radius: 0;
+	background: transparent;
+}
