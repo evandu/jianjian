@@ -53,7 +53,7 @@ orders.processCreate = function*() {
         }
         const id = yield Order.insert(OrderData);
         try {
-            const wechatResp = yield Lib.sendOrderToWechat(OrderData, this.envConfig.weixin, this.ip)
+            const wechatResp = yield Lib.sendOrderToWechat(OrderData, this.envConfig.weixin, this.request.headers['x-forwarded-for'])
             const wechatRespUpdate = yield Order.updatePrepayId(OrderNo, wechatResp.prepay_id)
             if (wechatRespUpdate.affectedRows < 1) {
                 throw ModelError(409, "微信支付下单失败，请稍后再试");
