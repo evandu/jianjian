@@ -304,6 +304,7 @@
 <script type="text/javascript" src="{{static}}/plus/mobiscroll/js/mobiscroll.custom-3.0.0-beta4.min.js"></script>
 <script type="text/javascript" src="{{static}}/js/pub.js"></script>
 <script type="text/javascript">
+    var payReqData;
     $(function () {
         mobiscroll.date("#dataScroller", {
             defaultValue: new Date(1980, 0, 1),
@@ -383,33 +384,27 @@
 
         $(".btn-cancel").click(function () {
             slide("step3", "step1")
-//            $.toast.alert('取消预约', '是否取消本次服务预约？', function () {
-//                slide("step3", "step1")
-//            })
         })
+
         $(".btn-pay").click(function () {
             var $button = $(this);
             $button.attr("disabled", true);
-            $.ajax({
-                url: "",
-                type: "post",
-                dataType: 'json',
-                data: $("form").serialize()
-            }).success(function (data) {
-                $button.val("正在支付..");
-                wechatPay({
-                    "appId": data.appId,
-                    "timeStamp": data.timeStamp,
-                    "nonceStr": data.nonceStr,
-                    "package": data.package,
-                    "signType": "MD5",
-                    "paySign": data.paySign
+            if(payReqData){
+                doPay(payReqData,$button)
+            }else{
+                $.ajax({
+                    url: "",
+                    type: "post",
+                    dataType: 'json',
+                    data: $("form").serialize()
+                }).success(function (data) {
+                    payReqData = data;
+                    doPay(payReqData,$button)
+                }).fail(function (error) {
+                    $.toast.error(error.responseJSON.msg)
+                    $button.attr("disabled", false);
                 })
-                $button.attr("disabled", false);
-            }).fail(function (error) {
-                $.toast.error(error.responseJSON.msg)
-                $button.attr("disabled", false);
-            })
+            }
         })
 
         function slide(pre, next) {
@@ -419,6 +414,17 @@
             });
         }
 
+        function doPay(data,button) {
+            wechatPay({
+                "appId": data.appId,
+                "timeStamp": data.timeStamp,
+                "nonceStr": data.nonceStr,
+                "package": data.package,
+                "signType": "MD5",
+                "paySign": data.paySign
+            })
+            button.attr("disabled", false);
+        }
     })
 </script>
 </body>
