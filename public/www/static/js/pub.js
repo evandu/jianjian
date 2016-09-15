@@ -173,3 +173,34 @@ function initSwiper(){
         }
     })
 }
+
+
+
+//微信支付的代码
+
+function onBridgeReady(config) {
+    WeixinJSBridge.invoke(
+        'getBrandWCPayRequest',config,
+        function (res) {
+            alert(res.err_msg)
+            if (res.err_msg == "get_brand_wcpay_request:ok") {
+
+            }
+        }
+    );
+}
+
+function wechatPay(config) {
+    if (typeof WeixinJSBridge == "undefined") {
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', function(){onBridgeReady(config)}, false);
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', function(){onBridgeReady(config)});
+            document.attachEvent('onWeixinJSBridgeReady', function(){onBridgeReady(config)});
+        }
+    } else {
+        onBridgeReady(config);
+    }
+}
+
+
