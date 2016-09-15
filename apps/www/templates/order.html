@@ -398,7 +398,8 @@
             }).success(function (data) {
                 $button.val("正在支付..");
                 wechatPay({
-                    "appId": data.appId,
+                    "appid": data.appid,
+                    "appId": data.appid,
                     "timeStamp": data.timeStamp,
                     "nonceStr": data.nonceStr,
                     "package": data.package,
