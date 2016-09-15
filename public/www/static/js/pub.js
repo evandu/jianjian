@@ -182,10 +182,10 @@ function onBridgeReady(config) {
     WeixinJSBridge.invoke(
         'getBrandWCPayRequest',config,
         function (res) {
-            if (res.err_msg == "get_brand_wcpay_request:ok") {
+            if (res.err_msg.indexOf("ok") >-1 ) {
                 window.location.href="/pay-success"
-            }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
-                $.toast.error("支付已取消")
+            }else if(res.err_msg.indexOf('cancel') >-1 ){
+               alert("支付已取消")
             }else{
                 window.location.href="/pay-error"
             }
