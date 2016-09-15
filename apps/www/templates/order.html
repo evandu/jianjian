@@ -152,7 +152,7 @@
         <h4 class="form-title"><span class="form-title-count">3</span><span class="form-title-p">确认服务订单及金额</span></h4>
         <div class="user-msg">
             <p class="u-m-list-span">
-                <span>{Name}</span><span>{Gender}</span><span>{Age}岁</span><span>{Height}CM</span><span>{Weight}KG</span>
+                <span>{Name}</span><span>{Gender}</span><span>{Age}</span><span>{Height}</span><span>{Weight}</span>
             </p>
             <p>{Mobile}</p>
             <p>{Email}</p>
@@ -368,6 +368,7 @@
         })
 
         function slide(pre, next) {
+            $.toast.hide();
             $("#" + pre).slideUp("fast", function () {
                 $("#" + next).slideDown("fast");
             });
