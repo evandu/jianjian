@@ -322,6 +322,10 @@
 	background-size: 0.18rem auto;
 	background-position: 0.23rem 0.14rem;
 }
+.t-c-title input {
+	display: inline-block;
+	width: 1rem;
+}
 .t-c-content {
 	padding-top: 0.2rem;
 	padding-right: 0.22rem;
