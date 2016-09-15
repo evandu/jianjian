@@ -58,6 +58,7 @@ orders.processCreate = function*() {
             if (wechatRespUpdate.affectedRows < 1) {
                 throw ModelError(409, "微信支付下单失败，请稍后再试");
             }
+            console.log("wechat pay params" + JSON.stringify(wechatResp))
             this.body = wechatResp
         } catch (e) {
             console.log(e)

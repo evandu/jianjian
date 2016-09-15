@@ -405,6 +405,7 @@
                     "signType": "MD5",
                     "paySign": data.paySign
                 })
+                $button.attr("disabled", false);
             }).fail(function (error) {
                 $.toast.error(error.responseJSON.msg)
                 $button.attr("disabled", false);
