@@ -97,15 +97,27 @@ checkForm.prototype.isEmpty = function (target) {
             $.toast.error($(elem).attr("placeholder") + "不能为空", 5000);
             return;
         }
-
-
         if (!hasError && $(elem).attr("type") == "tel") {
             if (!(/^1[3|4|5|7|8]\d{9}$/.test(val))) {
                 hasError = true;
-                $.toast.error("您填写的手机格式不正确，请重新填写。");
+                $.toast.error("您填写的手机号格式不正确，请重新填写。");
             }
         }
     })
+
+    var email = $(target).find("[type='email']");
+    if(!hasError){
+        $.each(email, function (idx, elem) {
+            var val = $(elem).val();
+            if(val!='' ){
+                if (!(/^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$/.test(val))) {
+                    hasError = true;
+                    $.toast.error("您填写的邮箱格式不正确，请重新填写。");
+                }
+                return;
+            }
+        })
+    }
 
     var isLimit = $(target).find("[data-length]");
     $.each(isLimit, function (idx, elem) {
