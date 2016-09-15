@@ -23,14 +23,14 @@ www.index = function*() {
 
 www.weiXinAuth = function*() {
     const {code}  = this.query
-    this.log.info("wexin auth code=" +code )
+    this.log.error("wechat auth code=" +code )
     const req = {
         method: 'post',
         url: this.envConfig.weixin.getOpenId + code,
     };
     const response = yield HttpRequest(req);
     const status = response.statusCode;
-    this.log.info("wexin get openId response:" +  response.body )
+    this.log.error("wechat get openId response:" +  response.body )
     if (status == 200) {
 
         const openId = JSON.parse(response.body).openid;
