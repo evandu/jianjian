@@ -110,7 +110,7 @@ checkForm.prototype.isEmpty = function (target) {
         $.each(email, function (idx, elem) {
             var val = $(elem).val();
             if(val!='' ){
-                if (!(/^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$/.test(val))) {
+                if (!(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/.test(val))) {
                     hasError = true;
                     $.toast.error("您填写的邮箱格式不正确，请重新填写。");
                 }
