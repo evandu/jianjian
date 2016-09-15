@@ -23,21 +23,20 @@ www.index = function*() {
 
 www.weiXinAuth = function*() {
     const {code}  = this.query
+    this.log.info("wexin auth code=" +code )
     const req = {
         method: 'post',
         url: this.envConfig.weixin.getOpenId + code,
     };
-    console.log(code)
     const response = yield HttpRequest(req);
     const status = response.statusCode;
+    this.log.info("wexin get openId response:" +  response.body )
     if (status == 200) {
+
         const openId = JSON.parse(response.body).openid;
-         console.log(response.body)
-         console.log(openId)
         if (openId && openId.length > 16) {
             const md5OpenId  = crypto.createHash('sha1').update(openId + this.envConfig.weixin.tokenMaskCode).digest('hex')
-            console.log(md5OpenId)
-            this.cookies.set(this.envConfig.weixin.tokenName,md5OpenId  );
+            this.cookies.set(this.envConfig.weixin.tokenName, md5OpenId);
             this.redirect("/");
         } else {
             throw new ModelError(500, "打开页面报错，请稍后再试")
