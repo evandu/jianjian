@@ -15,5 +15,6 @@ router.get('/about', www.about);
 router.get('/index', www.index);
 router.get('/weixinAuth',www.weiXinAuth)
 router.get('/weixinAuth/',www.weiXinAuth)
+router.get('/weixin/pay/notify',www.weiXinPayNotify)
 
 module.exports = router.middleware();

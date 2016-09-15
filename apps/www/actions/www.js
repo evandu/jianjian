@@ -21,22 +21,25 @@ www.index = function*() {
     yield this.render('templates/index');
 };
 
+www.weiXinPayNotify =  function* () {
+    console.log(this.request.body)
+}
+
 www.weiXinAuth = function*() {
     const {code}  = this.query
-    this.log.error("wechat auth code=" +code )
+    console.log("wechat auth code=" +code )
     const req = {
         method: 'post',
         url: this.envConfig.weixin.getOpenId + code,
     };
     const response = yield HttpRequest(req);
     const status = response.statusCode;
-    this.log.error("wechat get openId response:" +  response.body )
+    console.log("wechat get openId response:" +  response.body )
     if (status == 200) {
-
         const openId = JSON.parse(response.body).openid;
         if (openId && openId.length > 16) {
-            const md5OpenId  = crypto.createHash('sha1').update(openId + this.envConfig.weixin.tokenMaskCode).digest('hex')
-            this.cookies.set(this.envConfig.weixin.tokenName, md5OpenId);
+           // const md5OpenId  = crypto.createHash('sha1').update(openId + this.envConfig.weixin.tokenMaskCode).digest('hex')
+            this.cookies.set(this.envConfig.weixin.tokenName, openId);
             this.redirect("/");
         } else {
             throw new ModelError(500, "打开页面报错，请稍后再试")

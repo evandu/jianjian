@@ -7,10 +7,8 @@
 
 const Order = require('../../../models/order');
 const Lib = require('../../../lib/lib');
-const HttpRequest = require('koa-request');
-const xmlify = require('xmlify');
+const ModelError = require('../../../models/modelerror.js');
 const orders = module.exports = {};
-
 
 orders.create = function*() {
     yield this.render('templates/order');
@@ -34,7 +32,7 @@ orders.processCreate = function*() {
         formError = {msg: "地址不能为空"}
     } else if (!Weight) {
         formError = {msg: "体重不能为空"}
-    }  else if (!Area) {
+    } else if (!Area) {
         formError = {msg: "区域不能为空"}
     } else if (!Mobile) {
         formError = {msg: "手机号不能为空"}
@@ -46,32 +44,28 @@ orders.processCreate = function*() {
     } else {
         const healthLabToken = this.healthLabToken;
         const OrderNo = Lib.generateOrderNo()
-        const id = yield Order.insert(
-            {
-                Name, Gender, Age, Height, Weight,
-                BornDate, Area, Address, Mobile, PromoteCode, Email,
-                OrderNo: OrderNo,
-                OpenId: healthLabToken,
-                CreateDate:new Date()
-            });
-        //mock
-        yield Order.paySuccess(OrderNo,40000,10000)
-        yield this.render('templates/pay-success')
+        const OrderData = {
+            Name, Gender, Age, Height, Weight,
+            BornDate, Area, Address, Mobile, PromoteCode, Email,
+            OrderNo: OrderNo,
+            OpenId: healthLabToken,
+            CreateDate: new Date()
+        }
+        const id = yield Order.insert(OrderData);
+        try {
+            const wechatResp = yield Lib.sendOrderToWechat(OrderData, this.envConfig.weixin, this.ip)
+            const wechatRespUpdate = yield Order.updatePrepayId(OrderNo, wechatResp.prepay_id)
+            if (wechatRespUpdate.affectedRows < 1) {
+                throw ModelError(409, "微信支付下单失败，请稍后再试");
+            }
+            delete wechatResp.appid
+            delete wechatResp.mch_id
+            this.body = wechatResp
+        } catch (e) {
+            console.log(e)
+            this.status=500
+            yield Order.delete(OrderNo)
+            this.body = {msg: e.msg||"微信支付下单失败，请稍后再试"}
+        }
     }
 }
-
-orders.weixinPay = function*(order) {
-    yield this.render('templates/weixin-pay');
-    const req = {
-        method: 'post',
-        url: 'https://api.mch.weixin.qq.com/pay/unifiedorder',
-        body: this.body,
-        headers: {'Accept': 'application/xml'},
-    };
-    const response = yield HttpRequest(req);
-
-    this.status = response.statusCode;
-    this.text = response.text;
-    this.body = xmlify(response.body, 'xml');
-}
-

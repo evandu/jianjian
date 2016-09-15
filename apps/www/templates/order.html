@@ -15,7 +15,6 @@
 </head>
 <body>
 <form method="post">
-    <input type="hidden" name="OpenId" value="{{openId}}">
     <!-- 第一步 =======================================================================================-->
     <div class="b-mans-msg" id="step1">
         <h4 class="form-title"><span class="form-title-count">1</span><span class="form-title-p">填写个人资料</span></h4>
@@ -370,7 +369,16 @@
 //            })
         })
         $(".btn-pay").click(function () {
-            $("form").submit()
+            $.ajax({
+                url:"",
+                type:"post",
+                dataType: 'json',
+                data: $("form").serialize()
+            }).success(function (data) {
+                console.log(data)
+            }).fail(function (error) {
+                $.toast.error(error.responseJSON.msg)
+            })
         })
 
         function slide(pre, next) {

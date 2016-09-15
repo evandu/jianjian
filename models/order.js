@@ -5,40 +5,16 @@
 
 const Lib = require('../lib/lib.js');
 const ModelError = require('./modelerror.js');
+const OrderConfig = require('./orderConfig.js');
 const _ = require('lodash');
-
 
 const Order = module.exports = {};
 
-Order.Status = {
-    '-2': "已取消",
-    '-1': '支付失败',
-    '0': "待支付",
-    '1': '预定成功',
-    '2': '设备已寄出',
-    '3': '监测完成',
-    '4': '押金退款',
-    '5': '报告查看',
-    '6': '专家评估',
-    '7': '报告上传',
-}
+Order.Status = OrderConfig.Status
 
-Order.RefundDepositStatus = {
-    '0': "无需退款",
-    '1': '已退款',
-    '2': '未退款',
-}
+Order.RefundDepositStatus = OrderConfig.RefundDepositStatus
 
-Order.Init = {
-    'ServiceName': '睡眠监测暂停分析服务',
-    'ServicePrice': 10000,
-    'Deposit': 40000,
-    'Status': 0,
-    'PayDepositAmount': 0,
-    'PayServiceAmount': 0,
-    'RefundDepositStatus': 0,
-    'RefundDeposit': 0,
-}
+Order.Init = OrderConfig.Init
 
 /**
  * Creates new Order record.
@@ -134,6 +110,18 @@ Order.getByOrderNo = function*(OrderNo) {
 Order.updateNextStatus = function*(OrderNo, Status, NextStatus) {
     const sql = 'Update JJOrder Set Status = :NextStatus Where OrderNo =:OrderNo And Status = :Status';
     const [orders] = yield global.db.query({sql: sql, namedPlaceholders: true}, {OrderNo, Status, NextStatus});
+    return orders;
+}
+
+Order.delete = function*(OrderNo) {
+    yield global.db.query('Delete From JJOrder Where OrderNo = ?', OrderNo);
+}
+
+
+
+Order.updatePrepayId = function*(OrderNo,PrepayId) {
+    const sql = 'Update JJOrder Set PrePayId = :PrepayId, PrePayDate=sysdate() Where OrderNo =:OrderNo';
+    const [orders] = yield global.db.query({sql: sql, namedPlaceholders: true}, {OrderNo,PrepayId});
     return orders;
 }
 
