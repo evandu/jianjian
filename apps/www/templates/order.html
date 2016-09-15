@@ -21,90 +21,37 @@
         <h4 class="form-title"><span class="form-title-count">1</span><span class="form-title-p">填写个人资料</span></h4>
         <div class="msg-form clearfix">
             <div class="m-f-100 star-msg">
-                <input type="text" data-empty="no" data-length ="2" placeholder="姓名" name="Name">
+                <input type="text" data-empty="no" placeholder="姓名" name="Name">
             </div>
-            <div class="m-f-50 caret star-msg">
-                <select id="sexual" data-empty="no" name="Gender" placeholder="性别">
+            <div class="m-f-50 caret">
+                <select id="sexual" name="Gender">
                     <option value="1">男</option>
                     <option value="2">女</option>
                 </select>
             </div>
-            <div class="m-f-50 caret star-msg">
-                <select id="age" data-empty="no" name="Age"  placeholder="年龄">
-                    <option value="20">20 岁</option>
-                    <option value="21">21 岁</option>
-                    <option value="22">22 岁</option>
-                    <option value="23">23 岁</option>
-                    <option value="24">24 岁</option>
-                    <option value="25" selected >25 岁</option>
-                    <option value="26">26 岁</option>
-                    <option value="27">27 岁</option>
+            <div class="m-f-50 caret">
+                <select id="age" name="Age">
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
                 </select>
             </div>
             <div class="m-f-50 caret star-msg">
-                <select id="height" data-empty="no" name="Height" placeholder="身高(CM)">
-                    <option value="140">140 CM</option>
-                    <option value="145">145 CM</option>
-                    <option value="150">150 CM</option>
-                    <option value="155">155 CM</option>
-                    <option value="160">160 CM</option>
-                    <option value="165">165 CM</option>
-                    <option value="170">170 CM</option>
-                    <option value="175" selected>175 CM</option>
-                    <option value="180">180 CM</option>
-                    <option value="185">185 CM</option>
-                    <option value="190">190 CM</option>
-                    <option value="195">195 CM</option>
-                    <option value="200">200 CM</option>
-                    <option value="205">205 CM</option>
-                    <option value="210">210 CM</option>
-                    <option value="215">215 CM</option>
-                    <option value="220">220 CM</option>
-                    <option value="225">225 CM</option>
-                    <option value="230">230 CM</option>
-                    <option value="235">235 CM</option>
-                    <option value="240">240 CM</option>
+                <select id="height" data-empty="no" name="Height">
+                    <option value="160">160</option>
+                    <option value="170">170</option>
+                    <option value="180">180</option>
                 </select>
             </div>
-            <div class="m-f-50 caret star-msg ">
-                <select id="weight" data-empty="no" name="Weight" placeholder="体重(KG)">
-                    <option value="40">40 KG</option>
-                    <option value="45">45 KG</option>
-                    <option value="50">50 KG</option>
-                    <option value="55">55 KG</option>
-                    <option value="60">60 KG</option>
-                    <option value="65">65 KG</option>
-                    <option value="70">70 KG</option>
-                    <option value="75" selected>75 KG</option>
-                    <option value="80">80 KG</option>
-                    <option value="85">85 KG</option>
-                    <option value="90">90 KG</option>
-                    <option value="95">95 KG</option>
-                    <option value="100">100 KG</option>
-                    <option value="105">105 KG</option>
-                    <option value="110">110 KG</option>
-                    <option value="115">115 KG</option>
-                    <option value="120">120 KG</option>
-                    <option value="125">125 KG</option>
-                    <option value="130">130 KG</option>
-                    <option value="135">135 KG</option>
-                    <option value="140">140 KG</option>
-                    <option value="145">145 KG</option>
-                    <option value="150">150 KG</option>
-                    <option value="155">155 KG</option>
-                    <option value="160">160 KG</option>
-                    <option value="165">165 KG</option>
-                    <option value="170">170 KG</option>
-                    <option value="175">175 KG</option>
-                    <option value="180">180 KG</option>
-                    <option value="185">185 KG</option>
-                    <option value="190">190 KG</option>
-                    <option value="195">195 KG</option>
-                    <option value="200">200 KG</option>
+            <div class="m-f-50 caret star-msg">
+                <select id="weight" data-empty="no" name="Weight">
+                    <option value="160">160</option>
+                    <option value="170">170</option>
+                    <option value="180">180</option>
                 </select>
             </div>
             <div class="m-f-100 caret">
-                <input type="text" id="dataScroller" data-empty="no" placeholder="出生年月" name="BornDate" value="1980/01/01">
+                <input type="text" id="dataScroller" placeholder="出生年月" name="BornDate">
             </div>
         </div>
         <button type="button" class="radius-btn">下一步</button>
@@ -115,7 +62,7 @@
         <h4 class="form-title"><span class="form-title-count">2</span><span class="form-title-p">填写联系方式</span></h4>
         <div class="msg-form clearfix">
             <div class="m-f-100 caret star-msg">
-                <select id="area" data-empty="no" name="Area" placeholder="省市区">
+                <select id="area" data-empty="no" name="Area">
                     <optgroup label="浙江">
                         <option value="浙江 杭州">杭州</option>
                         <option value="浙江 金华">金华</option>
@@ -126,25 +73,37 @@
                     </optgroup>
                     <optgroup label="福建">
                         <option value="福建 福州">福州</option>
+                        <option value="福建 厦门">Bristol</option>
+                        <option value="9">Cambridge</option>
+                        <option value="10">London</option>
+                        <option value="11">Leeds</option>
+                        <option value="12">Manchester</option>
+                        <option value="13">Newcastle</option>
+                        <option value="14">Oxford</option>
                     </optgroup>
                     <optgroup label="江苏">
-                        <option value="江苏 常州">常州</option>
-                        <option value="江苏 苏州">苏州</option>
+                        <option value="江苏">Beijing</option>
+                        <option value="江苏">Chongqing</option>
+                        <option value="17">Shanghai</option>
+                        <option value="18">Shenzhen</option>
+                        <option value="19">Tianjin</option>
                     </optgroup>
                 </select>
             </div>
             <div class="m-f-100 star-msg">
-                <input type="text" name="Address" data-empty="no" data-length ="5" placeholder="详细地址">
+                <input type="text" name="Address" data-empty="no" data-length="5" placeholder="详细地址">
             </div>
             <div class="m-f-100 star-msg">
                 <input type="tel" name="Mobile" data-empty="no" placeholder="手机号码">
             </div>
             <div class="m-f-100">
-                <input type="email" name="Email"  placeholder="邮箱（选填）">
+                <input type="email" name="Email" placeholder="邮箱（选填）">
             </div>
         </div>
-        <button type="button" class="radius-btn next">下一步</button>
-        <button type="button" class="radius-btn pre">上一步</button>
+        <div class="btn-group clearfix">
+            <button type="button" class="radius-btn pre">上一步</button>
+            <button type="button" class="radius-btn next">下一步</button>
+        </div>
     </div>
 
     <!-- 第三步 =======================================================================================-->
@@ -152,7 +111,7 @@
         <h4 class="form-title"><span class="form-title-count">3</span><span class="form-title-p">确认服务订单及金额</span></h4>
         <div class="user-msg">
             <p class="u-m-list-span">
-                <span>{Name}</span><span>{Gender}</span><span>{Age}</span><span>{Height}</span><span>{Weight}</span>
+                <span>{Name}</span><span>{Gender}</span><span>{Age}岁</span><span>{Height}CM</span><span>{Weight}KG</span>
             </p>
             <p>{Mobile}</p>
             <p>{Email}</p>
@@ -285,12 +244,11 @@
 <script type="text/javascript" src="{{static}}/js/pub.js"></script>
 <script type="text/javascript">
     $(function () {
-        mobiscroll.date("#dataScroller",{
-            defaultValue: new Date(1980, 0, 1),
-            theme: 'ios',
-            lang: 'zh',
-            display: 'bottom',
-            mode: 'datetimeDate',
+        $('#dataScroller').mobiscroll().date({
+            theme: 'ios',      // Specify theme like: theme: 'ios' or omit setting to use default
+            lang: 'zh',    // Specify language like: lang: 'pl' or omit setting to use default
+            display: 'bottom',  // Specify display mode like: display: 'bottom' or omit setting to use default
+            mode: 'datetimeDate'
         });
         $('#sexual').mobiscroll().select({
             theme: 'ios',
@@ -368,7 +326,6 @@
         })
 
         function slide(pre, next) {
-            $.toast.hide();
             $("#" + pre).slideUp("fast", function () {
                 $("#" + next).slideDown("fast");
             });

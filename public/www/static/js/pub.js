@@ -94,7 +94,7 @@ checkForm.prototype.isEmpty = function (target) {
         }
         if (!hasError && val.length == 0) {
             hasError = true;
-            $.toast.error($(elem).attr("placeholder") + "不能为空", 5000);
+            $.toast.error($(elem).attr("placeholder") + "不能为空");
             return;
         }
         if (!hasError && $(elem).attr("type") == "tel") {
