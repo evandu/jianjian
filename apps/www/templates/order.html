@@ -104,7 +104,7 @@
                 </select>
             </div>
             <div class="m-f-100 caret">
-                <input type="text" id="dataScroller" data-empty="no" placeholder="出生年月" name="BornDate" value="1980/01/01">
+                <input type="text" id="dataScroller"  placeholder="出生年月（选填）" name="BornDate">
             </div>
         </div>
         <button type="button" class="radius-btn">下一步</button>
@@ -294,24 +294,28 @@
             display: 'bottom',
             mode: 'datetimeDate',
         });
+
         $('#sexual').mobiscroll().select({
             theme: 'ios',
             lang: 'zh',
             display: 'bottom',
             placeholder: '性别',
         }).prev().val("");
+
         $('#age').mobiscroll().select({
             theme: 'ios',
             lang: 'zh',
             display: 'bottom',
             placeholder: "年龄"
         }).prev().val("");
+
         $('#height').mobiscroll().select({
             theme: 'ios',
             lang: 'zh',
             display: 'bottom',
             placeholder: '身高'
         }).prev().val("");
+
         $('#weight').mobiscroll().select({
             theme: 'ios',
             lang: 'zh',
