@@ -34,9 +34,7 @@ orders.processCreate = function*() {
         formError = {msg: "地址不能为空"}
     } else if (!Weight) {
         formError = {msg: "体重不能为空"}
-    } else if (!BornDate) {
-        formError = {msg: "出生日期不能为空"}
-    } else if (!Area) {
+    }  else if (!Area) {
         formError = {msg: "区域不能为空"}
     } else if (!Mobile) {
         formError = {msg: "手机号不能为空"}
