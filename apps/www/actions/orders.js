@@ -6,6 +6,7 @@
 'use strict';
 
 const Order = require('../../../models/order');
+const Coupon = require('../../../models/Coupon');
 const Lib = require('../../../lib/lib');
 const ModelError = require('../../../models/modelerror.js');
 const orders = module.exports = {};
@@ -41,26 +42,37 @@ orders.processCreate = function*() {
         formError = {msg: "手机号不能为空"}
     }
 
+
+
     if (formError) {
         this.body = formError;
         this.status = 400;
     } else {
+        let PromotePrice=0;
+        if(PromoteCode){
+            const coupon =   yield Coupon.get(PromoteCode)
+            if(coupon.Status == 0 &&
+                coupon.StartDate.getTime() <= Date.now() &&
+                coupon.EndDate.getTime() >=  Date.now()){
+                PromotePrice = coupon.Amount;
+            }
+        }
         const healthLabToken = this.healthLabToken;
         const OrderNo = Lib.generateOrderNo()
         const OrderData = {
             Name, Gender, Age, Height, Weight,
-            BornDate, Area, Address, Mobile, PromoteCode, Email,
-            OrderNo: OrderNo,
-            OpenId: healthLabToken,
+            BornDate, Area, Address, Mobile,
+            PromoteCode, Email, PromotePrice,
+            OrderNo: OrderNo,OpenId: healthLabToken,
             CreateDate: new Date()
         }
         const id = yield Order.insert(OrderData);
         try {
             console.log("create Order Success,wehat start.....")
             const clientIp = this.request.headers['x-forwarded-for']
-            const weixinConfig = this.envConfig.weixin;
+            const wechatConfig = this.envConfig.weixin;
 
-            const wechatResp = yield Lib.sendOrderToWechat(OrderData, weixinConfig, clientIp)
+            const wechatResp = yield Lib.sendOrderToWechat(OrderData, wechatConfig, clientIp)
             const wechatRespUpdate = yield Order.updatePrepayId(OrderNo, wechatResp.prepay_id)
             if (wechatRespUpdate.affectedRows < 1) {
                 throw ModelError(409, "微信支付下单失败，请稍后再试");
