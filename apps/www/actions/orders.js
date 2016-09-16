@@ -11,7 +11,10 @@ const ModelError = require('../../../models/modelerror.js');
 const orders = module.exports = {};
 
 orders.create = function*() {
-    yield this.render('templates/order');
+    yield this.render('templates/order',{
+        ServicePrice:Order.Init.ServicePrice,
+        Deposit:Order.Init.Deposit
+    });
 };
 
 orders.processCreate = function*() {
