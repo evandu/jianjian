@@ -6,7 +6,7 @@
 'use strict';
 
 const Order = require('../../../models/order');
-const Coupon = require('../../../models/Coupon');
+const Coupon = require('../../../models/coupon');
 const Lib = require('../../../lib/lib');
 const ModelError = require('../../../models/modelerror.js');
 const orders = module.exports = {};
