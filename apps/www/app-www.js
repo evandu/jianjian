@@ -23,7 +23,7 @@ app.use(function* mysqlConnection(next) {
 
 app.use(function* xml(next) {
     const ctx = this
-    if(ctx.is('xml')){
+    if(ctx.is('text/xml')){
         ctx.request.body =yield new Promise((resolve, reject) => {
             let xml = '';
             ctx.req.on('data', chunk => xml += chunk.toString('utf-8'))
@@ -79,17 +79,14 @@ app.use(hbsKoa({
     handlebars: handlebars,
 }));
 
-
-
 app.use(function* cleanPost(next) {
-    if(this.is('json')){
-        if (this.request.body !== undefined) {
-            for (const key in this.request.body) {
-                this.request.body[key] = this.request.body[key].trim();
-                if (this.request.body[key] == '') this.request.body[key] = null;
-            }
+    if (!this.is('text/xml') && this.request.body !== undefined) {
+        for (const key in this.request.body) {
+            this.request.body[key] = this.request.body[key].trim();
+            if (this.request.body[key] == '') this.request.body[key] = null;
         }
     }
+
     yield next;
 });
 
