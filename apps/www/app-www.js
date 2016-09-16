@@ -21,14 +21,16 @@ app.use(function* mysqlConnection(next) {
 });
 
 
-app.use(function* ddd(next) {
+app.use(function* xml(next) {
     const ctx = this
-    ctx.request.body =yield new Promise((resolve, reject) => {
-        let xml = '';
-        ctx.req.on('data', chunk => xml += chunk.toString('utf-8'))
-            .on('error', reject)
-            .on('end', () =>resolve(xml))
-    })
+    if(ctx.is('xml')){
+        ctx.request.body =yield new Promise((resolve, reject) => {
+            let xml = '';
+            ctx.req.on('data', chunk => xml += chunk.toString('utf-8'))
+                .on('error', reject)
+                .on('end', () =>resolve(xml))
+        })
+    }
     yield next;
 });
 
