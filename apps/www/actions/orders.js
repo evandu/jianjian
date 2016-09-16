@@ -93,5 +93,6 @@ orders.pay = function*() {
     const clientIp = this.request.headers['x-forwarded-for']
     const weixinConfig = this.envConfig.weixin;
     const wechatResp = yield Lib.sendOrderToWechat(order, weixinConfig, clientIp)
+    console.log("pay req params " +JSON.stringify(wechatResp))
     this.body = wechatResp
 }
