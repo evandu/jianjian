@@ -11,10 +11,13 @@ const report = require('./actions/report.js');
 //order
 router.get('/', orders.create);
 router.post('/', orders.processCreate);
+router.post('/cancel/:OrderNo', orders.cancel);
+router.post('/pay/:OrderNo', orders.pay);
 
 //query
 router.get('/list', query.list);
 router.get('/detail/:OrderNo', query.detail);
+
 
 //pay
 router.get('/pay-error', pay.payError);

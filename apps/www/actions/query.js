@@ -21,3 +21,5 @@ query.detail = function*() {
     const order = yield Order.get(OrderNo, healthLabToken)
     yield this.render('templates/list-detail', order);
 };
+
+

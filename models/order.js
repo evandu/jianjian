@@ -144,3 +144,10 @@ Order.update4Status = function*(OrderNo,RefundDeposit,RefundDepositStatus) {
     const [orders] = yield global.db.query({sql: sql, namedPlaceholders: true}, {OrderNo, RefundDeposit, RefundDepositStatus});
     return orders;
 }
+
+
+Order.cancel = function*(OrderNo, OpenId) {
+    const sql = 'Update JJOrder Set Status = -2  Where OrderNo =:OrderNo And OpenId = :OpenId And Status in (-1,-2,0)';
+    const [orders] = yield global.db.query({sql: sql, namedPlaceholders: true}, {OrderNo, OpenId});
+    return orders;
+}

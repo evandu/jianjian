@@ -41,16 +41,27 @@
             var tpl = '<span class="toast-icon toast-error"></span>' + this._msg(msg);
             this.show(tpl,delaytime);
         },
-        alert: function(title,content){
-            var tpl = '<p class="a-title">'+title+'</p><p class="a-sub">'+content+'</p><div class="a-btn-group"><a href="javascript: $.toast.cancel();">否</a><a href="javascript: $.toast.sure();">是</a></div>';
+        alert: function(title,content,sure, cancel){
+            var tpl = '<p class="a-title">'+title+'</p><p class="a-sub">'+content+'</p>' +
+                '<div class="a-btn-group">' +
+                '<a class="toast-cancel" href="javascript: void(0);">否</a>' +
+                '<a class="toast-sure" href="javascript: void(0)">是</a></div>';
             this.create(tpl);
+            $(".pop-bg").on("click",".toast-cancel",function () {
+                $.toast.cancel(cancel);
+            })
+            $(".pop-bg").on("click",".toast-sure",function () {
+                $.toast.sure(sure);
+            })
         },
-        cancel: function(){
+        cancel: function(cancel){
             $.toast.hide();
+            if($.isFunction(cancel)) cancel();
             return false;
         },
-        sure: function(){
+        sure: function(sure){
             $.toast.hide();
+            if($.isFunction(sure)) sure();
             return true;
         },
         loading: function(msg){

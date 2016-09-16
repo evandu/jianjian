@@ -56,7 +56,7 @@ orders.processCreate = function*() {
             console.log("create Order Success,wehat start.....")
             const clientIp = this.request.headers['x-forwarded-for']
             const weixinConfig = this.envConfig.weixin;
-             
+
             const wechatResp = yield Lib.sendOrderToWechat(OrderData, weixinConfig, clientIp)
             const wechatRespUpdate = yield Order.updatePrepayId(OrderNo, wechatResp.prepay_id)
             if (wechatRespUpdate.affectedRows < 1) {
@@ -66,9 +66,32 @@ orders.processCreate = function*() {
             this.body = wechatResp
         } catch (e) {
             console.log(e)
-            this.status=500
+            this.status = 500
             yield Order.delete(OrderNo)
-            this.body = {msg: e.msg||"微信支付下单失败，请稍后再试"}
+            this.body = {msg: e.msg || "微信支付下单失败，请稍后再试"}
         }
     }
+};
+
+orders.cancel = function*() {
+    const OrderNo = this.params.OrderNo
+    const healthLabToken = this.healthLabToken
+    const order = yield Order.cancel(OrderNo, healthLabToken)
+    if (order.affectedRows < 1) {
+        this.body = "取消失败"
+        this.status = 500;
+    } else {
+        this.body = "取消成功"
+    }
+};
+
+
+orders.pay = function*() {
+    const OrderNo = this.params.OrderNo
+    const healthLabToken = this.healthLabToken
+    const order = yield Order.get(OrderNo, healthLabToken)
+    const clientIp = this.request.headers['x-forwarded-for']
+    const weixinConfig = this.envConfig.weixin;
+    const wechatResp = yield Lib.sendOrderToWechat(order, weixinConfig, clientIp)
+    this.body = wechatResp
 }
