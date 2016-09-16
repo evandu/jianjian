@@ -19,7 +19,8 @@ pay.paySuccess = function*() {
 
 
 pay.weiXinPayNotify = function*() {
-    console.log("wechatPay Notify data = " + this.request.body)
+    console.log("wechatPay Notify data = ")
+    console.log(this.request.body)
     const respData = JSON.parse(xml2json.toJson(this.response.body, {trim: true})).xml
     if (respData && respData.return_code == 'SUCCESS' && respData.result_code == 'SUCCESS') {
         const wechatConfig = this.envConfig.weixin;
