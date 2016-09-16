@@ -7,7 +7,7 @@ const crypto = require('crypto')
 const xml2json = require('xml2json');
 const Order = require('../../../models/order');
 const pay = module.exports = {};
-
+const _ = require('lodash');
 
 pay.payError = function*() {
     yield this.render('templates/pay-error');
@@ -19,14 +19,8 @@ pay.paySuccess = function*() {
 
 
 pay.weiXinPayNotify = function*() {
-    console.log("wechatPay Notify data = ")
-    console.log(this.request.text)
-    console.log(this.request.body)
-   
-    console.log(this.request.query)
-  
-    console.log(this.request.params)
-    const respData = JSON.parse(xml2json.toJson(this.response.body, {trim: true})).xml
+    console.log("wechatPay Notify data = " + this.request.body)
+    const respData = JSON.parse(xml2json.toJson(this.request.body, {trim: true})).xml
     if (respData && respData.return_code == 'SUCCESS' && respData.result_code == 'SUCCESS') {
         const wechatConfig = this.envConfig.weixin;
         const originData = _.map(_.sortBy(_.keys(respData)), o=>respData[o] ? `${o}=${respData[o]}` : '').join("&") + `&key=${wechatConfig.key}`;

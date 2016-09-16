@@ -7,7 +7,6 @@ const bunyan = require('bunyan');
 const koaLogger = require('koa-bunyan');
 const handlebars = require('handlebars');
 
-
 const app = module.exports = koa();
 const access = {type: 'rotating-file', path: './logs/www-access.log', level: 'trace', period: '1d', count: 4};
 const error = {type: 'rotating-file', path: './logs/www-error.log', level: 'error', period: '1d', count: 4};
@@ -21,6 +20,17 @@ app.use(function* mysqlConnection(next) {
     this.db.release();
 });
 
+
+app.use(function* ddd(next) {
+    const ctx = this
+    ctx.request.body =yield new Promise((resolve, reject) => {
+        let xml = '';
+        ctx.req.on('data', chunk => xml += chunk.toString('utf-8'))
+            .on('error', reject)
+            .on('end', () =>resolve(xml))
+    })
+    yield next;
+});
 
 app.use(function* handleErrors(next) {
     try {
@@ -67,11 +77,15 @@ app.use(hbsKoa({
     handlebars: handlebars,
 }));
 
+
+
 app.use(function* cleanPost(next) {
-    if (this.request.body !== undefined) {
-        for (const key in this.request.body) {
-            this.request.body[key] = this.request.body[key].trim();
-            if (this.request.body[key] == '') this.request.body[key] = null;
+    if(this.is('json')){
+        if (this.request.body !== undefined) {
+            for (const key in this.request.body) {
+                this.request.body[key] = this.request.body[key].trim();
+                if (this.request.body[key] == '') this.request.body[key] = null;
+            }
         }
     }
     yield next;

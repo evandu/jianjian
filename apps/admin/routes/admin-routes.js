@@ -8,7 +8,7 @@ const router = require('koa-router')(); // router middleware for koa
 const order = require('../actions/order');
 const coupon = require('../actions/coupon');
 const user = require('../actions/user.js');
-var bodyParse =require('koa-body');
+const bodyParse =require('koa-body');
 
 router.get('/', order.list);
 router.get('/ajaxQuery', order.ajaxQuery);
