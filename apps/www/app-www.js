@@ -86,7 +86,6 @@ app.use(function* cleanPost(next) {
             if (this.request.body[key] == '') this.request.body[key] = null;
         }
     }
-
     yield next;
 });
 

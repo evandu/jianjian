@@ -21,9 +21,11 @@ pay.paySuccess = function*() {
 pay.weiXinPayNotify = function*() {
     console.log("wechatPay Notify data = " + this.request.body)
     const respData = JSON.parse(xml2json.toJson(this.request.body, {trim: true})).xml
+    console.log(respData)
     if (respData && respData.return_code == 'SUCCESS' && respData.result_code == 'SUCCESS') {
         const wechatConfig = this.envConfig.weixin;
-        const originData = _.map(_.sortBy(_.keys(respData)), o=>respData[o] ? `${o}=${respData[o]}` : '').join("&") + `&key=${wechatConfig.key}`;
+        const originData = _.map(_.sortBy(_.filter(_.keys(respData),o=> o!='sign')), o=>respData[o] ? `${o}=${respData[o]}` : '').join("&") + `&key=${wechatConfig.key}`;
+        console.log(originData)
         const sign = crypto.createHash('md5').update(originData).digest('hex').toUpperCase();
         if (sign == respData.sign) {
             const ServicePrice = parseInt(respData.attach.split("@")[0])
