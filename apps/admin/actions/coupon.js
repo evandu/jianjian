@@ -26,6 +26,7 @@ coupons.ajaxQuery = function*() {
     const coupons = yield Coupon.query(this.query)
     const data = _.map(coupons.coupons, coupon=> {
         coupon.Status = Coupon.Status[coupon.Status]
+        coupon.Amount =coupon.Amount/100.00
         coupon.CreateDate = moment(coupon.CreateDate).format('YYYY-MM-DD HH:mm:ss')
         coupon.LastUpdateDate = moment(coupon.LastUpdateDate).format('YYYY-MM-DD HH:mm:ss')
         return coupon
