@@ -86,3 +86,10 @@ Coupon.updateNextStatus = function*(PromoteCode, Status, NextStatus) {
     const [orders] = yield global.db.query({sql: sql, namedPlaceholders: true}, {PromoteCode, Status, NextStatus});
     return orders;
 }
+
+Coupon.nextVal  = function *() {
+    const  [[val]] =  yield global.db.query("select NEXTVAL('PromoteCode') as NextId")
+    const maskCode = (val.NextId).toString(16).toUpperCase()
+    const PromoteCode = maskCode + Lib.randomString(12 - maskCode.length).replace(/o|i|f|z|g|v/gi, 'H').toUpperCase();
+    return PromoteCode.substring(0,4) + "-" + PromoteCode.substring(4,8) + "-" + PromoteCode.substring(8,12)
+}

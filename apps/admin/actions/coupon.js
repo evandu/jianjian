@@ -22,7 +22,6 @@ coupons.list = function*() {
 };
 
 
-
 coupons.ajaxQuery = function*() {
     const coupons = yield Coupon.query(this.query)
     const data = _.map(coupons.coupons, coupon=> {
@@ -46,19 +45,19 @@ coupons.generate = function*() {
 };
 
 coupons.processGenerate = function*() {
-    const {Amount,Num,DateRange} = this.request.body
+    const {Amount, Num, DateRange} = this.request.body
     const couponSet = new Array();
-    for(let i=0;i< _.toInteger(Num); i++){
+    for (let i = 0; i < _.toInteger(Num); i++) {
         const c = {
-            PromoteCode:i,
-            Amount:_.toInteger(Amount)*100,
-            StartDate:DateRange.split("-")[0].trim(),
-            EndDate:DateRange.split("-")[1].trim()
+            PromoteCode: yield Coupon.nextVal(),
+            Amount: _.toInteger(Amount) * 100,
+            StartDate: DateRange.split("-")[0].trim(),
+            EndDate: DateRange.split("-")[1].trim()
         }
         couponSet.push(c)
         yield Coupon.insert(c)
     }
     const fileName = "promoteCodes" + DateRange.replace(/\//g, "") + ".txt"
-    this.set('Content-disposition','attachment;filename=' + fileName)
-    this.body=_.map(couponSet, o=> `${o.PromoteCode}   ${o.Amount/100.00}元   ${o.StartDate}-${o.EndDate}`).join("\n")
+    this.set('Content-disposition', 'attachment;filename=' + fileName)
+    this.body = _.map(couponSet, o=> `${o.PromoteCode}   ${o.Amount / 100.00}元   ${o.StartDate}-${o.EndDate}`).join("\n")
 };
