@@ -26,7 +26,7 @@ OrderConfig.RefundDepositStatus = {
 }
 
 OrderConfig.Init = {
-    'ServiceName': '睡眠监测暂停分析服务',
+    'ServiceName': '睡眠呼吸暂停监测服务',
     'ServicePrice': 20000,
     'Deposit': 40000,
     'Status': 0,
