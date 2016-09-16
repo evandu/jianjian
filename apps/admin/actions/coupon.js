@@ -47,18 +47,18 @@ coupons.generate = function*() {
 
 coupons.processGenerate = function*() {
     const {Amount,Num,DateRange} = this.request.body
-    const couponSet = new Set();
+    const couponSet = new Array();
     for(let i=0;i< _.toInteger(Num); i++){
         const c = {
             PromoteCode:i,
-            Amount:Amount,
+            Amount:_.toInteger(Amount)*100,
             StartDate:DateRange.split("-")[0].trim(),
             EndDate:DateRange.split("-")[1].trim()
         }
-        couponSet.add(c)
+        couponSet.push(c)
         yield Coupon.insert(c)
     }
     const fileName = "promoteCodes" + DateRange.replace(/\//g, "") + ".txt"
     this.set('Content-disposition','attachment;filename=' + fileName)
-    this.body="sadsadsadsa"
+    this.body=_.map(couponSet, o=> `${o.PromoteCode}   ${o.Amount/100.00}元   ${o.StartDate}-${o.EndDate}`).join("\n")
 };
