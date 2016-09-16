@@ -30,7 +30,7 @@ pay.weiXinPayNotify = function*() {
         if (sign == respData.sign) {
             const ServicePrice = parseInt(respData.attach.split("@")[0])
             const Deposit = parseInt(respData.attach.split("@")[1])
-            const row = Order.paySuccess(respData.out_trade_no, Deposit, ServicePrice, respData.transaction_id, respData.openid)
+            const row = yield Order.paySuccess(respData.out_trade_no, Deposit, ServicePrice, respData.transaction_id, respData.openid)
             if (row.affectedRows > 0) {
                 this.body = '<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>'
             } else {
