@@ -94,11 +94,10 @@ orders.processCreate = function*() {
                 const wechatConfig = this.envConfig.weixin;
                 const wechatResp = yield Lib.sendOrderToWechat(BookOrder, wechatConfig, clientIp)
                 const wechatRespUpdate = yield Order.updatePrepayId(OrderNo, wechatResp.prepay_id)
-
                 if (wechatRespUpdate.affectedRows < 1) {
                     throw ModelError(409, "微信支付下单失败，请稍后再试");
                 }
-
+                wechatResp.OrderNo = OrderNo
                 console.log("wechat pay params" + JSON.stringify(wechatResp))
                 this.body = wechatResp
             } catch (e) {

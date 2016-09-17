@@ -412,7 +412,27 @@
         });
 
         $(".btn-cancel").click(function () {
-            slide("step3", "step1")
+            if(payReqData && payReqData.OrderNo){
+                $(".btn-cancel").attr("disabled", true);
+                $("#PromoteCode").attr("readonly", false);
+                $.toast.alert('取消预约','订单已提交，是否取消本次服务预约？',function() {
+                    $.ajax({
+                        url:'/cancel/' + payReqData.OrderNo,
+                        type: "post"
+                    }).done(function (data) {
+                        payReqData = undefined;
+                        $(".btn-cancel").attr("disabled", false);
+                        $(".btn-pay").attr("disabled", false);
+                        slide("step3", "step1")
+                    }).fail(function (error) {
+                        $(".btn-pay").attr("disabled", false);
+                        $(".btn-cancel").attr("disabled", false);
+                        $.toast.error("订单取消失败")
+                    })
+                });
+            }else{
+                slide("step3", "step1")
+            }
         })
 
         $("#PromoteCode").blur(function () {
@@ -421,6 +441,7 @@
             $.toast.hide();
             if (!PromoteCode || PromoteCode == '') {
                 $(".btn-pay").attr("disabled", false)
+                $("#PromoteCode").attr("readonly", false);
                 return;
             } else {
                 $.ajax({
@@ -471,10 +492,6 @@
         })
 
         function slide(pre, next) {
-            payReqData = undefined;
-            $(".btn-pay").attr("disabled", false);
-            $(".btn-cancel").attr("disabled", false);
-            $("#PromoteCode").attr("readonly", false);
             $.toast.hide();
             $("#" + pre).slideUp("fast", function () {
                 $("#" + next).slideDown("fast");
