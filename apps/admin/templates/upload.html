@@ -8,9 +8,10 @@
                     <div class="row invoice-info">
                         <div class="col-sm-4 invoice-col">
                             <address>
-                                <strong>{{order.Name}}</strong><br>
+                                <strong>个人信息</strong>
                                 <br>
-                                <b>基本信息:</b> {{gender order.Gender}},{{order.Age}}岁,{{order.Height}}cm, {{order.Weight}}kg<br>
+                                <b>体检姓名:</b> {{order.Name}}<br>
+                                <b>基本信息:</b> {{gender order.Gender}}，{{order.BornDate}}，{{order.Age}}岁，{{order.Height}}CM，{{order.Weight}}KG<br>
                                 <b>预定日期:</b> {{yyy-MM-ddHHmmss order.CreateDate}}<br>
                                 <b>订单状态:</b> {{OrderStatus order.Status}}<br>
                                 <b>报告日期:</b> {{yyy-MM-ddHHmmss order.CreateDate}}<br>
@@ -20,7 +21,6 @@
                         <div class="col-sm-4 invoice-col">
                             <address>
                                 <strong>地址信息</strong><br>
-                                <br>
                                 {{order.Area}}<br>
                                 {{order.Address}}<br>
                                 手机: {{order.Mobile}}<br>
@@ -29,9 +29,9 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-4 invoice-col">
-                            <b>已付金额:  {{price PayServiceAmount PayDepositAmount }} 元</b><br>
-                            <b>优惠金额: {{amount PromotePrice }} 元</b><br>
-                            <br>
+                            <strong>付款信息</strong><br>
+                            <b>已付金额:</b> {{price2 PayServiceAmount PayDepositAmount }} 元<br>
+                            <b>优惠金额:</b> {{amount PromotePrice }} 元<br>
                             <b>订单编号:</b> {{order.OrderNo}}<br>
                             <b>支付日期:</b> {{yyy-MM-ddHHmmss order.PayDate}}<br>
                            <!-- <b>押金退款:</b> {{RefundDepositStatus order.RefundDepositStatus}} {{amount RefundDeposit}} 元 {{yyy-MM-ddHHmmss order.RefundDepositDate}} -->

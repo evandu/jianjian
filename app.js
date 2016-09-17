@@ -56,13 +56,18 @@ handlebars.registerHelper('yyy-MM-ddHHmmss', function (timestamp) {
 });
 
 
-handlebars.registerHelper('price', function (price1, price2, price3) {
+handlebars.registerHelper('price3', function (price1, price2, price3) {
     if (!price2) price2 = 0;
     if (!price1) price1 = 0;
     if (!price3) price3 = 0;
     return (price2 + price1 - price3) / 100.00
 });
 
+handlebars.registerHelper('price2', function (price1, price2) {
+    if (!price2) price2 = 0;
+    if (!price1) price1 = 0;
+    return (price2 + price1) / 100.00
+});
 
 
 handlebars.registerHelper('amount', function (price) {
