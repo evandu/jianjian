@@ -4,6 +4,7 @@
 'use strict';
 
 const Coupon = require('../../../models/coupon');
+const Order = require('../../../models/order');
 const _ = require('lodash');
 const moment = require('moment');
 
@@ -41,7 +42,7 @@ coupons.generate = function*() {
             subName: '生成体检码',
         },
     };
-    yield this.render('templates/generate', {module: context.module});
+    yield this.render('templates/generate', {module: context.module, MaxAmount:(Order.Init.ServicePrice + Order.Init.Deposit)/100.00 });
 };
 
 coupons.processGenerate = function*() {
