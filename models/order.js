@@ -127,7 +127,8 @@ Order.updatePrepayId = function*(OrderNo,PrepayId) {
 
 
 Order.paySuccess = function*(OrderNo,PayDepositAmount,PayServiceAmount,PayTransactionId,OpenId) {
-    const sql = 'Update JJOrder Set Status = 1, PayDate=sysdate(), PayDepositAmount=:PayDepositAmount, PayServiceAmount=:PayServiceAmount, PayTransactionId=:PayTransactionId Where OpenId=:OpenId And OrderNo =:OrderNo And Status in (-1,0) ';
+    //OpenId=:OpenId And
+    const sql = 'Update JJOrder Set Status = 1, PayDate=sysdate(), PayDepositAmount=:PayDepositAmount, PayServiceAmount=:PayServiceAmount, PayTransactionId=:PayTransactionId Where OrderNo =:OrderNo And Status in (-1,0) ';
     const [orders] = yield global.db.query({sql: sql, namedPlaceholders: true}, {OrderNo,PayDepositAmount,PayServiceAmount,PayTransactionId,OpenId});
     return orders;
 }
