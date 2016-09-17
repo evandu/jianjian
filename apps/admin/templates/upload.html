@@ -24,12 +24,15 @@
                                 {{order.Area}}<br>
                                 {{order.Address}}<br>
                                 手机: {{order.Mobile}}<br>
-                                邮箱: {{order.Email}}
+                                邮箱: {{order.Email}}<br>
+                                物流公司: {{order.DeliverName}}<br>
+                                物流单号: {{order.DeliverNum}}
                             </address>
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-4 invoice-col">
                             <strong>付款信息</strong><br>
+                            <b>订单金额:</b> {{price2 order.ServicePrice order.Deposit}} 元<br>
                             <b>已付金额:</b> {{price2 order.PayServiceAmount order.PayDepositAmount }} 元<br>
                             <b>优惠金额:</b> {{amount order.PromotePrice }} 元<br>
                             <b>订单编号:</b> {{order.OrderNo}}<br>
