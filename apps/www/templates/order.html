@@ -444,18 +444,26 @@
                 $("#PromoteCode").attr("readonly", false);
                 return;
             } else {
+                $.toast.loading("正在查询优惠码...")
+                $(".btn-pay").attr("disabled", true)
+                $(".btn-cancel").attr("disabled", true);
                 $.ajax({
                     url: "/coupon/" + PromoteCode,
                     type: "get",
                     dataType: 'json'
                 }).success(function (data) {
+                   $.toast.hide();
                     $(".btn-pay").attr("disabled", false)
+                    $(".btn-cancel").attr("disabled", false);
                     $("#PromotePrice").html(data.Amount / 100.00)
                     var ServicePrice = $("#ServicePrice").val()
                     var PayAmount = parseInt(ServicePrice)*100 - parseInt(data.Amount);
                     $("#PayAmount").html(PayAmount/100.0 < 0.01 ? 0.0 : PayAmount/100.0)
                 }).fail(function (error) {
-                    $(".btn-pay").attr("disabled", true)
+                    $.toast.hide();
+                    $("#PromoteCode").val('')
+                    $(".btn-pay").attr("disabled", false)
+                    $(".btn-cancel").attr("disabled", false);
                     $("#PromotePrice").html("0")
                     $("#PayAmount").html(ServicePrice)
                     $.toast.error(error.responseJSON.msg)
@@ -468,15 +476,18 @@
             $button.attr("disabled", true);
             $(".btn-cancel").attr("disabled", true);
             $("#PromoteCode").attr("readonly", true);
+            $.toast.hide();
             if (payReqData) {
                 doPay(payReqData, $button)
             } else {
+                $.toast.loading(" 正在提交订单...")
                 $.ajax({
                     url: "",
                     type: "post",
                     dataType: 'json',
                     data: $("form").serialize()
                 }).success(function (data) {
+                    $.toast.hide();
                     if (data.PromoteCodePay == 'ok') {
                         window.location.href = '/pay-success';
                     } else {
@@ -484,6 +495,11 @@
                         doPay(payReqData, $button)
                     }
                 }).fail(function (error) {
+                    if(error.status == 406){
+                        $("#PromoteCode").val('')
+                        $("#PromoteCode").attr("readonly", false);
+                    }
+                    $.toast.hide();
                     $.toast.error(error.responseJSON.msg)
                     $button.attr("disabled", false);
                     $(".btn-cancel").attr("disabled", false);

@@ -60,15 +60,15 @@ orders.processCreate = function*() {
                     PromotePrice = coupon.Amount;
                     const couponRow = yield Coupon.updateNextStatus(PromoteCode, OrderNo, 0, 1);
                     if (couponRow.affectedRows < 1) {
-                        throw ModelError(409, "体检码不存在");
+                        throw ModelError(406, "体检码不存在");
                     }
                 } else {
-                    throw ModelError(409, "体检码不在使用有效期内");
+                    throw ModelError(406, "体检码不在使用有效期内");
                 }
             } else if (coupon.Status == 1) {
-                throw ModelError(409, "体检码已使用");
+                throw ModelError(406, "体检码已使用");
             } else if (coupon.Status == 2) {
-                throw ModelError(409, "体检码已禁用");
+                throw ModelError(406, "体检码已禁用");
             }
         }
 
