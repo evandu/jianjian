@@ -431,8 +431,8 @@
                     $(".btn-pay").attr("disabled", false)
                     $("#PromotePrice").html(data.Amount / 100.00)
                     var ServicePrice = $("#ServicePrice").val()
-                    var PayAmount = parseInt(ServicePrice) - parseInt(data.Amount / 100.00);
-                    $("#PayAmount").html(PayAmount <= 0 ? 0 : PayAmount)
+                    var PayAmount = parseInt(ServicePrice)*100 - parseInt(data.Amount);
+                    $("#PayAmount").html(PayAmount/100.0 < 0.01 ? 0.0 : PayAmount/100.0)
                 }).fail(function (error) {
                     $(".btn-pay").attr("disabled", true)
                     $("#PromotePrice").html("0")
@@ -445,8 +445,8 @@
         $(".btn-pay").click(function () {
             var $button = $(this);
             $button.attr("disabled", true);
-            var PromoteCode = $("#PromoteCode");
-            PromoteCode.attr("readonly", true);
+            $(".btn-cancel").attr("disabled", true);
+            $("#PromoteCode").attr("readonly", true);
             if (payReqData) {
                 doPay(payReqData, $button)
             } else {
@@ -465,11 +465,16 @@
                 }).fail(function (error) {
                     $.toast.error(error.responseJSON.msg)
                     $button.attr("disabled", false);
+                    $(".btn-cancel").attr("disabled", false);
                 })
             }
         })
 
         function slide(pre, next) {
+            payReqData = undefined;
+            $(".btn-pay").attr("disabled", false);
+            $(".btn-cancel").attr("disabled", false);
+            $("#PromoteCode").attr("readonly", false);
             $.toast.hide();
             $("#" + pre).slideUp("fast", function () {
                 $("#" + next).slideDown("fast");

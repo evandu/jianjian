@@ -294,6 +294,11 @@
 	background-color: #06cc9b;
 }
 
+.btn-cancel:disabled {
+	color: #06cc9b;
+	background-color: transparent;
+}
+
 .btn-pay:disabled {
 	background-color: #ccc;
 	border: 1px solid #ccc;
