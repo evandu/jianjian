@@ -28,20 +28,20 @@
                     <option value="2">女</option>
                 </select>
             </div>
-          <!--
-           <div class="m-f-50 caret star-msg">
-                <select id="age" data-empty="no" name="Age" placeholder="年龄">
-                    <option value="20">20 岁</option>
-                    <option value="21">21 岁</option>
-                    <option value="22">22 岁</option>
-                    <option value="23">23 岁</option>
-                    <option value="24">24 岁</option>
-                    <option value="25" selected>25 岁</option>
-                    <option value="26">26 岁</option>
-                    <option value="27">27 岁</option>
-                </select>
-            </div>
-            -->
+            <!--
+             <div class="m-f-50 caret star-msg">
+                  <select id="age" data-empty="no" name="Age" placeholder="年龄">
+                      <option value="20">20 岁</option>
+                      <option value="21">21 岁</option>
+                      <option value="22">22 岁</option>
+                      <option value="23">23 岁</option>
+                      <option value="24">24 岁</option>
+                      <option value="25" selected>25 岁</option>
+                      <option value="26">26 岁</option>
+                      <option value="27">27 岁</option>
+                  </select>
+              </div>
+              -->
             <div class="m-f-50 caret star-msg">
                 <select id="height" data-empty="no" name="Height" placeholder="身高(CM)">
                     <option value="140">140 CM</option>
@@ -117,6 +117,24 @@
         <div class="msg-form clearfix">
             <div class="m-f-100 caret star-msg">
                 <select id="area" data-empty="no" name="Area" placeholder="省市区">
+                    <optgroup label="上海">
+                        <option value="上海 黄浦区">黄浦区</option>
+                        <option value="上海 徐汇区">徐汇区</option>
+                        <option value="上海 长宁区">长宁区</option>
+                        <option value="上海 静安区">静安区</option>
+                        <option value="上海 普陀区">普陀区</option>
+                        <option value="上海 虹口区">虹口区</option>
+                        <option value="上海 杨浦区">杨浦区</option>
+                        <option value="上海 宝山区">宝山区</option>
+                        <option value="上海 闵行区">闵行区</option>
+                        <option value="上海 嘉定区">嘉定区</option>
+                        <option value="上海 浦东新区">浦东新区</option>
+                        <option value="上海 松江区">松江区</option>
+                        <option value="上海 金山区">金山区</option>
+                        <option value="上海 青浦区">青浦区</option>
+                        <option value="上海 奉贤区">奉贤区</option>
+                        <option value="上海 崇明区">崇明区</option>
+                    </optgroup>
                     <optgroup label="浙江">
                         <option value="浙江 杭州">杭州</option>
                         <option value="浙江 金华">金华</option>
@@ -172,7 +190,7 @@
             <div class="t-c-content">
                 <input type="hidden" id="ServicePrice" value="{{amount ServicePrice}}">
                 <p>服务费:<span class="f-bold">{{amount ServicePrice}}</span>元</p>
-                <p>优惠金额:<span class="f-bold" id="PromotePrice" >0</span>元</p>
+                <p>优惠金额:<span class="f-bold" id="PromotePrice">0</span>元</p>
                 <p>支付金额：<span class="f-bold font23" id="PayAmount">{{amount ServicePrice}}</span>元</p>
             </div>
         </div>
@@ -385,7 +403,7 @@
                 var c = $(".serve-bg .user-msg").html();
                 c = c.replace(/\{(\w+)\}/g, function (m, i) {
                     var key = m.replace(/\{|\}/g, "")
-                    return $("input[name='" + key + "']").val() || $("select[name='" + key + "']").find("option:selected").text().replace(" ","") || "";
+                    return $("input[name='" + key + "']").val() || $("select[name='" + key + "']").find("option:selected").text().replace(" ", "") || "";
                 })
                 $(".serve-bg .user-msg").html(c)
                 slide("step2", "step3")
@@ -400,20 +418,20 @@
             var PromoteCode = $.trim($(this).val())
             var ServicePrice = $("#ServicePrice").val()
             $.toast.hide();
-            if(!PromoteCode || PromoteCode ==''){
+            if (!PromoteCode || PromoteCode == '') {
                 $(".btn-pay").attr("disabled", false)
                 return;
-            }else{
+            } else {
                 $.ajax({
-                    url: "/coupon/" +PromoteCode,
+                    url: "/coupon/" + PromoteCode,
                     type: "get",
                     dataType: 'json'
                 }).success(function (data) {
                     $(".btn-pay").attr("disabled", false)
-                    $("#PromotePrice").html(data.Amount/100.00)
+                    $("#PromotePrice").html(data.Amount / 100.00)
                     var ServicePrice = $("#ServicePrice").val()
-                    var PayAmount  = parseInt(ServicePrice) -  parseInt(data.Amount/100.00);
-                    $("#PayAmount").html(PayAmount <=0 ? 0:PayAmount)
+                    var PayAmount = parseInt(ServicePrice) - parseInt(data.Amount / 100.00);
+                    $("#PayAmount").html(PayAmount <= 0 ? 0 : PayAmount)
                 }).fail(function (error) {
                     $(".btn-pay").attr("disabled", true)
                     $("#PromotePrice").html("0")
@@ -428,17 +446,21 @@
             $button.attr("disabled", true);
             var PromoteCode = $("#PromoteCode");
             PromoteCode.attr("readonly", true);
-            if(payReqData){
-                doPay(payReqData,$button)
-            }else{
+            if (payReqData) {
+                doPay(payReqData, $button)
+            } else {
                 $.ajax({
                     url: "",
                     type: "post",
                     dataType: 'json',
                     data: $("form").serialize()
                 }).success(function (data) {
-                    payReqData = data;
-                    doPay(payReqData,$button)
+                    if (data.PromoteCodePay == 'ok') {
+                        window.location.href = '/pay-success';
+                    } else {
+                        payReqData = data;
+                        doPay(payReqData, $button)
+                    }
                 }).fail(function (error) {
                     $.toast.error(error.responseJSON.msg)
                     $button.attr("disabled", false);
@@ -453,7 +475,7 @@
             });
         }
 
-        function doPay(data,button) {
+        function doPay(data, button) {
             wechatPay({
                 "appId": data.appId,
                 "timeStamp": data.timeStamp,
