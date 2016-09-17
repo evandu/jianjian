@@ -294,6 +294,11 @@
 	background-color: #06cc9b;
 }
 
+.btn-pay:disabled {
+	background-color: #ccc;
+	border: 1px solid #ccc;
+}
+
 /*确认服务订单及金额 form-3*/
 .total-container {
 	position: relative;

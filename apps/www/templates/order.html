@@ -162,7 +162,7 @@
             <p>{Area}{Address}</p>
         </div>
         <div class="total-container">
-            <p class="t-c-title">我有体验码：<input type="text" placeholder="体验码" name="PromoteCode"></p>
+            <p class="t-c-title">我有体验码：<input id="PromoteCode" type="text" placeholder="体验码" name="PromoteCode"></p>
             <!--
              <div class="t-c-content">
                 <p>服务费<span class="f-bold">{{amount ServicePrice}}</span>元+押金<span class="f-bold">{{amount Deposit}}</span>元</p>
@@ -170,9 +170,10 @@
             </div>
             -->
             <div class="t-c-content">
-                <p>服务费:<span class="f-bold"> {{amount ServicePrice}} </span>元</p>
-                <p>优惠金额:<span class="f-bold"> 0 </span>元</p>
-                <p>支付金额：<span class="f-bold font23">{{amount ServicePrice}} </span>元</p>
+                <input type="hidden" id="ServicePrice" value="{{amount ServicePrice}}">
+                <p>服务费:<span class="f-bold">{{amount ServicePrice}}</span>元</p>
+                <p>优惠金额:<span class="f-bold" id="PromotePrice" >0</span>元</p>
+                <p>支付金额：<span class="f-bold font23" id="PayAmount">{{amount ServicePrice}}</span>元</p>
             </div>
         </div>
         <div class="tip-container">
@@ -395,9 +396,38 @@
             slide("step3", "step1")
         })
 
+        $("#PromoteCode").blur(function () {
+            var PromoteCode = $.trim($(this).val())
+            var ServicePrice = $("#ServicePrice").val()
+            $.toast.hide();
+            if(!PromoteCode || PromoteCode ==''){
+                $(".btn-pay").attr("disabled", false)
+                return;
+            }else{
+                $.ajax({
+                    url: "/coupon/" +PromoteCode,
+                    type: "get",
+                    dataType: 'json'
+                }).success(function (data) {
+                    $(".btn-pay").attr("disabled", false)
+                    $("#PromotePrice").html(data.Amount/100.00)
+                    var ServicePrice = $("#ServicePrice").val()
+                    var PayAmount  = parseInt(ServicePrice) -  parseInt(data.Amount/100.00);
+                    $("#PayAmount").html(PayAmount <=0 ? 0:PayAmount)
+                }).fail(function (error) {
+                    $(".btn-pay").attr("disabled", true)
+                    $("#PromotePrice").html("0")
+                    $("#PayAmount").html(ServicePrice)
+                    $.toast.error(error.responseJSON.msg)
+                })
+            }
+        })
+
         $(".btn-pay").click(function () {
             var $button = $(this);
             $button.attr("disabled", true);
+            var PromoteCode = $("#PromoteCode");
+            PromoteCode.attr("readonly", true);
             if(payReqData){
                 doPay(payReqData,$button)
             }else{

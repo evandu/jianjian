@@ -6,6 +6,8 @@
 'use strict';
 
 const Order = require('../../../models/order');
+const Coupon = require('../../../models/coupon');
+const ModelError = require('../../../models/modelerror');
 
 const query = module.exports = {};
 
@@ -23,3 +25,18 @@ query.detail = function*() {
 };
 
 
+query.getCoupon = function*() {
+    const PromoteCode = this.params.PromoteCode
+    const coupon = yield Coupon.get(PromoteCode)
+    if (coupon.Status == 0) {
+        if (coupon.StartDate.getTime() < Date.now() && coupon.EndDate.getTime() > Date.now()) {
+            this.body = coupon
+        } else {
+            throw ModelError(409, "体检码不在使用有效期内");
+        }
+    } else if (coupon.Status == 1) {
+        throw ModelError(409, "体检码已使用");
+    } else if (coupon.Status == 2) {
+        throw ModelError(409, "体检码已禁用");
+    }
+};

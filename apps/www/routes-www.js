@@ -16,6 +16,7 @@ router.post('/pay/:OrderNo', orders.pay);
 
 //query
 router.get('/list', query.list);
+router.get('/coupon/:PromoteCode', query.getCoupon);
 router.get('/detail/:OrderNo', query.detail);
 
 

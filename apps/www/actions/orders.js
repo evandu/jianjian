@@ -58,7 +58,7 @@ orders.processCreate = function*() {
             if (coupon.Status == 0) {
                 if (coupon.StartDate.getTime() < Date.now() && coupon.EndDate.getTime() > Date.now()) {
                     PromotePrice = coupon.Amount;
-                    const couponRow = yield Coupon.updateNextStatus(PromoteCode, 0, 1);
+                    const couponRow = yield Coupon.updateNextStatus(PromoteCode, OrderNo, 0, 1);
                     if (couponRow.affectedRows < 1) {
                         throw ModelError(409, "体检码不存在");
                     }
