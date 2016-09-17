@@ -98,7 +98,7 @@ Coupon.nextVal  = function *() {
 Coupon.get = function* (PromoteCode) {
     PromoteCode = PromoteCode.toUpperCase();
     const sql = 'Select * From Coupon Where PromoteCode =:PromoteCode';
-    const [coupons] = yield global.db.query({sql: sql, namedPlaceholders: true}, {});
+    const [coupons] = yield global.db.query({sql: sql, namedPlaceholders: true}, {PromoteCode});
     if (!coupons[0]) {
         throw ModelError(404, '体检码不存在');
     }
