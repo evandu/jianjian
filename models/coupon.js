@@ -84,7 +84,7 @@ Coupon.query = function*(values) {
 Coupon.updateNextStatus = function*(PromoteCode, OrderNo, Status, NextStatus) {
     PromoteCode = PromoteCode.toUpperCase();
     const sql = 'Update Coupon Set Status=:NextStatus,OrderNo=:OrderNo  Where PromoteCode =:PromoteCode And Status = :Status';
-    const [orders] = yield global.db.query({sql: sql, namedPlaceholders: true}, {PromoteCode, Status, NextStatus});
+    const [orders] = yield global.db.query({sql: sql, namedPlaceholders: true}, {PromoteCode, OrderNo, Status, NextStatus});
     return orders;
 }
 

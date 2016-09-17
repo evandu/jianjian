@@ -85,7 +85,7 @@ orders.processCreate = function*() {
         const total_fee = BookOrder.ServicePrice + BookOrder.Deposit - BookOrder.PromotePrice
 
         if (total_fee <= 0) {
-            yield Order.paySuccess(OrderNo, 0, 0, "PromoteCodePay", BookOrder.openid)
+            yield Order.paySuccess(OrderNo, 0, 0, "PromoteCodePay", BookOrder.OpenId)
             this.body = {PromoteCodePay: 'ok'}
         } else {
             try {
