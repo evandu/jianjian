@@ -38,7 +38,7 @@ Coupon.insert = function*(values) {
 Coupon.query = function*(values) {
     let sql = 'Select * From Coupon';
     let count = 'Select count(*) From Coupon';
-    values = _.merge({size: 10, cur: 1}, values);
+    values = _.merge(values,{size: 10, cur: 1, PromoteCode:(values['PromoteCode'] || '').toUpperCase()});
     const data = _.filter(_.keys(values), key => (key != 'size' && key != 'cur' && values[key] != ''))
     if (data.length > 0) {
         const filter = data.map(function (q) {
