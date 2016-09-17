@@ -5,11 +5,12 @@
 
 'use strict';
 
-const Order = require('../../../models/order');
-const Coupon = require('../../../models/coupon');
-const Lib = require('../../../lib/lib');
-const ModelError = require('../../../models/modelerror.js');
-const orders = module.exports = {};
+const Moment      = require('moment');
+const Order       = require('../../../models/order');
+const Coupon      = require('../../../models/coupon');
+const Lib         = require('../../../lib/lib');
+const ModelError  = require('../../../models/modelerror.js');
+const orders      = module.exports = {};
 
 orders.create = function*() {
     yield this.render('templates/order',{
@@ -20,7 +21,7 @@ orders.create = function*() {
 
 orders.processCreate = function*() {
     const {
-        Name, Gender, Age, Height, Weight, BornDate,
+        Name, Gender, Height, Weight, BornDate,
         Area, Address, Mobile, PromoteCode, Email
     } = this.request.body
     let formError;
@@ -42,7 +43,7 @@ orders.processCreate = function*() {
         formError = {msg: "手机号不能为空"}
     }
 
-
+    const Age = (Moment(BornDate, "YYYY/MM/DD").fromNow()).split(" ")[0]
 
     if (formError) {
         this.body = formError;
@@ -52,8 +53,8 @@ orders.processCreate = function*() {
         if(PromoteCode){
             const coupon =   yield Coupon.get(PromoteCode)
             if(coupon.Status == 0 &&
-                coupon.StartDate.getTime() <= Date.now() &&
-                coupon.EndDate.getTime() >=  Date.now()){
+                coupon.StartDate.getTime() < Date.now() &&
+                coupon.EndDate.getTime() >  Date.now()){
                 PromotePrice = coupon.Amount;
             }
         }

@@ -28,7 +28,8 @@
                     <option value="2">女</option>
                 </select>
             </div>
-            <div class="m-f-50 caret star-msg">
+          <!--
+           <div class="m-f-50 caret star-msg">
                 <select id="age" data-empty="no" name="Age" placeholder="年龄">
                     <option value="20">20 岁</option>
                     <option value="21">21 岁</option>
@@ -40,6 +41,7 @@
                     <option value="27">27 岁</option>
                 </select>
             </div>
+            -->
             <div class="m-f-50 caret star-msg">
                 <select id="height" data-empty="no" name="Height" placeholder="身高(CM)">
                     <option value="140">140 CM</option>
@@ -102,8 +104,8 @@
                     <option value="200">200 KG</option>
                 </select>
             </div>
-            <div class="m-f-100 caret">
-                <input type="text" id="dataScroller" placeholder="出生年月（选填）" name="BornDate">
+            <div class="m-f-50 caret star-msg">
+                <input type="text" id="dataScroller" data-empty="no" placeholder="出生年月" name="BornDate">
             </div>
         </div>
         <button type="button" class="radius-btn">下一步</button>
@@ -153,7 +155,7 @@
         <h4 class="form-title"><span class="form-title-count">3</span><span class="form-title-p">确认服务订单及金额</span></h4>
         <div class="user-msg">
             <p class="u-m-list-span">
-                <span>{Name}</span><span>{Gender}</span><span>{Age}</span><span>{Height}</span><span>{Weight}</span>
+                <span>{Name}</span><span>{Gender}</span><span>{BornDate}</span><span>{Height}</span><span>{Weight}</span>
             </p>
             <p>{Mobile}</p>
             <p>{Email}</p>
@@ -161,9 +163,16 @@
         </div>
         <div class="total-container">
             <p class="t-c-title">我有体验码：<input type="text" placeholder="体验码" name="PromoteCode"></p>
-            <div class="t-c-content">
+            <!--
+             <div class="t-c-content">
                 <p>服务费<span class="f-bold">{{amount ServicePrice}}</span>元+押金<span class="f-bold">{{amount Deposit}}</span>元</p>
                 <p>支付金额：<span class="f-bold font23">{{price ServicePrice Deposit }}</span>元</p>
+            </div>
+            -->
+            <div class="t-c-content">
+                <p>服务费:<span class="f-bold"> {{amount ServicePrice}} </span>元</p>
+                <p>优惠金额:<span class="f-bold"> 0 </span>元</p>
+                <p>支付金额：<span class="f-bold font23">{{amount ServicePrice}} </span>元</p>
             </div>
         </div>
         <div class="tip-container">
@@ -321,12 +330,12 @@
             placeholder: '性别',
         }).prev().val("");
 
-        $('#age').mobiscroll().select({
-            theme: 'ios',
-            lang: 'zh',
-            display: 'bottom',
-            placeholder: "年龄"
-        }).prev().val("");
+//        $('#age').mobiscroll().select({
+//            theme: 'ios',
+//            lang: 'zh',
+//            display: 'bottom',
+//            placeholder: "年龄"
+//        }).prev().val("");
 
         $('#height').mobiscroll().select({
             theme: 'ios',
@@ -375,7 +384,7 @@
                 var c = $(".serve-bg .user-msg").html();
                 c = c.replace(/\{(\w+)\}/g, function (m, i) {
                     var key = m.replace(/\{|\}/g, "")
-                    return $("input[name='" + key + "']").val() || $("select[name='" + key + "']").find("option:selected").text() || "";
+                    return $("input[name='" + key + "']").val() || $("select[name='" + key + "']").find("option:selected").text().replace(" ","") || "";
                 })
                 $(".serve-bg .user-msg").html(c)
                 slide("step2", "step3")

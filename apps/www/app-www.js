@@ -95,8 +95,8 @@ app.use(require('./routes-other.js'));
 
 
 app.use(function* weiXin(next) {
-  // const healthLabToken = "1234567890123456"//this.cookies.get(this.envConfig.weixin.tokenName);
-   const healthLabToken = this.cookies.get(this.envConfig.weixin.tokenName);
+   const healthLabToken = "1234567890123456"//this.cookies.get(this.envConfig.weixin.tokenName);
+    // const healthLabToken = this.cookies.get(this.envConfig.weixin.tokenName);
     if (healthLabToken && healthLabToken.length >= 16){
          this.healthLabToken = healthLabToken
          yield next;
