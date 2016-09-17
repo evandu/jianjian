@@ -15,7 +15,7 @@
                     <div class="form-group" >
                         <label class="col-sm-2 control-label">设置生成张数</label>
                         <div class="col-sm-4">
-                            <input  name="Num"  type="text" class="form-control"  placeholder="设置生成张数"/>
+                            <input id="Num" name="Num"  type="text" class="form-control"  placeholder="设置生成张数"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -44,5 +44,14 @@
 <script>
    $(function ($) {
        $("#dateRange").daterangepicker({format:"YYYY/MM/DD"});
+       $("form").submit(function () {
+           var Num = $("#Num").val();
+           if(parseInt(Num) >100){
+               alert("生成优惠券数量不能大于100个")
+               return false;
+           }else{
+               return true;
+           }
+       })
    })
 </script>
