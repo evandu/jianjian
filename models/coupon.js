@@ -82,6 +82,7 @@ Coupon.query = function*(values) {
 }
 
 Coupon.updateNextStatus = function*(PromoteCode, OrderNo, Status, NextStatus) {
+    PromoteCode = PromoteCode.toUpperCase();
     const sql = 'Update Coupon Set Status=:NextStatus,OrderNo=:OrderNo  Where PromoteCode =:PromoteCode And Status = :Status';
     const [orders] = yield global.db.query({sql: sql, namedPlaceholders: true}, {PromoteCode, Status, NextStatus});
     return orders;
@@ -95,8 +96,9 @@ Coupon.nextVal  = function *() {
 }
 
 Coupon.get = function* (PromoteCode) {
+    PromoteCode = PromoteCode.toUpperCase();
     const sql = 'Select * From Coupon Where PromoteCode =:PromoteCode';
-    const [coupons] = yield global.db.query({sql: sql, namedPlaceholders: true}, {PromoteCode});
+    const [coupons] = yield global.db.query({sql: sql, namedPlaceholders: true}, {});
     if (!coupons[0]) {
         throw ModelError(404, '体检码不存在');
     }
