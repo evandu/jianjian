@@ -94,11 +94,11 @@ Coupon.nextVal  = function *() {
     return PromoteCode.substring(0,4) + "-" + PromoteCode.substring(4,8) + "-" + PromoteCode.substring(8,12)
 }
 
-Coupon.get = function*(PromoteCode) {
+Coupon.get = function* (PromoteCode) {
     const sql = 'Select * From Coupon Where PromoteCode =:PromoteCode';
     const [coupons] = yield global.db.query({sql: sql, namedPlaceholders: true}, {PromoteCode});
     if (!coupons[0]) {
-        throw ModelError(404, '优惠券不存在');
+        throw ModelError(404, '体检码不存在');
     }
     return coupons[0];
 }

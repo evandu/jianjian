@@ -25,7 +25,7 @@ Order.Init = OrderConfig.Init
  */
 Order.insert = function*(values) {
     try {
-        const [result] = yield global.db.query('Insert Into JJOrder Set ?', _.merge({}, values, Order.Init));
+        const [result] = yield global.db.query('Insert Into JJOrder Set ?', values);
         return result.insertId;
     } catch (e) {
         switch (e.code) {
