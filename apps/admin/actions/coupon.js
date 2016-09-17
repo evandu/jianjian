@@ -3,11 +3,9 @@
  */
 'use strict';
 
-const Lib = require('../../../lib/lib');
 const Coupon = require('../../../models/coupon');
 const _ = require('lodash');
 const moment = require('moment');
-const ModelError = require('../../../models/modelerror.js');
 
 const coupons = module.exports = {};
 

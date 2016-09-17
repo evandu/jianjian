@@ -91,7 +91,7 @@ Coupon.updateNextStatus = function*(PromoteCode, OrderNo, Status, NextStatus) {
 Coupon.nextVal  = function *() {
     const  [[val]] =  yield global.db.query("select NEXTVAL('PromoteCode') as NextId")
     const maskCode = (val.NextId).toString(16).toUpperCase()
-    const PromoteCode = maskCode + Lib.randomString(12 - maskCode.length).replace(/o|i|f|z|g|v/gi, 'H').toUpperCase();
+    const PromoteCode = maskCode + Lib.randomString(12 - maskCode.length).replace(/o|i|z/gi, 'M').toUpperCase();
     return PromoteCode.substring(0,4) + "-" + PromoteCode.substring(4,8) + "-" + PromoteCode.substring(8,12)
 }
 
