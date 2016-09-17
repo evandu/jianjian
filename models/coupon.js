@@ -47,9 +47,6 @@ Coupon.query = function*(values) {
                 values.EndDate = values['DateRange'].split("-")[1].trim()
                 return 'CreateDate > :StartDate And CreateDate < :EndDate'
             } else {
-                if(q =='PromoteCode'){
-                    q = q.toUpperCase();
-                }
                 return q + ' = :' + q;
             }
         }).join(' and ');
