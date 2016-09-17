@@ -15,14 +15,14 @@
 	  {{#if hasData}}
 		  <ul class="serve-ul">
 			  {{#orders}}
-			  <li>
-				  <a href="detail/{{OrderNo}}">
-					  <p class="s-ul-title">{{ServiceName}}<span class="fn-right">{{price ServicePrice  Deposit }}元</span></p>
-					  <p class="s-ul-sub">服务编号：<span>{{OrderNo}}</span></p>
-					  <p class="s-ul-sub">预定时间：<span>{{YYYY年MM月DD日 CreateDate }}</span></p>
-					  <span class="s-ul-state green">{{OrderStatus Status}}</span>
-				  </a>
-			  </li>
+				  <li>
+					  <a href="detail/{{OrderNo}}">
+						  <p class="s-ul-title">{{ServiceName}}<span class="fn-right">{{price ServicePrice Deposit PromotePrice}}元</span></p>
+						  <p class="s-ul-sub">服务编号：<span>{{OrderNo}}</span></p>
+						  <p class="s-ul-sub">预定时间：<span>{{YYYY年MM月DD日 CreateDate }}</span></p>
+						  <span class="s-ul-state green">{{OrderStatus Status}}</span>
+					  </a>
+				  </li>
 			  {{/orders}}
 		  </ul>
 	   {{else}}

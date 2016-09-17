@@ -13,7 +13,7 @@ OrderConfig.Status = {
     '1': '预定成功',
     '2': '设备已寄出',
     '3': '监测完成',
-    '4': '押金退款',
+  //  '4': '押金退款',
     '5': '报告查看',
     '6': '专家评估',
     '7': '报告上传',
@@ -27,8 +27,8 @@ OrderConfig.RefundDepositStatus = {
 
 OrderConfig.Init = {
     'ServiceName': '睡眠呼吸暂停监测服务',
-    'ServicePrice': 20000,
-    'Deposit': 40000,
+    'ServicePrice': 29800,
+    'Deposit': 0,
     'Status': 0,
     'PayDepositAmount': 0,
     'PayServiceAmount': 0,

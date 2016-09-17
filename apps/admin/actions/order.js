@@ -49,14 +49,15 @@ orders.details = function*() {
 orders.orderStatusNext = function*() {
     const {OrderNo, Status} = this.request.body
     const _Status = parseInt(Status)
+    const nextStatus = _Status ==3 ? _Status+2:_Status + 1
     if (_Status >= 1 && _Status < 7) {
-        const order = yield Order.updateNextStatus(OrderNo, _Status, _Status + 1)
+        const order = yield Order.updateNextStatus(OrderNo, _Status, nextStatus)
         if (order.affectedRows < 1) {
-            throw ModelError(409, Order.Status[''+(_Status + 1)] + '状态更新报错');
+            throw ModelError(409, Order.Status[nextStatus] + '状态更新报错');
         }
         this.body = order.affectedRows
     } else {
-        throw ModelError(409, Order.Status[''+(_Status + 1)] + '状态更新报错');
+        throw ModelError(409, Order.Status[nextStatus] + '状态更新报错');
     }
 };
 
@@ -126,10 +127,11 @@ orders.ajaxQuery = function*() {
     const data = _.map(orders.orders, order=> {
         order.Deposit = order.Deposit / 100.0
         order.PayServiceAmount = order.PayServiceAmount / 100.0
-        order.PayDepositAmount = order.PayDepositAmount / 100.0
+        order.PromotePrice = order.PromotePrice / 100.0
+        //order.PayDepositAmount = order.PayDepositAmount / 100.0
         order.ServicePrice = order.ServicePrice / 100.0
         order.Status = Order.Status[order.Status]
-        order.RefundDepositStatus = Order.RefundDepositStatus[order.RefundDepositStatus]
+      //  order.RefundDepositStatus = Order.RefundDepositStatus[order.RefundDepositStatus]
         order.UserInfo = `${order.Name} ${order.Gender == '1' ? '男' : '女'} ${order.Age}岁 ${order.Height} cm ${order.Weight} kg`
         order.AddressInfo = `${order.Area} ${order.Address}`
         order.CreateDate = moment(order.CreateDate).format('YYYY-MM-DD HH:mm:ss')

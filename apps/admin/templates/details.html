@@ -42,11 +42,19 @@
                         </div>
                     </div>
 
+
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">优惠金额：</label>
+                        <div class="col-sm-4">
+                            {{amount order.PromotePrice}} 元
+                        </div>
+                    </div>
+
                     <div class="form-group" >
                         <label class="col-sm-2 control-label">服务费：</label>
                         <div class="col-sm-4">
-                            服务费：{{amount order.ServicePrice}}
-                            押金: {{amount order.Deposit}}
+                            <!-- 服务费： --> {{amount order.ServicePrice}}  元
+                            <!-- 押金: {{amount order.Deposit}} -->
                         </div>
                     </div>
 
@@ -79,6 +87,7 @@
                         </div>
                     </div>
 
+                    <!--
                     <div class="form-group" >
                         <label class="col-sm-2 control-label">押金退款状态：</label>
                         <div class="col-sm-4">
@@ -100,7 +109,7 @@
                             {{amount order.RefundDeposit}}
                         </div>
                     </div>
-
+                     -->
 
                     <div class="form-group" >
                         <label class="col-sm-2 control-label">创建时间：</label>
@@ -126,14 +135,14 @@
                                 </button>
                             {{/compare}}
 
-                            {{#compare order.Status '==' '3'}}
+                          <!--  {{#compare order.Status '==' '3'}}
                                 <button type="button" status ={{order.Status}}
                                         class="btn  btn-primary pull-left" data-toggle="modal" data-target="#status4Dialog" >
                                     <i class="fa  fa-hand-grab-o"></i> {{nextStatus order.Status}}
                                 </button>
-                            {{/compare}}
+                            {{/compare}} -->
 
-                            {{#compare order.Status 'in' '2,4,5'}}
+                            {{#compare order.Status 'in' '2,3,4,5'}}
                                <button type="button" status ={{order.Status}}
                                     class="btn  btn-success pull-left" >
                                    <i class="fa  fa-hand-grab-o"></i> {{nextStatus order.Status}}

@@ -29,11 +29,12 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-4 invoice-col">
-                            <b>已付费 {{price PayServiceAmount PayDepositAmount }} 元</b><br>
+                            <b>已付金额:  {{price PayServiceAmount PayDepositAmount }} 元</b><br>
+                            <b>优惠金额: {{amount PromotePrice }} 元</b><br>
                             <br>
                             <b>订单编号:</b> {{order.OrderNo}}<br>
                             <b>支付日期:</b> {{yyy-MM-ddHHmmss order.PayDate}}<br>
-                            <b>押金退款:</b> {{RefundDepositStatus order.RefundDepositStatus}} {{amount RefundDeposit}} 元 {{yyy-MM-ddHHmmss order.RefundDepositDate}}
+                           <!-- <b>押金退款:</b> {{RefundDepositStatus order.RefundDepositStatus}} {{amount RefundDeposit}} 元 {{yyy-MM-ddHHmmss order.RefundDepositDate}} -->
                         </div>
                         <!-- /.col -->
                     </div>

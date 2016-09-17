@@ -28,8 +28,8 @@ orders.processCreate = function*() {
         formError = {msg: "姓名不能为空"}
     } else if (!Gender) {
         formError = {msg: "性别不能为空"}
-    } else if (!Age) {
-        formError = {msg: "年龄不能为空"}
+    } else if (!BornDate) {
+        formError = {msg: "出生年月不能为空"}
     } else if (!Height) {
         formError = {msg: "身高不能为空"}
     } else if (!Address) {
