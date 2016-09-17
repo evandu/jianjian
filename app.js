@@ -44,7 +44,6 @@ handlebars.registerHelper('YYYY年MM月DD日', function (timestamp) {
     } else {
         return moment(new Date(timestamp)).format('YYYY年MM月DD日');
     }
-
 });
 
 handlebars.registerHelper('yyy-MM-ddHHmmss', function (timestamp) {
