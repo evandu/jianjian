@@ -28,81 +28,11 @@
                     <option value="2">女</option>
                 </select>
             </div>
-            <!--
-             <div class="m-f-50 caret star-msg">
-                  <select id="age" data-empty="no" name="Age" placeholder="年龄">
-                      <option value="20">20 岁</option>
-                      <option value="21">21 岁</option>
-                      <option value="22">22 岁</option>
-                      <option value="23">23 岁</option>
-                      <option value="24">24 岁</option>
-                      <option value="25" selected>25 岁</option>
-                      <option value="26">26 岁</option>
-                      <option value="27">27 岁</option>
-                  </select>
-              </div>
-              -->
             <div class="m-f-50 caret star-msg">
-                <select id="height" data-empty="no" name="Height" placeholder="身高(CM)">
-                    <option value="140">140 CM</option>
-                    <option value="145">145 CM</option>
-                    <option value="150">150 CM</option>
-                    <option value="155">155 CM</option>
-                    <option value="160">160 CM</option>
-                    <option value="165">165 CM</option>
-                    <option value="170">170 CM</option>
-                    <option value="175" selected>175 CM</option>
-                    <option value="180">180 CM</option>
-                    <option value="185">185 CM</option>
-                    <option value="190">190 CM</option>
-                    <option value="195">195 CM</option>
-                    <option value="200">200 CM</option>
-                    <option value="205">205 CM</option>
-                    <option value="210">210 CM</option>
-                    <option value="215">215 CM</option>
-                    <option value="220">220 CM</option>
-                    <option value="225">225 CM</option>
-                    <option value="230">230 CM</option>
-                    <option value="235">235 CM</option>
-                    <option value="240">240 CM</option>
-                </select>
+                <input id="height" data-empty="no" name="Height" placeholder="身高"/>
             </div>
             <div class="m-f-50 caret star-msg ">
-                <select id="weight" data-empty="no" name="Weight" placeholder="体重(KG)">
-                    <option value="40">40 KG</option>
-                    <option value="45">45 KG</option>
-                    <option value="50">50 KG</option>
-                    <option value="55">55 KG</option>
-                    <option value="60">60 KG</option>
-                    <option value="65">65 KG</option>
-                    <option value="70">70 KG</option>
-                    <option value="75" selected>75 KG</option>
-                    <option value="80">80 KG</option>
-                    <option value="85">85 KG</option>
-                    <option value="90">90 KG</option>
-                    <option value="95">95 KG</option>
-                    <option value="100">100 KG</option>
-                    <option value="105">105 KG</option>
-                    <option value="110">110 KG</option>
-                    <option value="115">115 KG</option>
-                    <option value="120">120 KG</option>
-                    <option value="125">125 KG</option>
-                    <option value="130">130 KG</option>
-                    <option value="135">135 KG</option>
-                    <option value="140">140 KG</option>
-                    <option value="145">145 KG</option>
-                    <option value="150">150 KG</option>
-                    <option value="155">155 KG</option>
-                    <option value="160">160 KG</option>
-                    <option value="165">165 KG</option>
-                    <option value="170">170 KG</option>
-                    <option value="175">175 KG</option>
-                    <option value="180">180 KG</option>
-                    <option value="185">185 KG</option>
-                    <option value="190">190 KG</option>
-                    <option value="195">195 KG</option>
-                    <option value="200">200 KG</option>
-                </select>
+                <input id="weight" data-empty="no" name="Weight" placeholder="体重"/>
             </div>
             <div class="m-f-50 caret star-msg">
                 <input type="text" id="dataScroller" data-empty="no" placeholder="出生年月" name="BornDate">
@@ -117,23 +47,41 @@
         <div class="msg-form clearfix">
             <div class="m-f-100 caret star-msg">
                 <select id="area" data-empty="no" name="Area" placeholder="省市区">
+                    <optgroup label="安徽">
+                        <option value="安徽 合肥">合肥</option>
+                        <option value="安徽 芜湖">芜湖</option>
+                        <option value="安徽 蚌埠">蚌埠</option>
+                        <option value="安徽 淮南">淮南</option>
+                        <option value="安徽 马鞍山">马鞍山</option>
+                        <option value="安徽 淮北">淮北</option>
+                        <option value="安徽 铜陵">铜陵</option>
+                        <option value="安徽 安庆">安庆</option>
+                        <option value="安徽 黄山">黄山</option>
+                        <option value="安徽 阜阳">阜阳</option>
+                        <option value="安徽 宿州">宿州</option>
+                        <option value="安徽 滁州">滁州</option>
+                        <option value="安徽 六安">六安</option>
+                        <option value="安徽 宣城">宣城</option>
+                        <option value="安徽 池州">池州</option>
+                        <option value="安徽 亳州">亳州</option>
+                    </optgroup>
                     <optgroup label="上海">
-                        <option value="上海 黄浦区">黄浦区</option>
-                        <option value="上海 徐汇区">徐汇区</option>
-                        <option value="上海 长宁区">长宁区</option>
-                        <option value="上海 静安区">静安区</option>
-                        <option value="上海 普陀区">普陀区</option>
-                        <option value="上海 虹口区">虹口区</option>
-                        <option value="上海 杨浦区">杨浦区</option>
-                        <option value="上海 宝山区">宝山区</option>
-                        <option value="上海 闵行区">闵行区</option>
-                        <option value="上海 嘉定区">嘉定区</option>
-                        <option value="上海 浦东新区">浦东新区</option>
-                        <option value="上海 松江区">松江区</option>
-                        <option value="上海 金山区">金山区</option>
-                        <option value="上海 青浦区">青浦区</option>
-                        <option value="上海 奉贤区">奉贤区</option>
-                        <option value="上海 崇明区">崇明区</option>
+                        <option value="上海 黄浦">黄浦</option>
+                        <option value="上海 徐汇">徐汇</option>
+                        <option value="上海 长宁">长宁</option>
+                        <option value="上海 静安">静安</option>
+                        <option value="上海 普陀">普陀</option>
+                        <option value="上海 虹口">虹口</option>
+                        <option value="上海 杨浦">杨浦</option>
+                        <option value="上海 宝山">宝山</option>
+                        <option value="上海 闵行">闵行</option>
+                        <option value="上海 嘉定">嘉定</option>
+                        <option value="上海 浦东">浦东</option>
+                        <option value="上海 松江">松江</option>
+                        <option value="上海 金山">金山</option>
+                        <option value="上海 青浦">青浦</option>
+                        <option value="上海 奉贤">奉贤</option>
+                        <option value="上海 崇明">崇明</option>
                     </optgroup>
                     <optgroup label="浙江">
                         <option value="浙江 杭州">杭州</option>
@@ -142,13 +90,26 @@
                         <option value="浙江 丽水">丽水</option>
                         <option value="浙江 宁波">宁波</option>
                         <option value="浙江 湖州">湖州</option>
-                    </optgroup>
-                    <optgroup label="福建">
-                        <option value="福建 福州">福州</option>
+                        <option value="浙江 嘉兴">嘉兴</option>
+                        <option value="浙江 金华">金华</option>
+                        <option value="浙江 衢州">衢州</option>
+                        <option value="浙江 舟山">舟山</option>
+                        <option value="浙江 台州">台州</option>
                     </optgroup>
                     <optgroup label="江苏">
                         <option value="江苏 常州">常州</option>
                         <option value="江苏 苏州">苏州</option>
+                        <option value="江苏 南京">南京</option>
+                        <option value="江苏 镇江">镇江</option>
+                        <option value="江苏 无锡">无锡</option>
+                        <option value="江苏 南通">南通</option>
+                        <option value="江苏 泰州">泰州</option>
+                        <option value="江苏 扬州">扬州</option>
+                        <option value="江苏 盐城">盐城</option>
+                        <option value="江苏 淮安">淮安</option>
+                        <option value="江苏 宿迁">宿迁</option>
+                        <option value="江苏 连云港">连云港</option>
+                        <option value="江苏 徐州">徐州</option>
                     </optgroup>
                 </select>
             </div>
@@ -337,42 +298,50 @@
     $(function () {
         mobiscroll.date("#dataScroller", {
             defaultValue: new Date(1980, 0, 1),
-            theme: 'ios',
+            theme: 'mobiscroll',
+            layout: 'fixed',
             lang: 'zh',
             display: 'bottom',
             mode: 'datetimeDate',
         });
 
         $('#sexual').mobiscroll().select({
-            theme: 'ios',
+            theme: 'mobiscroll',
+            layout: 'fixed',
             lang: 'zh',
             display: 'bottom',
-            placeholder: '性别',
+            placeholder: '性别'
         }).prev().val("");
 
-//        $('#age').mobiscroll().select({
-//            theme: 'ios',
-//            lang: 'zh',
-//            display: 'bottom',
-//            placeholder: "年龄"
-//        }).prev().val("");
-
-        $('#height').mobiscroll().select({
-            theme: 'ios',
-            lang: 'zh',
+        mobiscroll.number('#height', {
+            theme: 'mobiscroll',
             display: 'bottom',
+            defaultValue: 60,
+            layout: 'fixed',
+            lang: 'zh',
+            units:['CM'],
+            step: 1,
+            min: 30,
+            max: 260,
             placeholder: '身高'
-        }).prev().val("");
+        });
 
-        $('#weight').mobiscroll().select({
-            theme: 'ios',
-            lang: 'zh',
+        mobiscroll.number('#weight', {
+            theme: 'mobiscroll',
             display: 'bottom',
+            defaultValue: 175,
+            layout: 'fixed',
+            units:['Kg'],
+            lang: 'zh',
+            step: 1,
+            min: 10,
+            max: 300,
             placeholder: '体重'
-        }).prev().val("");
+        });
 
         $('#area').mobiscroll().select({
-            theme: 'ios',
+            layout: 'fixed',
+            theme: 'mobiscroll',
             lang: 'zh',
             display: 'bottom',
             mode: 'selectGroupselect',
@@ -404,7 +373,7 @@
                 var c = $(".serve-bg .user-msg").html();
                 c = c.replace(/\{(\w+)\}/g, function (m, i) {
                     var key = m.replace(/\{|\}/g, "")
-                    return $("input[name='" + key + "']").val() || $("select[name='" + key + "']").find("option:selected").text().replace(" ", "") || "";
+                    return $.trim($("input[name='" + key + "']").val()).replace(" ", "") || $("select[name='" + key + "']").find("option:selected").text().replace(" ", "") || "";
                 })
                 $(".serve-bg .user-msg").html(c)
                 slide("step2", "step3")

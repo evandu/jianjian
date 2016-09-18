@@ -80,7 +80,10 @@ orders.processCreate = function*() {
             CreateDate: new Date()
         }
 
-        const BookOrder = _.merge({}, OrderData, Order.Init)
+        const BookOrder = _.merge({}, OrderData, Order.Init,{
+            Weight:(Weight.replace(/kg/gi,"")).trim(),
+            Height:Height.replace(/cm/gi,"").trim()}
+            )
         yield Order.insert(BookOrder);
         const total_fee = BookOrder.ServicePrice + BookOrder.Deposit - BookOrder.PromotePrice
 
