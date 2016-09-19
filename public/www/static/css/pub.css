@@ -295,8 +295,9 @@
 }
 
 .btn-cancel:disabled {
-	color: #06cc9b;
-	background-color: transparent;
+	color: #fff;
+	background-color:#ccc;
+	border: 1px solid #ccc;
 }
 
 .btn-pay:disabled {

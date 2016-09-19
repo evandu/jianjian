@@ -38,10 +38,10 @@
 <div class="s-btn-group clearfix">
     {{#compare Status '==' 0}}
         <div class="w-50">
-            <a href="javascript:void(0)" class="btn-cancel">取消预约</a>
+            <button  type="button" class="btn-cancel">取消预约</button>
         </div>
         <div class="w-50">
-            <a href="javascript:void(0);" class="btn-pay btn-payAction fn-right">去支付</a>
+            <button  type="button" class="btn-pay btn-payAction fn-right">去支付</button>
         </div>
     {{/compare}}
 
@@ -61,7 +61,8 @@
             $.toast.alert('取消预约','是否取消本次服务预约？',function() {
                 $.ajax({
                     url:'{{ctx}}/cancel/{{OrderNo}}',
-                    type: "post"
+                    type: "post",
+                    dataType: 'json'
                 }).done(function (data) {
                     window.location.href=window.location.href
                 }).fail(function (error) {
@@ -76,8 +77,9 @@
             $(".btn-cancel").attr("disabled", true);
             $.ajax({
                 url:'{{ctx}}/pay/{{OrderNo}}',
-                type: "post"
-            }).done(function (data) {
+                type: "post",
+                dataType: 'json'
+            }).success(function (data) {
                 wechatPay({
                     "appId": data.appId,
                     "timeStamp": data.timeStamp,
@@ -88,9 +90,9 @@
                 })
                 $button.attr("disabled", false);
             }).fail(function (error) {
-                alert("支付失败")
                 $button.attr("disabled", false);
                 $(".btn-cancel").attr("disabled", false);
+                $.toast.error(error.responseJSON.msg||"支付失败")
             })
         })
     })

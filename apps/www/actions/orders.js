@@ -110,7 +110,7 @@ orders.processCreate = function*() {
                 if(PromoteCode && PromotePrice >0){
                     yield Coupon.updateNextStatus(PromoteCode, 1, 0)
                 }
-                this.body = {msg: e.msg || "微信支付下单失败，请稍后再试"}
+                this.body = {msg: e.message || "微信支付下单失败，请稍后再试"}
             }
         }
     }
