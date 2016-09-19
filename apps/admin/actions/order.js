@@ -172,7 +172,7 @@ orders.processUpload = function*() {
     let ReportFile;
     try {
         const item = this.request.body.files.Report;
-        if (item) {
+        if (item && item.size >0) {
             const nameArray = item['name'].split('.');
             const ext = nameArray[nameArray.length - 1];
             const uploadPath = path.join(this.envConfig.upload, moment().format('YYYYMMDD'))

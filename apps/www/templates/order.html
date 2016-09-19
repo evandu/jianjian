@@ -458,7 +458,7 @@
                 }).success(function (data) {
                     $.toast.hide();
                     if (data.PromoteCodePay == 'ok') {
-                        window.location.href = '/pay-success';
+                        window.location.href = '{{ctx}}/pay-success';
                     } else {
                         payReqData = data;
                         doPay(payReqData, $button)

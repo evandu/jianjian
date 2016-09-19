@@ -16,7 +16,7 @@
 		  <ul class="serve-ul">
 			  {{#orders}}
 				  <li>
-					  <a href="detail/{{OrderNo}}">
+					  <a href="{{ctx}}/detail/{{OrderNo}}">
 						  <p class="s-ul-title">{{ServiceName}}<span class="fn-right">{{price3 ServicePrice Deposit PromotePrice}}元</span></p>
 						  <p class="s-ul-sub">服务编号：<span>{{OrderNo}}</span></p>
 						  <p class="s-ul-sub">预定时间：<span>{{YYYY年MM月DD日 CreateDate }}</span></p>
@@ -30,7 +30,7 @@
 			  <li>
 		        	<p class="s-ul-title">
 						暂时还没有订单<br/>
-						<a href="/" class="btn-pay">立即去下单吧  </a>
+						<a href="{{ctx}}/sleep" class="btn-pay">立即去下单吧  </a>
 					</p>
 			  </li>
 		  </ul>

@@ -54,11 +54,13 @@
 			<h4 class="about-title">检测建议</h4>
 			<p>{{report.Suggest}}</p>
 		</div>
-        <div class="s-btn-group clearfix">
-            <div class="w-50">
-                <a href="{{ctx}}/download/{{report.ReportFile}}" class="btn-pay  fn-right">下载报告</a>
-            </div>
-        </div>
+		{{#if report.ReportFile}}
+			<div class="s-btn-group clearfix">
+				<div class="w-100">
+					<a href="{{ctx}}/download/{{report.ReportFile}}" class="btn-pay  fn-right">下载报告</a>
+				</div>
+			</div>
+		{{/if}}
 		<script type="text/javascript" src="{{static}}/js/rem.js"></script>
 		<script type="text/javascript" src="{{static}}/js/jquery-2.2.4.min.js"></script>
 		<script type="text/javascript" src="{{static}}/js/pub.js"></script>

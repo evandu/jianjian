@@ -10,9 +10,9 @@ const router = require('koa-router')();
 const www = require('./actions/www.js');
 const pay = require('./actions/pay.js');
 //www
-router.get('/manuals', www.manuals);
+router.get('/', www.index);
+router.get('/sleep/manuals', www.manuals);
 router.get('/about', www.about);
-router.get('/index', www.index);
 router.get('/weixinAuth',www.weiXinAuth)
 router.get('/weixinAuth/',www.weiXinAuth)
 router.post('/weixin/pay/notify', pay.weiXinPayNotify)

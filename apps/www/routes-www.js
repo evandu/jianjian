@@ -9,8 +9,8 @@ const query = require('./actions/query.js');
 const report = require('./actions/report.js');
 
 //order
-router.get('/', orders.create);
-router.post('/', orders.processCreate);
+router.get('/sleep', orders.create);
+router.post('/sleep', orders.processCreate);
 router.post('/cancel/:OrderNo', orders.cancel);
 router.post('/pay/:OrderNo', orders.pay);
 
@@ -18,7 +18,6 @@ router.post('/pay/:OrderNo', orders.pay);
 router.get('/list', query.list);
 router.get('/coupon/:PromoteCode', query.getCoupon);
 router.get('/detail/:OrderNo', query.detail);
-
 
 //pay
 router.get('/pay-error', pay.payError);
