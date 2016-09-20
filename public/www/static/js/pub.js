@@ -161,8 +161,6 @@ function IsPC () {
 }  
 
 function initSwiper(){
-    $("head").append('<link rel="stylesheet" href="/plus/swiper/swiper3.07.min.css" />');
-    $("head").append('<link rel="stylesheet" href="/css/aboutme.css" type="text/css" />');
     var navObj = ["首页","关于何勒","产品服务","联系我们"];
     var mySwiper = new Swiper(".swiper-container", {
         direction : 'vertical',
@@ -185,6 +183,10 @@ function initSwiper(){
     })
 }
 
+//影藏loading层
+function hideLoadBox(){
+    $(".loading-box").hide(100);
+}
 
 
 //微信支付的代码

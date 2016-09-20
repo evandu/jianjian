@@ -9,8 +9,17 @@
 		<meta name="format-detection" content="email=no" />
 		<meta name="apple-moblie-web-app-capable" content="yes" />
 		<link rel="stylesheet" href="{{static}}/css/mobase.css" type="text/css" />
+		<link rel="stylesheet" href="{{static}}/plus/swiper/swiper3.07.min.css" id="pcstyle" />
+		<link rel="stylesheet" href="{{static}}/css/aboutme.css" type="text/css" id="pcstyle2"/>
 	</head> 
 	<body class="about-index">
+		<div class="loading-box">
+	        <div class="center-box">
+	       		<span class="point aa"></span>
+	            <span class="point bb"></span>
+	            <span class="point cc"></span>
+	        </div>
+	    </div>
 		<header>
 			<a class="nav-btn"></a>
 			<ul class="nav-ul">
@@ -30,8 +39,8 @@
 					<div>
 						<div class="img-msg">
 							<h2>为您定制专业便捷的医疗级健康检测</h2>
-							<p>Customize your own Medical</p>
-							<p> Level Easy & Pro Health Check</p>
+							<p>Customize your own Medical Level</p>
+							<p>Easy & Professional Health Check</p>
 						</div>
 					</div>
 				</div>
@@ -39,9 +48,9 @@
 					<div>
 						<h3 class="index-title">关于我们</h3>
 						<h4>何勒医疗</h4>
-						<p>致力为用户个人提供专业、便捷、适合的到家医疗级健康检测。通过对健康状况的及时专业检测，更早发现健康隐患，改善健康状况，减少医疗资源浪费。</p>
-						<p>我们服务内容包括：高发疾病人群定位及健康检测、监测；专业医疗咨询、就诊建议及高端医疗资源安排等医疗服务；健康管理系统支持等。</p>
-						<p>我们团队由医疗健康及移动互联网行业专业团队组成，超10年行业相关经验，团队成员服务过多家500强企业及互联网公司。目前得到卫生部直属抗衰老交叉专业委员会授权，多领域专家顾问支持。</p>
+						<p>致力为用户个人提供专业、便捷、适合的到家医疗级健康检测服务。通过对健康状况的及时专业检测，更早发现健康隐患，改善健康状况，减少医疗资源浪费。</p>
+						<p>我们服务内容包括：高发疾病人群定位及健康检测、监测服务；专业医疗咨询、就诊建议及高端医疗资源安排等医疗服务；健康管理系统支持等。</p>
+						<p>我们团队由医疗健康及移动互联网行业专业团队组成，超10年行业相关经验，团队成员服务过多家500强企业及互联网公司。</p>
 					</div>
 				</div>
 
@@ -52,13 +61,13 @@
 							<li>
 								<div class="img-box"><img src="{{static}}/imgs/pho1.png"></div>
 								<h4 class="part3-title">健康检测服务<p>HEALTH CHECK SERVICE</p></h4>
-								<p>针对各类高发疾病（如糖尿病、高血压、心脏病、胃癌、肺癌等），通过流行病理理论学建立高危人群定位模型，进行人群画像，精准找到高风险患病人群。</p>
-								<p>对定位的高危群人，提供专业医疗级别检测及监测，生成互联网报告，帮助用户确认是否患有疾病，以及疾病发展情况等，进一步支持实施健康管理。</p>
+								<p>通过和传统专业医疗设备厂商合作，对产品进行互联网化改进，将产品使用方式、服务流程简单化，降低用户进行健康检测的机会成本。</p>
+								<p>对定位的高危群人，提供专业医疗级别检测及监测，生成互联网报告，帮助用户了解自身健康状况，进一步支持实施健康管理。</p>
 							</li>
 							<li>
 								<div class="img-box"><img src="{{static}}/imgs/pho3.png"></div>
 								<h4 class="part3-title">专业医疗服务<p>MEDICAL SERVICE</p></h4>
-								<p>为检测用户提供爆发哦分析及咨询，抱住用户了解健康状况。</p>
+								<p>为检测用户专业的分析及咨询，帮助用户了解健康状况。</p>
 								<p>为需要治疗用户提供诊疗建议及计划，帮助用户有效且高效的实现疾病控制和健康改善。</p>
 								<p>针对有特殊需要的用户，提供专业医疗资源对接，如专家建议、专家预约、住院及手术安排、绿色通道、电话医生等。</p>
 							</li>
@@ -111,16 +120,19 @@
 				$(".nav-ul").slideUp();
 			})
 			if(IsPC()){
+				hideLoadBox();
 				initSwiper();
 				$(".parallax-bg").show();
 				$(".parallax-bg2").show();
 				$("header").hide();
 			}else{
+				$("#pcstyle, #pcstyle2").remove();
 				$("head").append('<link rel="stylesheet" href="{{static}}/css/aboutme-2.css" type="text/css" />');
 				$(".index-img-bg").show();
 				$("header").show();
 			}
 		})
+		window.onload = function(){ hideLoadBox() }
 		</script>
 	</body>
 </html>

@@ -103,13 +103,13 @@ header {
 .index-part1 .img-msg {
   position: absolute;
   left: 0;
-  top: 40%;
+  bottom: 6%;
   text-align: center;
   padding: 0 0.2rem;
   color: #fefdfe;
 }
 .img-msg h2 { font-size: 0.26rem; margin-bottom: 0.1rem;}
-.img-msg p { font-family: Arial,helvetica,sans-serif; font-weight: bold; letter-spacing: 2.8px; }
+.img-msg p { font-family: Arial,helvetica,sans-serif; font-weight: bold; letter-spacing: 0.6px; }
 .index-part2 {
   padding: 0.4rem 0;
   background-color: #4a4c67;
