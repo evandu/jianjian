@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
-    <!-- <meta name="viewport" content="width=320, user-scalable=no, maximum-scale=1.3"> -->
+    <!-- {{! <meta name="viewport" content="width=320, user-scalable=no, maximum-scale=1.3">  }}-->
     <title>简检e简家-个人资料录入</title>
     <meta name="format-detection" content="telephone=no"/>
     <meta name="format-detection" content="email=no"/>
@@ -15,7 +15,7 @@
 </head>
 <body>
 <form>
-    <!-- 第一步 =======================================================================================-->
+    <!-- {{! 第一步 ======================================================================================= }} -->
     <div class="b-mans-msg" id="step1">
         <h4 class="form-title"><span class="form-title-count">1</span><span class="form-title-p">填写个人资料</span></h4>
         <div class="msg-form clearfix">
@@ -41,7 +41,7 @@
         <button type="button" class="radius-btn">下一步</button>
     </div>
 
-    <!-- 第二步 =======================================================================================-->
+    <!-- {{! 第二步 ======================================================================================= }} -->
     <div class="b-mans-msg" id="step2" style="display: none">
         <h4 class="form-title"><span class="form-title-count">2</span><span class="form-title-p">填写联系方式</span></h4>
         <div class="msg-form clearfix">
@@ -129,10 +129,11 @@
         </div>
     </div>
 
-    <!-- 第三步 =======================================================================================-->
+    <!-- {{! 第三步 ======================================================================================= }} -->
     <div class="serve-bg" id="step3" style="display: none">
         <h4 class="form-title"><span class="form-title-count">3</span><span class="form-title-p">确认服务订单及金额</span></h4>
-        <div class="user-msg">
+        <div class="user-msg"> </div>
+        <div class="user-msg-template" style="display: none" >
             <p class="u-m-list-span">
                 <span>{Name}</span><span>{Gender}</span><span>{BornDate}</span><span>{Height}</span><span>{Weight}</span>
             </p>
@@ -140,14 +141,17 @@
             <p>{Email}</p>
             <p>{Area}{Address}</p>
         </div>
+
         <div class="total-container">
             <p class="t-c-title">我有体验码：
                 <input id="PromoteCode" type="text" placeholder="体验码" name="PromoteCode"></p>
             <!--
-             <div class="t-c-content">
-                <p>服务费<span class="f-bold">{{amount ServicePrice}}</span>元+押金<span class="f-bold">{{amount Deposit}}</span>元</p>
-                <p>支付金额：<span class="f-bold font23">{{price2 ServicePrice Deposit }}</span>元</p>
-            </div>
+            {{!
+              <div class="t-c-content">
+                 <p>服务费<span class="f-bold">{{amount ServicePrice}}</span>元+押金<span class="f-bold">{{amount Deposit}}</span>元</p>
+                 <p>支付金额：<span class="f-bold font23">{{price2 ServicePrice Deposit }}</span>元</p>
+               </div>
+            }}
             -->
             <div class="t-c-content">
                 <input type="hidden" id="ServicePrice" value="{{amount ServicePrice}}">
@@ -170,8 +174,8 @@
                 <button type="button" class="btn-pay fn-right">确认支付</button>
             </div>
         </div>
-        <div class="footer-container">确认支付即表示您接收<a class="green"
-                                                   href="javascript:$.toast.create($('#deal').html(),1);initHeight();">《线上预约服务协议》</a>
+        <div class="footer-container">确认支付即表示您接收
+            <a class="green" href="javascript:$.toast.create($('#deal').html(),1);initHeight();">《线上预约服务协议》</a>
         </div>
         <script type="text/x-template" id="deal">
             <div class="deal-container">
@@ -288,7 +292,7 @@
     </div>
 </form>
 
-<!-- <script type="text/javascript" src="http://static.xinhuaapp.com/js/zepto-1.1.6.min.js"></script> -->
+<!-- {{! <script type="text/javascript" src="http://static.xinhuaapp.com/js/zepto-1.1.6.min.js"></script> }} -->
 <script type="text/javascript" src="{{static}}/js/rem.js"></script>
 <script type="text/javascript" src="{{static}}/js/jquery-2.2.4.min.js"></script>
 <script type="text/javascript" src="{{static}}/plus/mobiscroll/js/mobiscroll.custom-3.0.0-beta4.min.js"></script>
@@ -370,7 +374,7 @@
 
         $("#step2 .next").click(function () {
             if (!checkThisForm.isEmpty($("#step2"))) {
-                var c = $(".serve-bg .user-msg").html();
+                var c = $(".user-msg-template").html();
                 c = c.replace(/\{(\w+)\}/g, function (m, i) {
                     var key = m.replace(/\{|\}/g, "")
                     return $.trim($("input[name='" + key + "']").val()).replace(" ", "") || $("select[name='" + key + "']").find("option:selected").text().replace(" ", "") || "";
