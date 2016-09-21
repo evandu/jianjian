@@ -6,6 +6,7 @@ const HttpRequest = require('koa-request');
 
 const ModelError = require('../../../models/modelerror.js');
 const crypto = require('crypto')
+const logger = require('../../../lib/logger')
 
 const www = module.exports = {};
 
@@ -27,14 +28,14 @@ www.weiXinPayNotify =  function* () {
 
 www.weiXinAuth = function*() {
     const {code}  = this.query
-    console.log("wechat auth code=" +code )
+    logger.debug("wechat auth code=" +code )
     const req = {
         method: 'post',
         url: this.envConfig.weixin.getOpenId + code,
     };
     const response = yield HttpRequest(req);
     const status = response.statusCode;
-    console.log("wechat get openId response:" +  response.body )
+    logger.debug("wechat get openId response:" +  response.body )
     if (status == 200) {
         const openId = JSON.parse(response.body).openid;
         if (openId && openId.length > 16) {

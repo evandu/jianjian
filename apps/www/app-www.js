@@ -3,14 +3,12 @@
 const koa = require('koa');
 const hbsKoa = require('koa-handlebars');
 const serve = require('koa-static');
-const bunyan = require('bunyan');
 const koaLogger = require('koa-bunyan');
 const handlebars = require('handlebars');
+const logger = require('./../../lib/logger');
 
 const app = module.exports = koa();
-const access = {type: 'rotating-file', path: './logs/www-access.log', level: 'trace', period: '1d', count: 4};
-const error = {type: 'rotating-file', path: './logs/www-error.log', level: 'error', period: '1d', count: 4};
-const logger = bunyan.createLogger({name: 'www', streams: [access, error]});
+
 app.use(koaLogger(logger, {}));
 
 app.use(function* mysqlConnection(next) {
@@ -38,6 +36,7 @@ app.use(function* handleErrors(next) {
     try {
         yield next;
     } catch (e) {
+        logger.error(e)
         const type = this.accepts('html', 'text', 'json');
         switch (e.status) {
             case 204: // No Content

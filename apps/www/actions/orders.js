@@ -11,6 +11,7 @@ const Coupon = require('../../../models/coupon');
 const Lib = require('../../../lib/lib');
 const ModelError = require('../../../models/modelerror.js');
 const _ = require('lodash');
+const logger = require('../../../lib/logger');
 const orders = module.exports = {};
 
 orders.create = function*() {
@@ -92,7 +93,7 @@ orders.processCreate = function*() {
             this.body = {PromoteCodePay: 'ok'}
         } else {
             try {
-                console.log("create Order Success,wehat start.....")
+                logger.debug("create Order Success,wehat start.....")
                 const clientIp = this.request.headers['x-forwarded-for']
                 const wechatConfig = this.envConfig.weixin;
                 const wechatResp = yield Lib.sendOrderToWechat(BookOrder, wechatConfig, clientIp)
@@ -101,10 +102,10 @@ orders.processCreate = function*() {
                     throw ModelError(409, "微信支付下单失败，请稍后再试");
                 }
                 wechatResp.OrderNo = OrderNo
-                console.log("wechat pay params" + JSON.stringify(wechatResp))
+                logger.debug("wechat pay params",wechatResp)
                 this.body = wechatResp
             } catch (e) {
-                console.log(e)
+                logger.error(e)
                 this.status = 500
                 yield Order.delete(OrderNo)
                 if(PromoteCode && PromotePrice >0){
