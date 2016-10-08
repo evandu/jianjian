@@ -134,9 +134,9 @@ Order.paySuccess = function*(OrderNo,PayDepositAmount,PayServiceAmount,PayTransa
 }
 
 
-Order.update2Status = function*(OrderNo,DeliverName,DeliverNum) {
-    const sql = 'Update JJOrder Set Status = 2, DeliverName =:DeliverName, DeliverNum =:DeliverNum, DeliverDate=sysdate() Where OrderNo =:OrderNo And Status = 1';
-    const [orders] = yield global.db.query({sql: sql, namedPlaceholders: true}, {OrderNo, DeliverName, DeliverNum});
+Order.update2Status = function*(OrderNo,DeliverName,DeliverNum,DeviceNumber,MaterialNumber) {
+    const sql = 'Update JJOrder Set Status = 2,DeviceNumber =:DeviceNumber,MaterialNumber =:MaterialNumber, DeliverName =:DeliverName, DeliverNum =:DeliverNum, DeliverDate=sysdate() Where OrderNo =:OrderNo And Status = 1';
+    const [orders] = yield global.db.query({sql: sql, namedPlaceholders: true}, {OrderNo,DeviceNumber,MaterialNumber, DeliverName, DeliverNum});
     return orders;
 }
 

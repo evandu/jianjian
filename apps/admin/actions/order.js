@@ -63,8 +63,8 @@ orders.orderStatusNext = function*() {
 
 
 orders.update2Status = function*() {
-    const {OrderNo, DeliverName, DeliverNum} = this.request.body
-    const order = yield Order.update2Status(OrderNo, DeliverName, DeliverNum)
+    const {OrderNo, DeliverName, DeliverNum,DeviceNumber,MaterialNumber} = this.request.body
+    const order = yield Order.update2Status(OrderNo, DeliverName, DeliverNum,DeviceNumber,MaterialNumber)
     if (!DeliverName || DeliverName == '') {
         this.flash = {op: {status: false, msg: '物流公司不能为空'}};
         this.redirect('/order/' + OrderNo);
