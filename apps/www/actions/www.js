@@ -44,7 +44,7 @@ www.weiXinAuth = function*() {
         if (openId && openId.length > 16) {
             // const md5OpenId  = crypto.createHash('sha1').update(openId + this.envConfig.weixin.tokenMaskCode).digest('hex')
             this.cookies.set(this.envConfig.weixin.tokenName, openId);
-            const nextUrl = this.this.cookies.get("nextUrl");
+            const nextUrl = this.cookies.get("nextUrl");
             this.redirect(nextUrl ? nextUrl : "/sleep");
         } else {
             throw new ModelError(500, "打开页面报错，请稍后再试")
