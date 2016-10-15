@@ -27,10 +27,6 @@ www.index = function*() {
     yield this.render('templates/index');
 };
 
-www.weiXinPayNotify = function*() {
-    console.log(this.request.body)
-}
-
 www.weiXinAuth = function*() {
     const {code}  = this.query
     logger.debug("wechat auth code=" + code)
