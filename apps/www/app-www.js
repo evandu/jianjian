@@ -42,6 +42,7 @@ app.use(function* handleErrors(next) {
             case 204: // No Content
                 this.status = e.status;
                 break;
+            case 403:
             case 404: // Not Found
             case 406: // Not Acceptable
             case 409: // Conflict
@@ -94,13 +95,17 @@ app.use(require('./routes-other.js'));
 
 
 app.use(function* weiXin(next) {
- //const healthLabToken = "1234567890123456"//this.cookies.get(this.envConfig.weixin.tokenName);
-   const healthLabToken = this.cookies.get(this.envConfig.weixin.tokenName);
-    if (healthLabToken && healthLabToken.length >= 16){
-         this.healthLabToken = healthLabToken
-         yield next;
-    }else{
-        this.redirect(this.envConfig.weixin.authUrl)
+    // 过滤静态文件路径及其他资源文件
+    if(this.url.indexOf(".") == -1){
+        const healthLabToken = "1234567890123456"//this.cookies.get(this.envConfig.weixin.tokenName);
+     //   const healthLabToken = this.cookies.get(this.envConfig.weixin.tokenName);
+        if (healthLabToken && healthLabToken.length >= 16){
+            this.healthLabToken = healthLabToken
+            yield next;
+        }else{
+            this.cookies.set("nextUrl", this.url);
+            this.redirect(this.envConfig.weixin.authUrl)
+        }
     }
 });
 
