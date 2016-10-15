@@ -162,6 +162,15 @@ orders.upload = function*() {
     yield this.render('templates/upload', context);
 };
 
+orders.download = function* () {
+    const OrderNo = this.params.OrderNo
+    const report = yield Report.getByOrderNo(OrderNo)
+    const nameArray = (report.ReportFile).split('.')
+    const ext = nameArray[nameArray.length - 1];
+    this.set('Content-disposition', 'attachment;filename=Report_' + OrderNo + "."  +  ext);
+    const filePath= path.join(this.envConfig.upload, report.ReportFile);
+    this.body=yield Lib.readData(filePath);
+}
 
 orders.processUpload = function*() {
 

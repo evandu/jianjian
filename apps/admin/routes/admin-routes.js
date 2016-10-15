@@ -21,6 +21,7 @@ router.post('/order/updateRandomStatus', order.updateRandomStatus);
 router.post('/order/orderStatusNext', order.orderStatusNext);
 router.post('/order/orderCancel', order.orderCancel);
 router.get('/order/upload/:OrderNo', order.upload);
+router.get('/report/download/:OrderNo', order.download);
 router.post('/order/upload/:OrderNo', bodyParse({multipart:true}), order.processUpload);
 
 

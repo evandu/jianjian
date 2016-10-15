@@ -107,8 +107,8 @@
                                 <div class="col-sm-4">
                                     <input type="file" name="Report">
                                     {{#if report.ReportFile}}
-                                    {{report.ReportFile}}<br>
-                                       <a href="{{ctx}}/download/{{report.ReportFile}}">下载报告</a>
+                                       {{report.ReportFile}}<br>
+                                       <a href="{{ctx}}/report/download/{{order.OrderNo}}">下载报告</a>
                                     {{/if}}
                                 </div>
                             </div>
