@@ -1,17 +1,17 @@
-
 'use strict';
 /* eslint no-shadow:off */
 
-const koa          = require('koa');
-const body         = require('koa-body');
-const compose      = require('koa-compose');
-const compress     = require('koa-compress');
+const koa = require('koa');
+const body = require('koa-body');
+const compose = require('koa-compose');
+const compress = require('koa-compress');
 const responseTime = require('koa-response-time');
-const session      = require('koa-session');
-const mysql        = require('mysql-co');
+const session = require('koa-session');
+const mysql = require('mysql-co');
 const moment = require('moment');
 const Order = require('./models/order');
 const _ = require('lodash');
+const crypto = require('crypto')
 
 
 const app = module.exports = koa();
@@ -84,17 +84,21 @@ handlebars.registerHelper('OrderStatus', function (key) {
     return Order.Status[key];
 });
 
-handlebars.registerHelper('ODI', function (h,w) {
-    return _.toInteger((_.toInteger(w)/((_.toNumber(h)/100.00)*(_.toNumber(h)/100.00))));
+handlebars.registerHelper('ODI', function (h, w) {
+    return _.toInteger((_.toInteger(w) / ((_.toNumber(h) / 100.00) * (_.toNumber(h) / 100.00))));
 });
 
 handlebars.registerHelper('RefundDepositStatus', function (key) {
     return Order.RefundDepositStatus[key];
 });
 
+handlebars.registerHelper('Md5', function (key) {
+    return crypto.createHash('sha1').update(key).digest('hex');
+});
+
 handlebars.registerHelper('nextStatus', function (key) {
-   const currentStatus =  parseInt(key)
-    if(currentStatus == 3){
+    const currentStatus = parseInt(key)
+    if (currentStatus == 3) {
         return Order.Status[2 + parseInt(key)];
     }
     return Order.Status[1 + parseInt(key)];
@@ -116,16 +120,36 @@ handlebars.registerHelper('compare', function (left, operator, right, options) {
         throw new Error('Handlerbars Helper "compare" needs 2 parameters');
     }
     const operators = {
-        'in':     function(l, r) {return _.find(r.split(","), f=>f==l) },
-        '==':     function(l, r) {return l == r; },
-        '===':    function(l, r) {return l === r; },
-        '!=':     function(l, r) {return l != r; },
-        '!==':    function(l, r) {return l !== r; },
-        '<':      function(l, r) {return l < r; },
-        '>':      function(l, r) {return l > r; },
-        '<=':     function(l, r) {return l <= r; },
-        '>=':     function(l, r) {return l >= r; },
-        'typeof': function(l, r) {return typeof l == r; },
+        'in': function (l, r) {
+            return _.find(r.split(","), f=>f == l)
+        },
+        '==': function (l, r) {
+            return l == r;
+        },
+        '===': function (l, r) {
+            return l === r;
+        },
+        '!=': function (l, r) {
+            return l != r;
+        },
+        '!==': function (l, r) {
+            return l !== r;
+        },
+        '<': function (l, r) {
+            return l < r;
+        },
+        '>': function (l, r) {
+            return l > r;
+        },
+        '<=': function (l, r) {
+            return l <= r;
+        },
+        '>=': function (l, r) {
+            return l >= r;
+        },
+        'typeof': function (l, r) {
+            return typeof l == r;
+        },
     };
 
     if (!operators[operator]) {

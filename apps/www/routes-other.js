@@ -17,4 +17,6 @@ router.get('/weixinAuth',www.weiXinAuth)
 router.get('/weixinAuth/',www.weiXinAuth)
 router.post('/weixin/pay/notify', pay.weiXinPayNotify)
 
+router.get('/report/download/:OrderNo', www.download);
+
 module.exports = router.middleware();
