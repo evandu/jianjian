@@ -97,8 +97,8 @@ app.use(require('./routes-other.js'));
 app.use(function* weiXin(next) {
     // 过滤静态文件路径及其他资源文件
     if(this.url.indexOf(".") == -1){
-        const healthLabToken = "1234567890123456"//this.cookies.get(this.envConfig.weixin.tokenName);
-     //   const healthLabToken = this.cookies.get(this.envConfig.weixin.tokenName);
+       // const healthLabToken = "1234567890123456"//this.cookies.get(this.envConfig.weixin.tokenName);
+        const healthLabToken = this.cookies.get(this.envConfig.weixin.tokenName);
         if (healthLabToken && healthLabToken.length >= 16){
             this.healthLabToken = healthLabToken
             yield next;
