@@ -69,7 +69,6 @@ www.download = function* () {
             const nameArray = (report.ReportFile).split('.')
             const ext = nameArray[nameArray.length - 1];
             this.set('Content-disposition', 'attachment;filename=Report_' + OrderNo + "."  +  ext);
-            this.set('Content-Type', 'application/octet-stream');
             const filePath= path.join(this.envConfig.upload, report.ReportFile);
             this.body=yield Lib.readData(filePath);
         }else{
