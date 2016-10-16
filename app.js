@@ -12,10 +12,10 @@ const moment = require('moment');
 const Order = require('./models/order');
 const _ = require('lodash');
 const crypto = require('crypto')
-
+const handlebars = require('handlebars');
 
 const app = module.exports = koa();
-const handlebars = require('handlebars');
+
 
 app.use(responseTime());
 
