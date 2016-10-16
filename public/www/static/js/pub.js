@@ -178,6 +178,9 @@ function initSwiper(){
         pagination: '.swiper-nav',
         paginationClickable: true,
         paginationBulletRender: function (index, className) {
+            if(!navObj[index]){
+                return '';
+            }
             return '<span class="' + className + '">' + navObj[index] + '</span>';
         }
     })

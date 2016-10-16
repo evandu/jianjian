@@ -92,10 +92,6 @@ handlebars.registerHelper('RefundDepositStatus', function (key) {
     return Order.RefundDepositStatus[key];
 });
 
-handlebars.registerHelper('Md5', function (key) {
-    return crypto.createHash('sha1').update(key).digest('hex');
-});
-
 handlebars.registerHelper('nextStatus', function (key) {
     const currentStatus = parseInt(key)
     if (currentStatus == 3) {
@@ -167,6 +163,11 @@ handlebars.registerHelper('compare', function (left, operator, right, options) {
 
 const envConfig = require('./config/app-' + app.env + '.json');
 global.connectionPool = mysql.createPool(envConfig.db);
+
+
+handlebars.registerHelper('Md5', function (key,key2) {
+    return crypto.createHash('sha1').update([key,key2,envConfig.weixin.tokenMaskCode].join("$^$")).digest('hex');
+});
 
 app.use(function* subApp(next) {
     /* eslint no-unused-vars:off */

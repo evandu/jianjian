@@ -61,7 +61,7 @@ www.download = function* () {
         const sign = this.query.sign
         const report = yield Report.getByOrderNo(OrderNo)
         const order = yield Order.getByOrderNo(OrderNo)
-        if(sign == crypto.createHash('sha1').update(order.OpenId).digest('hex')){
+        if(sign == crypto.createHash('sha1').update([order.OpenId,order.OrderNo,this.envConfig.weixin.tokenMaskCode].join("$^$")).digest('hex')){
             const nameArray = (report.ReportFile).split('.')
             const ext = nameArray[nameArray.length - 1];
             this.set('Content-disposition', 'attachment;filename=Report_' + OrderNo + "."  +  ext);
