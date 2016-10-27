@@ -37,6 +37,12 @@
             <div class="m-f-50 caret star-msg">
                 <input type="text" id="dataScroller" data-empty="no" placeholder="出生年月" name="BornDate">
             </div>
+            <div class="m-f-100 caret star-msg">
+                <input type="text" id="useDataScroller" data-empty="no" placeholder="使用时间（晚）"  name="UseDate">
+            </div>
+            <div class="m-f-100  star-msg">
+                <input type="text" name="DeviceNumber" data-empty="no" placeholder="设备编号">
+            </div>
         </div>
         <button type="button" class="radius-btn">下一步</button>
     </div>
@@ -139,7 +145,8 @@
             </p>
             <p>{Mobile}</p>
             <p>{Email}</p>
-            <p>{Area}{Address}</p>
+            <p>{Area} {Address}</p>
+            <p>设备编号：{DeviceNumber} 使用时间：{UseDate}</p>
         </div>
 
         <div class="total-container">
@@ -302,6 +309,14 @@
     $(function () {
         mobiscroll.date("#dataScroller", {
             defaultValue: new Date(1980, 0, 1),
+            theme: 'mobiscroll',
+            layout: 'fixed',
+            lang: 'zh',
+            display: 'bottom',
+            mode: 'datetimeDate',
+        });
+
+        mobiscroll.date("#useDataScroller", {
             theme: 'mobiscroll',
             layout: 'fixed',
             lang: 'zh',

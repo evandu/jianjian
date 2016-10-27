@@ -135,10 +135,16 @@ orders.ajaxQuery = function*() {
         order.UserInfo = `${order.Name} ${order.Gender == '1' ? '男' : '女'} ${order.Age}岁 ${order.Height} cm ${order.Weight} kg`
         order.AddressInfo = `${order.Area} ${order.Address}`
         order.CreateDate = moment(order.CreateDate).format('YYYY-MM-DD HH:mm:ss')
+        order.UseDate = moment(order.UseDate).format('YYYY-MM-DD')
         order.LastUpdateDate = moment(order.LastUpdateDate).format('YYYY-MM-DD HH:mm:ss')
         return order
     })
     this.body = {data: orders}
+}
+
+orders.ajaxDelete =  function *() {
+    yield Order.deletes(_.values(this.request.body))
+    this.body = {}
 }
 
 

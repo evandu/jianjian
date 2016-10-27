@@ -54,6 +54,10 @@ Order.query = function*(values) {
                 values.StartDate = values['DateRange'].split("-")[0].trim()
                 values.EndDate = values['DateRange'].split("-")[1].trim()
                 return 'CreateDate > :StartDate And CreateDate < :EndDate'
+            } else if(q == 'UseDateRange' && values['UseDateRange'].length > 0){
+                values.UseStartDate = values['UseDateRange'].split("-")[0].trim()
+                values.UseEndDate = values['UseDateRange'].split("-")[1].trim()
+                return 'UseDate > :UseStartDate And UseDate < :UseEndDate'
             } else {
                 return q + ' = :' + q;
             }
@@ -117,6 +121,9 @@ Order.delete = function*(OrderNo) {
     yield global.db.query('Delete From JJOrder Where OrderNo = ?', OrderNo);
 }
 
+Order.deletes = function*(OrderNos) {
+    yield global.db.query(`Delete From JJOrder Where OrderNo in (${OrderNos.join(',')})`, OrderNos);
+}
 
 
 Order.updatePrepayId = function*(OrderNo,PrepayId) {

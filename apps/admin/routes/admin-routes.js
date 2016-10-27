@@ -12,8 +12,10 @@ const bodyParse =require('koa-body');
 
 router.get('/', order.list);
 router.get('/ajaxQuery', order.ajaxQuery);
+router.post('/ajaxDelete', order.ajaxDelete);
 router.get('/order/query', order.list);
 router.get('/order/ajaxQuery', order.ajaxQuery);
+router.post('/order/ajaxDelete', order.ajaxDelete);
 router.get('/order/:OrderNo', order.details);
 router.post('/order/update2Status', order.update2Status);
 router.post('/order/update4Status', order.update4Status);

@@ -24,7 +24,7 @@ orders.create = function*() {
 orders.processCreate = function*() {
     const {
         Name, Gender, Height, Weight, BornDate,
-        Area, Address, Mobile, PromoteCode, Email
+        Area, Address, Mobile, PromoteCode, Email,DeviceNumber,UseDate
     } = this.request.body
     let formError;
     if (!Name) {
@@ -43,6 +43,10 @@ orders.processCreate = function*() {
         formError = {msg: "区域不能为空"}
     } else if (!Mobile) {
         formError = {msg: "手机号不能为空"}
+    } else if (!UseDate) {
+        formError = {msg: "使用时间不能为空"}
+    } else if (!DeviceNumber) {
+        formError = {msg: "设备号不能为空"}
     }
 
     const Age = (Moment(BornDate, "YYYY/MM/DD").fromNow()).split(" ")[0]
@@ -75,21 +79,22 @@ orders.processCreate = function*() {
 
         const OrderData = {
             Name, Gender, Age, Height, Weight,
-            BornDate, Area, Address, Mobile,
-            PromoteCode, Email, PromotePrice,
+            BornDate, Area, Address, Mobile,DeviceNumber,
+            PromoteCode, Email, PromotePrice,UseDate,
             OrderNo: OrderNo, OpenId: healthLabToken,
             CreateDate: new Date()
         }
 
-        const BookOrder = _.merge({}, OrderData, Order.Init,{
-            Weight:(Weight.replace(/kg/gi,"")).trim(),
-            Height:Height.replace(/cm/gi,"").trim()}
-            )
+        const BookOrder = _.merge({}, OrderData, Order.Init, {
+                Weight: (Weight.replace(/kg/gi, "")).trim(),
+                Height: Height.replace(/cm/gi, "").trim()
+            }
+        )
         yield Order.insert(BookOrder);
         const total_fee = BookOrder.ServicePrice + BookOrder.Deposit - BookOrder.PromotePrice
 
         if (total_fee <= 0) {
-            yield Order.paySuccess(OrderNo, 0, 0, "PromoteCodePay", BookOrder.OpenId)
+           yield Order.paySuccess(OrderNo, 0, 0, "PromoteCodePay", BookOrder.OpenId)
             this.body = {PromoteCodePay: 'ok'}
         } else {
             try {
@@ -102,13 +107,13 @@ orders.processCreate = function*() {
                     throw ModelError(409, "微信支付下单失败，请稍后再试");
                 }
                 wechatResp.OrderNo = OrderNo
-                logger.debug("wechat pay params",wechatResp)
+                logger.debug("wechat pay params", wechatResp)
                 this.body = wechatResp
             } catch (e) {
                 logger.error(e)
                 this.status = 500
                 yield Order.delete(OrderNo)
-                if(PromoteCode && PromotePrice >0){
+                if (PromoteCode && PromotePrice > 0) {
                     yield Coupon.updateNextStatus(PromoteCode, 1, 0)
                 }
                 this.body = {msg: e.message || "微信支付下单失败，请稍后再试"}
@@ -127,7 +132,7 @@ orders.cancel = function*() {
     } else {
         // 如果使用了优惠券 取消订单时 返还优惠券
         const bookOrder = yield Order.get(OrderNo, healthLabToken)
-        if(bookOrder && bookOrder.PromoteCode){
+        if (bookOrder && bookOrder.PromoteCode) {
             yield Coupon.updateNextStatus(bookOrder.PromoteCode, 1, 0)
         }
         this.body = "取消成功"
