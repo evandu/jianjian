@@ -46,6 +46,8 @@ handlebars.registerHelper('YYYY年MM月DD日', function (timestamp) {
     }
 });
 
+
+
 handlebars.registerHelper('yyy-MM-ddHHmmss', function (timestamp) {
     if (!timestamp) {
         return '-';
